@@ -1,0 +1,30 @@
+@keyframes fade {
+    from{
+        top: -10%;
+    }
+    to{
+        top: 0;
+    }
+}
+
+.navbar{
+    transition: all 1s ease;
+}
+
+.navbar-collapse{
+    transition: all 1s ease;
+    transform-origin: top;
+}
+
+.hide-show{
+    transform: scaleY(0);
+}
+
+.show-in{
+    transform: scaleY(1);
+}
+
+.fixed-top{
+    transition: 1s;
+    animation: fade 1s ease;
+}

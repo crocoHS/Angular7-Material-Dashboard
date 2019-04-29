@@ -1,0 +1,28 @@
+.login {
+    &__page{
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+    &__card{
+        max-width: 400px;
+        width: 90vw;
+        box-shadow: 0 0 40px 10px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        padding: 50px;
+        height: fit-content;
+    }
+    &__form{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1vw;
+    }
+}
+h3{
+    margin-bottom: 1vw;
+}
+a{
+    display: block;
+    text-align: center;
+}

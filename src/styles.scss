@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/style.bundle.css";
+@import '~@angular/material/theming';
+
+$md-main-theme: (
+    50 : #ebedfb,
+    100 : #cdd1f5,
+    200 : #acb3ee,
+    300 : #8a95e7,
+    400 : #717ee2,
+    500 : #5867dd,
+    600 : #505fd9,
+    700 : #4754d4,
+    800 : #3d4acf,
+    900 : #2d39c7,
+    A100 : #ffffff,
+    A200 : #d5d8ff,
+    A400 : #a2a9ff,
+    A700 : #8991ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$custom-typography: mat-typography-config(
+    $font-family: 'Poppins, Roboto'
+);
+
+@include mat-core($custom-typography);
+
+$main-app-primary: mat-palette($md-main-theme);
+$main-app-accent:  mat-palette($mat-teal, A200, A100, A400);
+$main-app-warn:    mat-palette($mat-pink);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$main-app-theme: mat-light-theme($main-app-primary, $main-app-accent, $main-app-warn);
+
+@include angular-material-theme($main-app-theme);

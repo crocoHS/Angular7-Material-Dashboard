@@ -1,0 +1,26 @@
+<div class="login__page">
+    <div class="login__card">
+        <h3>Welcome Back</h3>
+        <form class="login__form" [formGroup]="loginForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="Your Email" formControlName="email">
+                <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
+                    Not Valid Email
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                    Email required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Your Password" formControlName="password">
+                <mat-error *ngIf="loginForm.get('password').hasError('required')">
+                    password required
+                </mat-error>
+            </mat-form-field>
+            <button class="btn btn-primary" (click)="onSubmit()" >Login</button>
+        </form>
+        <a href="#">Forgot Your Password ?</a>
+    </div>
+</div>
