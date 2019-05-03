@@ -1,0 +1,21 @@
+
+.breadcrumb-container{
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    color: #ffffff;
+    padding: 30px 0;
+}
+
+.breadcrumb{
+    background-color: transparent;
+    padding: 0;
+    &-item{
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        &::before{
+            content: '';
+        }
+    }
+}

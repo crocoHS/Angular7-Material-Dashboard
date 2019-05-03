@@ -6,17 +6,23 @@ import { DashboardComponent } from './dashboards.component';
 import { HomeDashboardComponent } from './pages/home-dashboard/home-dashboard.component';
 import { SalesTeamDashboardComponent } from './pages/sales-team-dashboard/sales-team-dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { AppMaterialModule } from '../../app-material.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule( {
     declarations: [
         DashboardComponent,
         HomeDashboardComponent,
         SalesTeamDashboardComponent,
-        NavbarComponent
+        NavbarComponent,
+        BreadcrumbComponent
     ],
     imports: [
         CommonModule,
-        DashboardsRoutingModule
+        DashboardsRoutingModule,
+        AppMaterialModule,
+        SharedModule,
     ]
 } )
 export class DashboardsModule {

@@ -10,14 +10,27 @@ const routes: Routes = [
         path: '',
         component: DashboardComponent,
         canActivate: [AuthGuardService],
+        data: {
+            breadcrumb: 'jancok'
+        },
         children: [
             {
                 path: '',
-                component: HomeDashboardComponent
+                redirectTo: 'overview'
+            },
+            {
+                path: 'overview',
+                component: HomeDashboardComponent,
+                data: {
+                    breadcrumb: 'overview'
+                }
             },
             {
                 path: 'sales-team',
-                component: SalesTeamDashboardComponent
+                component: SalesTeamDashboardComponent,
+                data: {
+                    breadcrumb: 'sales-team'
+                }
             }
         ]
     }

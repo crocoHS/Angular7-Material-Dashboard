@@ -10,6 +10,7 @@ import * as fromAuth from './store/auth/auth.reducer';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth/auth.effects';
+import { DashboardOverviewService } from './services/dashboard-overview/dashboard-overview.service';
 
 @NgModule( {
     declarations: [],
@@ -26,6 +27,7 @@ import { AuthEffects } from './store/auth/auth.effects';
     providers: [
         AuthenticationService,
         AuthGuardService,
+        DashboardOverviewService
     ]
 } )
 export class CoreModule {

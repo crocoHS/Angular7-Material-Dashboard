@@ -5,8 +5,9 @@ import {
     MatExpansionModule, MatInputModule, MatListModule, MatPaginatorModule,
     MatSnackBarModule, MatTableModule,
     MatToolbarModule,
-    MatFormFieldModule
+    MatFormFieldModule, MatIconModule
 } from '@angular/material';
+import { ChartsModule } from 'ng2-charts';
 
 const MatModule = [
     MatFormFieldModule,
@@ -18,7 +19,10 @@ const MatModule = [
     MatToolbarModule,
     MatButtonToggleModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule,
+    /// CHART MODULE
+    ChartsModule
 ];
 
 @NgModule( {

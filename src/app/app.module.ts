@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule( {
     declarations: [
@@ -19,6 +20,7 @@ import { CoreModule } from './core/core.module';
         BrowserAnimationsModule,
         AppMaterialModule,
         CoreModule,
+        SharedModule,
         RouterModule.forRoot(
             APP_ROUTES
         ),

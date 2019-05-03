@@ -1,25 +1,50 @@
-<nav #nav  class="navbar navbar-expand-lg navbar-light bg-light" id="navbar" (scroll)="onWindowScroll($event);">
-    <div class="container">
+<nav #nav  class="navbar navbar-expand-md bg-navbar fixed-top" id="navbar" (scroll)="onWindowScroll($event);">
+    <div class="container__nav">
         <a class="navbar-brand" href="#">Hidden brand</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="show()" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" [ngClass]="isShow ? 'hide-show' : 'show'">
+        <mat-icon (click)="show()">menu</mat-icon>
+        <div class="collapse navbar-collapse" [ngClass]="{'show-nav': isShow}" >
+            <mat-icon class="custom-icon" (click)="show()">close</mat-icon>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item" [routerLinkActive]="'active'"[routerLinkActiveOptions]="{ exact: true }">
+                    <a class="nav-link"
+                       [routerLink]="['overview']">
+                        Dashboard
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item" [routerLinkActive]="'active'">
+                    <a class="nav-link"
+                       [routerLink]="['sales-team']">
+                        Sales Team
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <li class="nav-item" [routerLinkActive]="'active'">
+                    <a class="nav-link"
+                       [routerLink]="['sales-officer']">
+                        Sales Officer
+                    </a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="'active'">
+                    <a class="nav-link"
+                       [routerLink]="['project']">
+                        Project
+                    </a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="'active'">
+                    <a class="nav-link"
+                       [routerLink]="['user-setting']">
+                        User Setting
+                    </a>
+                </li>
+                <li class="nav-item nav-item--custom" [routerLinkActive]="'active'">
+                    <a class="nav-link nav-link--custom">
+                        <span>Hi, COK</span>
+                        <span>
+                            <mat-icon class="custom-icon--person">person</mat-icon>
+                        </span>
+                    </a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </div>
+    <div class="bg-custom" [ngClass]="{'show': isShow}" (click)="show()"></div>
 </nav>

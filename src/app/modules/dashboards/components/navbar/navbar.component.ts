@@ -1,12 +1,12 @@
-import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Inject,  ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component( {
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
-    styleUrls: [ './navbar.component.scss' ]
+    styleUrls: [ './navbar.component.scss' ],
 } )
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements AfterViewInit {
     private isShow = false;
     constructor( @Inject( DOCUMENT ) document ) {
     }
@@ -17,10 +17,10 @@ export class NavbarComponent implements OnInit {
     onWindowScroll( e ) {
         if ( window.pageYOffset > this.nav.nativeElement.clientHeight ) {
             const element = document.getElementById( 'navbar' );
-            element.classList.add( 'fixed-top' );
+            element.classList.add( 'bg-navbar--custom' );
         } else {
             const element = document.getElementById( 'navbar' );
-            element.classList.remove( 'fixed-top' );
+            element.classList.remove( 'bg-navbar--custom' );
         }
     }
 
@@ -28,7 +28,12 @@ export class NavbarComponent implements OnInit {
         this.isShow = !this.isShow;
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
+        // if ( window.innerWidth >= 1024 ) {
+        //     this.collapse = 'closed';
+        // } else {
+        //     this.collapse = 'open';
+        // }
     }
 
 }
