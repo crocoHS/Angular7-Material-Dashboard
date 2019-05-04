@@ -22,9 +22,20 @@
                     </h3>
                 </div>
             </div>
-            <div class="kt-portlet__body">
-               <button mat-flat-button (click)="bangsat()">jancok</button>
-                <app-line-chart [data]="dataForChart1$"></app-line-chart>
+            <div class="kt-portlet__body" style="width: auto; position: relative;">
+                <mat-form-field style="max-width: 300px; width: 90vw">
+                    <input matInput #input
+                           placeholder="Choose a date"
+                           [satDatepicker]="picker"
+                           [max]="maxDate"
+                           (dateChange)="changeDate()"
+                           [formControl]="myFilter"
+                           (focus)="picker.open()"
+                    >
+                    <sat-datepicker #picker [rangeMode]="true" (closed)="input.blur()"></sat-datepicker>
+                    <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+                </mat-form-field>
+                <app-line-chart *ngIf="dataForChart1$" [data]="dataForChart1$" [label]="labelForChart1$"></app-line-chart>
             </div>
         </div>
     </div>

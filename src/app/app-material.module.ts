@@ -5,9 +5,10 @@ import {
     MatExpansionModule, MatInputModule, MatListModule, MatPaginatorModule,
     MatSnackBarModule, MatTableModule,
     MatToolbarModule,
-    MatFormFieldModule, MatIconModule
+    MatFormFieldModule, MatIconModule, MatDatepickerModule
 } from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
+import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 
 const MatModule = [
     MatFormFieldModule,
@@ -21,6 +22,9 @@ const MatModule = [
     MatExpansionModule,
     MatSnackBarModule,
     MatIconModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
+    MatDatepickerModule,
     /// CHART MODULE
     ChartsModule
 ];

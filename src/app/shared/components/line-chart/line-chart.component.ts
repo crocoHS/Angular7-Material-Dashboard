@@ -8,91 +8,102 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
     styleUrls: [ './line-chart.component.scss' ]
 } )
 export class LineChartComponent implements OnChanges {
-    @Input() data: any;
+    @Input() data: ChartDataSets[];
+    @Input() label: Label[];
 
-    public lineChartData: ChartDataSets[] = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    ];
-    public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    // public lineChartData: ChartDataSets[] ;
+    // public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     // public lineChartOptions: (ChartOptions & { annotation: any }) = {
     public lineChartOptions: ChartOptions = {
         responsive: true,
+        maintainAspectRatio: true,
+        tooltips: {
+            mode: 'x-axis',
+            intersect: false
+        },
         scales: {
             // We use this empty structure as a placeholder for dynamic theming.
-            xAxes: [{}],
-            yAxes: [
-                {
-                    id: 'y-axis-0',
-                    position: 'left',
+            xAxes: [ {
+                display: true,
+                scaleLabel: {
+                    display: false
                 },
-                {
-                    id: 'y-axis-1',
-                    position: 'right',
-                    gridLines: {
-                        color: 'rgba(255,0,0,0.3)',
-                    },
-                    ticks: {
-                        fontColor: 'red',
-                    }
+                type: 'time',
+                ticks: {
+                    display: true,
+                    maxTicksLimit: 10,
+                    beginAtZero: true,
+                    fontColor: '#373737',
+                    fontSize: 13,
+                    padding: 10
+                },
+                gridLines: {
+                    display: false
                 }
-            ]
-        },
-        // annotation: {
-        //     annotations: [
-        //         {
-        //             type: 'line',
-        //             mode: 'vertical',
-        //             scaleID: 'x-axis-0',
-        //             value: 'March',
-        //             borderColor: 'orange',
-        //             borderWidth: 2,
-        //             label: {
-        //                 enabled: true,
-        //                 fontColor: 'orange',
-        //                 content: 'LineAnno'
-        //             }
-        //         },
-        //     ],
-        // },
+            } ],
+            yAxes: [ {
+                display: true,
+                ticks: {
+                    maxTicksLimit: 12,
+                    stepSize: 1,
+                    display: true,
+                    fontColor: '#373737',
+                    fontSize: 13,
+                    padding: 10
+                },
+                gridLines: {
+                    color: '#373737',
+                    drawBorder: false,
+                    offsetGridLines: false,
+                    drawTicks: false,
+                    borderDash: [ 3, 4 ],
+                    zeroLineWidth: 1,
+                    zeroLineColor: '#373737',
+                    zeroLineBorderDash: [ 3, 4 ]
+                },
+            } ]
+        }
     };
     public lineChartColors: Color[] = [
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+        {
+            backgroundColor: 'rgba(88,153,218,.4)',
+            borderColor: 'rgba(88,153,218,1)'
         },
-        { // dark grey
-            backgroundColor: 'rgba(77,83,96,0.2)',
-            borderColor: 'rgba(77,83,96,1)',
-            pointBackgroundColor: 'rgba(77,83,96,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(77,83,96,1)'
+        {
+            backgroundColor: 'rgba(232,116,59,.4)',
+            borderColor: 'rgba(232,116,59,1)'
         },
-        { // red
-            backgroundColor: 'rgba(255,0,0,0.3)',
-            borderColor: 'red',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+        {
+            backgroundColor: 'rgba(25,169,121,.4)',
+            borderColor: 'rgba(25,169,121,1)'
+        },
+        {
+            backgroundColor: 'rgba(82,93,244,.4)',
+            borderColor: 'rgba(82,93,244,1)'
+        },
+        {
+            backgroundColor: 'rgba(148,94,207,.4)',
+            borderColor: 'rgba(148,94,207,1)'
+        },
+        {
+            backgroundColor: 'rgba(19,164,180,.4)',
+            borderColor: 'rgba(19,164,180,1)'
+        },
+        {
+            backgroundColor: 'rgba(237,74,123,.4)',
+            borderColor: 'rgba(237,74,123,1)'
         }
     ];
     public lineChartLegend = true;
     public lineChartType = 'line';
     public lineChartPlugins = [];
 
-    @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+    @ViewChild( BaseChartDirective ) chart: BaseChartDirective;
 
     constructor() {
     }
 
     ngOnChanges() {
-        console.log( this.data );
     }
 
 }

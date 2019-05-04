@@ -9,6 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { AppMaterialModule } from '../../app-material.module';
 import { SharedModule } from '../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule( {
     declarations: [
@@ -23,6 +24,7 @@ import { SharedModule } from '../../shared/shared.module';
         DashboardsRoutingModule,
         AppMaterialModule,
         SharedModule,
+        ReactiveFormsModule,
     ]
 } )
 export class DashboardsModule {
