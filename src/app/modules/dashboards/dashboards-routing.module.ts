@@ -9,6 +9,7 @@ import { ProjectListComponent } from './pages/project-dashboard/pages/project-li
 import { ProjectDetailComponent } from './pages/project-dashboard/pages/project-detail/project-detail.component';
 import { ProjectNewComponent } from './pages/project-dashboard/pages/project-new/project-new.component';
 import { ProjectSettingComponent } from './pages/project-dashboard/pages/project-setting/project-setting.component';
+import {SalesOfficerDashboardComponent} from './pages/sales-officer-dashboard/sales-officer-dashboard.component';
 
 const routes: Routes = [
     {
@@ -37,13 +38,13 @@ const routes: Routes = [
                     breadcrumb: 'sales-team'
                 }
             },
-            /*{
+            {
                 path: 'sales-officer',
                 component: SalesOfficerDashboardComponent,
                 data: {
                     breadcrumb: 'sales-officer'
                 }
-            },*/
+            },
             {
                 path: 'project',
                 children: [

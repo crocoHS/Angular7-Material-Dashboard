@@ -26,6 +26,8 @@ import { ProjectDetailChannelDialogComponent } from './pages/project-dashboard/p
 import { ProjectSettingProductDialogComponent } from './pages/project-dashboard/pages/project-setting/project-setting-product-dialog/project-setting-product-dialog.component';
 import { ProjectSettingProductTableComponent } from './pages/project-dashboard/pages/project-setting/project-setting-product-table/project-setting-product-table.component';
 import { ProjectSettingStatusTableComponent } from './pages/project-dashboard/pages/project-setting/project-setting-status-table/project-setting-status-table.component';
+import { SalesOfficerDialogComponent } from './pages/sales-officer-dashboard/sales-officer-dialog/sales-officer-dialog.component';
+import { SalesOfficerTableComponent } from './pages/sales-officer-dashboard/sales-officer-table/sales-officer-table.component';
 
 @NgModule( {
     declarations: [
@@ -50,6 +52,8 @@ import { ProjectSettingStatusTableComponent } from './pages/project-dashboard/pa
         ProjectSettingProductDialogComponent,
         ProjectSettingProductTableComponent,
         ProjectSettingStatusTableComponent,
+        SalesOfficerDialogComponent,
+        SalesOfficerTableComponent,
     ],
     imports: [
         CommonModule,
