@@ -1,0 +1,91 @@
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+h1{
+    margin-bottom: 3vw;
+}
+
+mat-form-field{
+    width: 80%;
+    margin: 0 auto;
+}
+
+div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mat-form-field__custom{
+    width: 30%;
+    margin: 0;
+    display: block;
+    justify-content: normal;
+}
+.container__grid{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.grid__new{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgba(112, 193, 179, .1);
+    padding: 10px;
+    border-radius: 10px;
+}
+.grid__hot{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgba(255, 22, 84, .1);
+    padding: 10px;
+    border-radius: 10px;
+}
+.grid__warm{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgba(255, 170, 87, .1);
+    padding: 10px;
+    border-radius: 10px;
+}
+.grid__cold{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgba(36, 123, 160, .1);
+    padding: 10px;
+    border-radius: 10px;
+}
+.grid__unqualified{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgba(242, 215, 238, .1);
+    padding: 10px;
+    border-radius: 10px;
+}
+.grid__closed{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: rgba(105, 48, 109, .1);
+    padding: 10px;
+    border-radius: 10px;
+}

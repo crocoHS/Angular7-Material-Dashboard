@@ -21,6 +21,11 @@ export class LineChartComponent implements OnChanges {
             mode: 'x-axis',
             intersect: false
         },
+        elements: {
+            line: {
+                tension: 0
+            }
+        },
         scales: {
             // We use this empty structure as a placeholder for dynamic theming.
             xAxes: [ {
@@ -29,6 +34,10 @@ export class LineChartComponent implements OnChanges {
                     display: false
                 },
                 type: 'time',
+                distribution: 'series',
+                time: {
+                    unit: 'week'
+                },
                 ticks: {
                     display: true,
                     maxTicksLimit: 10,

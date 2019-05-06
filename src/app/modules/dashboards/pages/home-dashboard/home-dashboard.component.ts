@@ -24,7 +24,6 @@ export class HomeDashboardComponent implements OnInit {
         const range = this.generateLabel(this.myFilter.value.begin, this.myFilter.value.end);
         this.labelForChart1$ = range;
         this.dataForChart1$ = this.groupCategory(this.storeData, range);
-        console.log('lemot');
     }
 
     generateLabel( startDate, endDate ) {
@@ -35,7 +34,6 @@ export class HomeDashboardComponent implements OnInit {
             const kerek = moment( startDate ).add( i, 'days' ).format( 'D-MMM-YYYY' );
             jancok.push( kerek );
         }
-        console.log('lemot 3');
         return jancok;
     }
 
@@ -54,6 +52,7 @@ export class HomeDashboardComponent implements OnInit {
         // format data {"date":"2017-08-21 07:20:43","category":"warm","source":"online"}
         // format label ["27-Apr-2019", "28-Apr-2019", "29-Apr-2019", "30-Apr-2019", "1-May-2019", "2-May-2019", "3-May-2019"]
         // ["hot", "cold", "closed", "unqualified", "warm", "new_leads"]
+        console.time('testspeed');
         const labelCategory = this.generateCategory( data );
         labelCategory.push('all');
         const arr = [];
@@ -80,7 +79,7 @@ export class HomeDashboardComponent implements OnInit {
             } );
             arr.push( obj );
         } );
-        console.log('lemot 2');
+        console.timeEnd('testspeed');
         return arr;
     }
     ngOnInit() {

@@ -1,6 +1,6 @@
 @keyframes fade {
     from{
-        top: -10%;
+        top: -40%;
     }
     to{
         top: 0;
@@ -16,11 +16,17 @@
     background-color: rgba(255,255,255, .1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+.fixed-top{
+    position: absolute;
+}
 .bg-navbar--custom{
     color: #6c7293;
     background-color: #fff;
     box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.1);
     border-bottom: none;
+    position: fixed;
+    transition: 1s;
+    animation: fade 1s ease;
 }
 .navbar-nav{
     width: 100%;
@@ -66,10 +72,7 @@
     align-items: center;
 }
 
-.fixed-top{
-    transition: 1s;
-    animation: fade 1s ease;
-}
+
 
 .bg-custom{
     position: fixed;

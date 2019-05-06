@@ -1,0 +1,17 @@
+.radio-button-group {
+    display: flex;
+    align-items: center;
+    & label{
+        margin: 5px;
+    }
+    & mat-radio-group {
+        margin: 5px;
+        & > *{
+            margin: 5px;
+        }
+    }
+}
+.kt-portlet__foot{
+    display: flex;
+    justify-content: flex-end;
+}

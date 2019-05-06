@@ -1,0 +1,90 @@
+<div>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+    <div class="container__mobile">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="id" class="table__sticky" sticky>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+                <td mat-cell *matCellDef="let element;" style="width: 5%"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header> Name</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element" style="width: 10%"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="coverage">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header> Coverage Area</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element" style="width: 20%">
+                    <mat-expansion-panel class="mat-exp-pnl">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Coverage Area
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-list *ngFor="let cok of element.coverage">
+                            <mat-list-item> {{cok.name}} </mat-list-item>
+                        </mat-list>
+                    </mat-expansion-panel>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="pic">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header> PIC Contact</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <p>{{element.picName}} </p>
+                    <p>{{element.email}} </p>
+                    <p>{{element.phone}} </p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="salesOfficer">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Sales Officer</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <button mat-raised-button color="primary">{{element.salesOfficer}}</button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="leads">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Leads </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <button mat-raised-button color="primary">{{element.leads}}</button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="channels">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Channels </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <button mat-raised-button color="primary">{{element.channels}}</button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Status </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <mat-button-toggle value={{element.status}}>Active</mat-button-toggle>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action </th>
+                <td mat-cell class="table__mobile" style="width: 10%" *matCellDef="let element">
+                    <button mat-icon-button title="Edit me"
+                            (click)="editRow(element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" title="Please don't :("
+                            (click)="deleteRow(element.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

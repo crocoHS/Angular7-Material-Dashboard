@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-lg-4">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+					<span class="kt-portlet__head-icon">
+						<i class="flaticon2-settings"></i>
+					</span>
+                    <h3 class="kt-portlet__head-title">
+                        Project Setting
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <form [formGroup]="projectForm">
+                    <mat-form-field style="width: 100%" appearance="outline">
+                        <mat-label>Project Name</mat-label>
+                        <input matInput placeholder="Name" formControlName="name">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Detail Description</mat-label>
+                        <textarea matInput placeholder="Detail Description" formControlName="detail" value="{{dataProject.detail}}"></textarea>
+                    </mat-form-field>
+                    <div class="radio-button-group">
+                        <label id="radio-group-label">Status:</label>
+                        <mat-radio-group formControlName="statusActive"
+                                         aria-labelledby="radio-group-label">
+                            <mat-radio-button [value]="true">Active</mat-radio-button>
+                            <mat-radio-button [value]="false">Inactive</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </form>
+            </div>
+            <div class="kt-portlet__foot">
+                <button mat-flat-button color="primary" (click)="onSave()">Save All</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+					<span class="kt-portlet__head-icon">
+						<i class="flaticon-price-tag"></i>
+					</span>
+                    <h3 class="kt-portlet__head-title">
+                        Product Setting
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <app-project-setting-product-table #settingProduct [dataFromParent]="dataSourceProduct"></app-project-setting-product-table>
+            </div>
+        </div>
+        <div class="kt-portlet">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+						<span class="kt-portlet__head-icon">
+							<i class="flaticon-squares-2"></i>
+						</span>
+                    <h3 class="kt-portlet__head-title">
+                        Status Setting
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body" >
+                <app-project-setting-status-table #settingStatus [dataFromParent]="dataSourceStatus"></app-project-setting-status-table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+.kt-portlet__body__custom_hide{
+    height: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.kt-portlet__body__custom_expand{
+    height: auto;
+    overflow: auto;
+}
+form{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+mat-form-field {
+    width: 40%;
+}

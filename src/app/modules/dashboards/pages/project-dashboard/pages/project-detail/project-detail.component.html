@@ -1,0 +1,140 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">{{ projectInUsedData.name }}</h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-actions">
+                <a [routerLink]="['../../setting/',projectInUsedData.id]" class="btn btn-danger btn-sm btn-bold">
+                    <i class="flaticon2-gear"></i>Setting
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="kt-portlet kt-portlet--bordered">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Project Overview</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body" *ngIf="dataForOverview">
+                        <h2><span class="kt-font-danger">{{ dataForOverview.leads }} </span>Leads
+                            <small class="text-muted">Total</small>
+                        </h2>
+                        <h2><span class="kt-font-danger">{{ dataForOverview.campaign }} </span>Campaign
+                            <small class="text-muted">Total</small>
+                        </h2>
+                        <h2><span class="kt-font-danger">{{ dataForOverview.channel }} </span>Channel
+                            <small class="text-muted">Total</small>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="kt-portlet kt-portlet--bordered">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Filter Data</h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="kt-portlet__head-actions">
+                                <mat-slide-toggle #toggle [disabled]="!tabLeads.isActive">Expand</mat-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body" style="transition: all ease .4s"
+                         [ngClass]="(toggle.checked && tabLeads.isActive) ? 'kt-portlet__body__custom_expand' :'kt-portlet__body__custom_hide'"
+                         *ngIf="dataForFilter">
+                        <form [formGroup]="filterGroup">
+                            <mat-form-field>
+                                <mat-label>Campaign</mat-label>
+                                <mat-select formControlName="campaign">
+                                    <mat-option >None</mat-option>
+                                    <mat-option *ngFor="let data of dataForFilter.campaign" [value]="data">
+                                        {{data}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Channel</mat-label>
+                                <mat-select formControlName="channel">
+                                    <mat-option >None</mat-option>
+                                    <mat-option *ngFor="let data of dataForFilter.channel" [value]="data">
+                                        {{data}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Sales Officer</mat-label>
+                                <mat-select formControlName="sales_officer">
+                                    <mat-option >None</mat-option>
+                                    <mat-option *ngFor="let data of dataForFilter.sales_officer" [value]="data">
+                                        {{data}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Sales Team</mat-label>
+                                <mat-select formControlName="sales_team">
+                                    <mat-option >None</mat-option>
+                                    <mat-option *ngFor="let data of dataForFilter.sales_team" [value]="data">
+                                        {{data}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Status</mat-label>
+                                <mat-select formControlName="status">
+                                    <mat-option >None</mat-option>
+                                    <mat-option *ngFor="let data of dataForFilter.status" [value]="data">
+                                        {{data}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Category</mat-label>
+                                <mat-select formControlName="category">
+                                    <mat-option >None</mat-option>
+                                    <mat-option *ngFor="let data of dataForFilter.category" [value]="data">
+                                        {{data}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="kt-portlet kt-portlet--bordered">
+                    <div class="kt-portlet__body" *ngIf="dataForChart">
+<!--                        <kt-stacked-bar [dataParent]="dataForChart" style="min-height: 400px; "></kt-stacked-bar>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kt-portlet">
+    <div class="kt-portlet__body">
+        <mat-tab-group>
+            <mat-tab label="Leads" #tabLeads>
+                <ng-template matTabContent>
+                    <app-project-detail-lead [dataFromParent]="dataForLeadsComp"></app-project-detail-lead>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="Campaign">
+                <ng-template matTabContent>
+                    <app-project-detail-campaign></app-project-detail-campaign>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="Channel">
+                <ng-template matTabContent>
+                    <app-project-detail-channel></app-project-detail-channel>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

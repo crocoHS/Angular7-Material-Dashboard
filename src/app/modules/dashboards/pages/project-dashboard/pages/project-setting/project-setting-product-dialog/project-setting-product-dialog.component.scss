@@ -1,0 +1,17 @@
+form {
+    display: flex;
+    flex-direction: column;
+    & mat-form-field{
+        width: 100%;
+    }
+}
+
+.mat-dialog-actions{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    & > * {
+        margin: 0 5px;
+    }
+}

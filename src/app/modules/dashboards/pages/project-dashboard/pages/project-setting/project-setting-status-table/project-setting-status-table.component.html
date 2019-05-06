@@ -1,0 +1,30 @@
+<div class="table-responsive-sm">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Point</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of dataStore; index as i">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>
+                <div class="input-group">
+                    <input type="number"
+                           aria-describedby="basic-addon1"
+                           aria-label="Username"
+                           class="form-control"
+                           #input min="0" (change)="editStatusPoint(i , input)" [disabled]="!product.status" [value]="product.point">
+                </div>
+            </td>
+            <td>
+                <button mat-flat-button (click)="editStatusActive(product)" [color]="product.status ? 'primary' : 'warn'">{{ product.status ? 'Active' : 'Inactive'}}</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

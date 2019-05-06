@@ -1,0 +1,27 @@
+<h3 mat-dialog-title>Campaign Form</h3>
+<mat-dialog-content>
+    <form class="example-form" [formGroup]="testGroup">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Campaign Name"
+                   formControlName="name">
+            <!--
+                            <mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>
+            -->
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Detail</mat-label>
+            <textarea matInput placeholder="Enter Your Description"
+                      formControlName="detail"></textarea>
+            <!--
+                            <mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>
+            -->
+        </mat-form-field>
+        <input type="file" #imageInput accept="image/*" (change)="imageUpload(imageInput)">
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
+    <button type="submit" (click)="onSubmit(testGroup)" mat-flat-button color="primary" style="margin-left: 10px;">Submit</button>
+</mat-dialog-actions>

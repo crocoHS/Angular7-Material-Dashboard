@@ -1,3 +1,39 @@
-<p>
-  sales-team-dashboard works!
-</p>
+<div class="row">
+    <div class="col-md-3">
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">Your Team</h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">Team Summary</h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">Sales Team</h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <app-sales-team-dashboard-table [dataFromParent]="dataForTable"></app-sales-team-dashboard-table>
+            </div>
+        </div>
+    </div>
+</div>

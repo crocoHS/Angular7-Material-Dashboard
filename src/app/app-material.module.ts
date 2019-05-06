@@ -2,13 +2,25 @@ import { NgModule } from '@angular/core';
 import {
     MatButtonModule,
     MatButtonToggleModule,
-    MatExpansionModule, MatInputModule, MatListModule, MatPaginatorModule,
-    MatSnackBarModule, MatTableModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatListModule,
+    MatPaginatorModule,
+    MatSnackBarModule,
+    MatTableModule,
     MatToolbarModule,
-    MatFormFieldModule, MatIconModule, MatDatepickerModule
+    MatFormFieldModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatSelectModule, MatOptionModule, MatTabsModule, MatRadioModule, MatStepperModule
 } from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { TagInputModule } from 'ngx-chips';
 
 const MatModule = [
     MatFormFieldModule,
@@ -25,6 +37,15 @@ const MatModule = [
     SatDatepickerModule,
     SatNativeDateModule,
     MatDatepickerModule,
+    MatChipsModule,
+    TagInputModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatRadioModule,
+    MatStepperModule,
     /// CHART MODULE
     ChartsModule
 ];

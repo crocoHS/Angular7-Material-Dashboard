@@ -1,0 +1,203 @@
+<mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Project Setup</ng-template>
+            <h1>Provide your project details</h1>
+            <mat-form-field>
+                <input matInput placeholder="Project Name" formControlName="project_name" required>
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="Detail" formControlName="detail" required></textarea>
+            </mat-form-field>
+            <div>
+                <button mat-button (click)="goBack()">Cancel</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Product Setup</ng-template>
+            <h1>Provide your product's</h1>
+            <mat-form-field>
+                <input matInput placeholder="Product Name" formControlName="product_name" required>
+            </mat-form-field>
+            <mat-form-field>
+                <span matPrefix>Rp. &nbsp;</span>
+                <input matInput type="number" placeholder="Price" formControlName="product_price" required>
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="Detail" formControlName="product_detail" required></textarea>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Status Setup</ng-template>
+            <h1>Provide what you want to tracking</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="kt-portlet kt-portlet--bordered">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Available Status
+                                    <small>Check the status list if you want to use and uncheck if you don't use</small>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="container__grid">
+                                <div class="grid__new">
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'new_leads')" >New Leads</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="new_leads" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="grid__hot">
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'very_interested')" >Very Interested</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="very_interested" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'reservation')" >Reservation</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="reservation" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'booking')" >Booking</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="booking" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'kpr_process')" >KPR Process</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="kpr_process" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="grid__warm">
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox disabled checked="true" >Interested</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="interested" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'callback')" >Callback</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="callback" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'visit')" >Visit</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="visit" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="grid__cold">
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox disabled checked="true" >Interested but Not Now</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="interested_not_now" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'walk_in')" >Walk In</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="walk_in" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="grid__unqualified">
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'no_response')" >No Response</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="no_response" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox disabled checked="true" >Not Interested</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="not_interested" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'inactive')" >Inactive</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="inactive" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'invalid')" >Invalid</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="invalid" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="grid__closed">
+                                    <div class="wrapper">
+                                        <div class="mat-form-field__custom">
+                                            <mat-checkbox (change)="onChangeCheckbox($event, 'closing')" >Closing</mat-checkbox>
+                                        </div>
+                                        <mat-form-field class="mat-form-field__custom">
+                                            <input matInput formControlName="closing" type="number">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="onSubmit()" >Submit</button>
+            </div>
+        </form>
+    </mat-step>
+</mat-horizontal-stepper>

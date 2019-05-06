@@ -1,0 +1,45 @@
+<h3 mat-dialog-title>Channel Form</h3>
+<mat-dialog-content>
+    <form class="example-form"
+          [formGroup]="testGroup">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="name" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Your URL</mat-label>
+            <input matInput placeholder="email"
+                   formControlName="trackingUrl">
+            <!--				<mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>-->
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Detail</mat-label>
+            <textarea matInput placeholder="Detail"
+                      formControlName="detail"></textarea>
+        </mat-form-field>
+
+        <div class="coverage__field">
+            <tag-input formControlName="salesTeam"
+                       [identifyBy]="'id'" [displayBy]="'name'"
+                       theme='minimal' #salesTeam
+                       placeholder="Add City"
+                       [disable]=false
+                       [onlyFromAutocomplete]="true">
+                <tag-input-dropdown
+                    [autocompleteItems]="allTeams"
+                    [keepOpen]="false"
+                    [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="true"
+                    [identifyBy]="'id'" [displayBy]="'name'">
+                </tag-input-dropdown>
+            </tag-input>
+            <mat-checkbox (change)='change($event, salesTeam)' [formControl]="salesTeamChecked">All City</mat-checkbox>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
+    <button type="submit" (click)="onSubmit(testGroup)" mat-flat-button color="primary" style="margin-left: 10px;">Submit</button>
+</mat-dialog-actions>
