@@ -30,9 +30,16 @@ export class LoginComponent implements OnInit {
         if ( this.loginForm.valid ) {
             this.http.login( this.loginForm.value )
                 .pipe(
-                    tap( (result: any) => {
+                    // TODO: UNTUK TEST SAJA, HARUS DIGANTI
+                    // Gawe Demo nang Goyeng pake dibawah ini jika bukan demo
+                    /*tap( (result: any) => {
                         const user = new JwtHelperService().decodeToken(result.token);
                         user.token = result.token;
+                        this.store.dispatch( new Login( { user } ));
+                        this.router.navigateByUrl('/dashboard');
+                    } )*/
+                    tap( (result: any) => {
+                        const user = result;
                         this.store.dispatch( new Login( { user } ));
                         this.router.navigateByUrl('/dashboard');
                     } )

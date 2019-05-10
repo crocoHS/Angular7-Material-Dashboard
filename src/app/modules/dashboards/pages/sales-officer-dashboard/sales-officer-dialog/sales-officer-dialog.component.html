@@ -1,3 +1,61 @@
-<p>
-  sales-officer-dialog works!
-</p>
+<h3 mat-dialog-title>Sales Team Form</h3>
+<mat-dialog-content>
+    <form class="example-form"
+          [formGroup]="testGroup">
+        <div class="coverage__field">
+            <tag-input formControlName="coverage"
+                       [identifyBy]="'id'" [displayBy]="'name'"
+                       theme='minimal' #city
+                       placeholder="Add City"
+                       [disable]=false
+                       [onlyFromAutocomplete]="true">
+                <tag-input-dropdown
+                    [autocompleteItems]="allCoverage"
+                    [keepOpen]="false"
+                    [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="true"
+                    [identifyBy]="'id'" [displayBy]="'name'">
+                </tag-input-dropdown>
+            </tag-input>
+            <mat-checkbox (change)='change($event, city)' [formControl]="coverageChecked">All City</mat-checkbox>
+        </div>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="name" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="email"
+                   formControlName="email">
+            <mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Telephone</mat-label>
+            <input type="tel" matInput placeholder="telephone" formControlName="phone"
+                   (keydown)="onKeyDown($event)">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput placeholder="Address"
+                      formControlName="address"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>PIC Name</mat-label>
+            <input matInput placeholder="PIC Name"
+                   formControlName="picName">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Change Password</mat-label>
+            <input type="password" matInput placeholder="password" formControlName="password">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button type="submit" mat-flat-button (click)="onSubmit(testGroup)" color="primary">Submit</button>
+    <button type="submit" (click)="onNoClick()" mat-flat-button>Cancel</button>
+</mat-dialog-actions>

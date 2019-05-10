@@ -1,0 +1,52 @@
+<h3 mat-dialog-title>Campaign Form</h3>
+<mat-dialog-content>
+    <form class="example-form" [formGroup]="formGroup">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error>Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="formGroup.get('email').hasError('required') && !formGroup.get('email').hasError('email')">Email is required</mat-error>
+            <mat-error *ngIf="formGroup.get('email').hasError('email')">You Must Fill Proper Email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone">
+            <mat-error *ngIf="formGroup.get('phone').hasError('required') && !formGroup.get('phone').hasError('pattern')">Phone is required</mat-error>
+            <mat-error *ngIf="formGroup.get('phone').hasError('pattern')">Please fill with number</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+            <mat-error>Address is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input formControlName="password"
+                   type="password" matInput placeholder="Enter Your Password">
+            <mat-error *ngIf="formGroup.get('password').hasError('required') && !formGroup.get('password').hasError('minlength')">You Must Fill Password</mat-error>
+            <mat-error *ngIf="formGroup.get('password').hasError('minlength')">Your Password Need min 8 character</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+                <mat-option value="3">Admin Client</mat-option>
+                <mat-option value="6">Analyst</mat-option>
+            </mat-select>
+            <mat-error>Role is required</mat-error>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
+    <button type="submit" (click)="onSubmit()" mat-flat-button color="primary" style="margin-left: 10px;">Submit</button>
+</mat-dialog-actions>

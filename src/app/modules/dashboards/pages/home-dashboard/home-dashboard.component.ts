@@ -1,99 +1,236 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/store';
 import { DashboardOverviewService } from '../../../../core/services/dashboard-overview/dashboard-overview.service';
 import * as moment from 'moment';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { dummyData, DummyData } from './dummy';
+import { dummy2 } from './dummy2';
 
 @Component( {
     selector: 'app-home-dashboard',
     templateUrl: './home-dashboard.component.html',
     styleUrls: [ './home-dashboard.component.scss' ]
 } )
-export class HomeDashboardComponent implements OnInit {
+export class HomeDashboardComponent implements OnInit, OnDestroy {
     public storeData;
-    public dataForChart1$ = [{data: [], label: ''}];
+    public dataForChart1$: { data: number[], label: string }[] = [ { data: [], label: '' } ];
     public labelForChart1$ = [];
-    public myFilter = new FormControl('');
+    public myFilter = new FormControl( '' );
+    public checkBoxCategory = this.fb.group( {
+        all: [ { value: true, disabled: true } ],
+        hot: [],
+        warm: [],
+        new_leads: [],
+        cold: [],
+        closed: [],
+        unqualified: [],
+    } );
     public maxDate = moment().format();
-    constructor( private store: Store<AppState>, private http: DashboardOverviewService ) {
-    }
-    // TODO: kalau dibuat tanggal lebih dari satu bulan ngelag jancok
-    //          tolong di benarkan
-    changeDate() {
-        const range = this.generateLabel(this.myFilter.value.begin, this.myFilter.value.end);
-        this.labelForChart1$ = range;
-        this.dataForChart1$ = this.groupCategory(this.storeData, range);
+    ///// UNTUK CHART BAR SEMUA
+    dataParent: DummyData[];
+    dataForChildChart = [];
+    selected = 0;
+    selectedTeam = 0;
+    forChildChart;
+    forChildChart2;
+
+    //////
+    constructor(
+        private store: Store<AppState>,
+        private http: DashboardOverviewService,
+        private fb: FormBuilder
+    ) {
+        this.checkBoxCategory.valueChanges
+            .pipe(
+                debounceTime( 1000 ),
+                untilDestroyed( this )
+            )
+            .subscribe( val => {
+                this.updateChart( val );
+            } );
     }
 
-    generateLabel( startDate, endDate ) {
+    updateChart( data: any ) {
+        const timeChart = this.timeForChart( this.myFilter.value.begin, this.myFilter.value.end );
+        const arrData = Object.keys( data );
+        const trueData = arrData.filter( val => val !== 'all' ? data[ val ] : false );
+        const falseData = arrData.filter( val => val !== 'all' ? !data[ val ] : false );
+        const resData = this.generateDataSeries( trueData, timeChart );
+        falseData.forEach( cat => {
+            const index = this.dataForChart1$.findIndex( val => val.label === cat );
+            if ( index !== -1 ) {
+                this.dataForChart1$.splice( index, 1 );
+            } else {
+                this.dataForChart1$ = [ ...[ this.dataForChart1$[ 0 ] ], ...resData ];
+            }
+        } );
+    }
+
+    // TODO: Tinggal ganti cara untuk tambah data, digawe mari ae
+    changeDate() {
+        const timeChart = this.timeForChart( this.myFilter.value.begin, this.myFilter.value.end );
+        const range = this.generateLabel( this.myFilter.value.begin, this.myFilter.value.end, timeChart );
+        this.labelForChart1$ = range;
+        this.dataForChart1$ = this.generateDataSeries( 'all', timeChart );
+        this.checkBoxCategory.reset( { all: true } );
+    }
+
+    groupData( data: any ) {
+        return data.reduce( ( acc, cur ) => {
+            const check = acc[ cur.category ] || null;
+            if ( check === null ) {
+                acc[ cur.category ] = [ ...[ cur ] ];
+            } else {
+                acc[ cur.category ].push( cur );
+            }
+            return acc;
+        }, {} );
+    }
+
+    generateLabel( startDate, endDate, time ) {
         // label ["27-Apr-2019", "28-Apr-2019", "29-Apr-2019", "30-Apr-2019", "1-May-2019", "2-May-2019", "3-May-2019"]
         const jancok = [];
-        const different = moment( endDate ).diff( moment( startDate ), 'days' );
-        for ( let i = 0; i < different; i++ ) {
-            const kerek = moment( startDate ).add( i, 'days' ).format( 'D-MMM-YYYY' );
-            jancok.push( kerek );
+        const different = moment( endDate ).diff( moment( startDate ), time.time );
+        if ( different <= 30 ) {
+            for ( let i = 0; i < different + 1; i++ ) {
+                const kerek = moment( startDate ).add( i, time.time ).format( time.format );
+                jancok.push( kerek );
+            }
+        } else if ( different <= 90 ) {
+            for ( let i = 0; i < different; i++ ) {
+                const kerek = moment( startDate ).startOf( time.time ).add( i, time.time ).format( time.format );
+                const isBetweenOrSame = moment( kerek, time.format ).isBetween( startDate, endDate, time.time )
+                    || moment( kerek, time.format ).isSame( startDate, time.time )
+                    || moment( kerek, time.format ).isSame( endDate, time.time );
+                if ( isBetweenOrSame ) {
+                    jancok.push( kerek );
+                } else {
+                    break;
+                }
+            }
+        } else if ( different > 90 ) {
+            for ( let i = 0; i < different; i++ ) {
+                const kerek = moment( startDate ).startOf( time.time ).add( i, time.time ).format( time.format );
+                const isBetweenOrSame = moment( kerek, time.format ).isBetween( startDate, endDate, time.time )
+                    || moment( kerek, time.format ).isSame( startDate, time.time )
+                    || moment( kerek, time.format ).isSame( endDate, time.time );
+                if ( isBetweenOrSame ) {
+                    jancok.push( kerek );
+                } else {
+                    break;
+                }
+            }
         }
         return jancok;
     }
 
-    generateCategory( data ) {
-        const labelCategory = [];
-        data.forEach( ( item ) => {
-            if ( labelCategory.indexOf( item.category ) === -1 ) {
-                labelCategory.push( item.category );
-            }
-        } );
-        return labelCategory;
+    timeForChart( startDate, endDate ) {
+        const different = moment( endDate ).diff( moment( startDate ), 'days' );
+        if ( different <= 30 ) {
+            return { time: 'days', format: 'D MMMM' };
+        } else if ( different <= 90 ) {
+            return { time: 'week', format: 'D MMMM YY' };
+        } else if ( different > 90 ) {
+            return { time: 'month', format: 'MMM YYYY' };
+        }
     }
 
-    groupCategory( data, label ) {
-        // dadine { data: [65, 59, 80, 81, 56, 55, 40], label: 'Hot Leads' }
-        // format data {"date":"2017-08-21 07:20:43","category":"warm","source":"online"}
-        // format label ["27-Apr-2019", "28-Apr-2019", "29-Apr-2019", "30-Apr-2019", "1-May-2019", "2-May-2019", "3-May-2019"]
-        // ["hot", "cold", "closed", "unqualified", "warm", "new_leads"]
-        console.time('testspeed');
-        const labelCategory = this.generateCategory( data );
-        labelCategory.push('all');
-        const arr = [];
-        // TODO: IKI MARAI LEMOT
-        labelCategory.forEach( ( cat ) => {
-            const obj = {
-                data: [],
-                label: cat,
-                hidden: true
-            };
-            obj.data = label.map( array => {
-                let asu;
-                if ( cat !== 'all') {
-                    asu = data.filter( val => {
-                        return val.category === cat;
+    generateDataSeries( category: any, time: any ) {
+        let arrObj: { data: number[], label: string }[] = [];
+        const obj = {
+            data: Array.from( Array( this.labelForChart1$.length ), () => 0 ),
+            label: category
+        };
+        if ( category !== 'all' ) {
+            if ( Array.isArray( category ) ) {
+                const jancok = [];
+                category.forEach( cat => {
+                    const thisObj = {
+                        data: Array.from( Array( this.labelForChart1$.length ), () => 0 ),
+                        label: cat
+                    };
+                    this.storeData[ cat ].forEach( arr => {
+                        const index = this.labelForChart1$.findIndex( res =>
+                            moment( res, time.format ).isSame( moment( arr.date ), time.time )
+                        );
+                        if ( arr.category === thisObj.label ) {
+                            thisObj.data[ index ]++;
+                        }
                     } );
-                } else {
-                    asu = data;
-                    obj.hidden = false;
-                }
-                return asu.filter( val => {
-                    return moment( val.date ).isSame( moment( array ), 'day' );
-                } ).length;
+                    return jancok.push( thisObj );
+                } );
+                arrObj = [ ...jancok ];
+            } else {
+                this.storeData[ category ].forEach( arr => {
+                    const index = this.labelForChart1$.findIndex( res =>
+                        moment( res, time.format ).isSame( moment( arr.date ), time.time )
+                    );
+                    if ( arr.category === obj.label ) {
+                        obj.data[ index ]++;
+                    }
+                } );
+                arrObj.push( obj );
+            }
+        } else if ( category === 'all' ) {
+            const allCategory = Object.keys( this.storeData );
+            allCategory.forEach( cat => {
+                this.storeData[ cat ].forEach( arr => {
+                    const index = this.labelForChart1$.findIndex( res =>
+                        moment( res, time.format ).isSame( moment( arr.date ), time.time )
+                    );
+                    obj.data[ index ]++;
+                } );
             } );
-            arr.push( obj );
-        } );
-        console.timeEnd('testspeed');
-        return arr;
+            arrObj.push( obj );
+        }
+        return arrObj;
     }
+
+    // UNTUK BAR CHART nomer 1 & 2
+    mappingData( selectedValue ) {
+        let result = {};
+        this.dataParent[ selectedValue ].data.forEach( obj => {
+            Object.keys( obj ).forEach( key => {
+                result[ key ] = ( result[ key ] || [] ).concat( [ obj[ key ] ] );
+            } );
+        } );
+        return result;
+    }
+
+    haloo( selectedValue ) {
+        this.forChildChart2 = this.dataForChildChart[ selectedValue ];
+    }
+
+    changeIt( selectedValue ) {
+        this.forChildChart = this.mappingData( selectedValue );
+    }
+
+    ///////////////////////////////////
+
     ngOnInit() {
         const startDate = moment().subtract( 30, 'days' );
         const endDate = moment();
         this.http.getDataLocal().subscribe( val => {
-            const range = this.generateLabel(startDate, endDate);
-            this.storeData = val;
+            this.storeData = this.groupData( val );
+            const timeChart = this.timeForChart( startDate, endDate );
+            const range = this.generateLabel( startDate, endDate, timeChart );
             this.labelForChart1$ = range;
-            this.dataForChart1$ = this.groupCategory(val, range);
+            this.dataForChart1$ = this.generateDataSeries( 'all', this.timeForChart( startDate, endDate ) );
         } );
-        this.myFilter.setValue({
+        this.myFilter.setValue( {
             begin: startDate.format(),
             end: endDate.format()
-        });
+        } );
+        /// UNTUK BAR CHART
+        this.dataParent = dummyData;
+        this.changeIt( this.selected );
+        this.dataForChildChart = dummy2;
+        this.haloo( this.selectedTeam );
+    }
+
+    ngOnDestroy(): void {
     }
 }

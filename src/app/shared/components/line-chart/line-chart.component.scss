@@ -1,0 +1,22 @@
+.chart-line {
+    display: block;
+    width: calc(100% - 1vw);
+    height: 400px;
+    margin: 1vw auto
+}
+.chart-line__small{
+    width: auto;
+}
+
+@media screen and (max-width: 768px){
+    .chart-line {
+        overflow: hidden;
+        width: 700px;
+        margin: 0;
+    }
+    .chart-line__small{
+        width: 700px;
+        height: auto;
+        display: block;
+    }
+}

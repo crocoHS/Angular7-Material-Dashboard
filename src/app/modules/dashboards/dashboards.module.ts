@@ -9,7 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { AppMaterialModule } from '../../app-material.module';
 import { SharedModule } from '../../shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SalesTeamDashboardTableComponent } from './pages/sales-team-dashboard/sales-team-dashboard-table/sales-team-dashboard-table.component';
 import { SalesTeamDashboardDialogComponent } from './pages/sales-team-dashboard/sales-team-dashboard-dialog/sales-team-dashboard-dialog.component';
 import { ProjectDashboardComponent } from './pages/project-dashboard/project-dashboard.component';
@@ -28,6 +28,9 @@ import { ProjectSettingProductTableComponent } from './pages/project-dashboard/p
 import { ProjectSettingStatusTableComponent } from './pages/project-dashboard/pages/project-setting/project-setting-status-table/project-setting-status-table.component';
 import { SalesOfficerDialogComponent } from './pages/sales-officer-dashboard/sales-officer-dialog/sales-officer-dialog.component';
 import { SalesOfficerTableComponent } from './pages/sales-officer-dashboard/sales-officer-table/sales-officer-table.component';
+import { UserSettingDashboardComponent } from './pages/user-setting-dashboard/user-setting-dashboard.component';
+import { UserSettingChangeDialogComponent } from './pages/user-setting-dashboard/user-setting-change-dialog/user-setting-change-dialog.component';
+import { UserSettingAddDialogComponent } from './pages/user-setting-dashboard/user-setting-add-dialog/user-setting-add-dialog.component';
 
 @NgModule( {
     declarations: [
@@ -54,6 +57,9 @@ import { SalesOfficerTableComponent } from './pages/sales-officer-dashboard/sale
         ProjectSettingStatusTableComponent,
         SalesOfficerDialogComponent,
         SalesOfficerTableComponent,
+        UserSettingDashboardComponent,
+        UserSettingChangeDialogComponent,
+        UserSettingAddDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -61,12 +67,16 @@ import { SalesOfficerTableComponent } from './pages/sales-officer-dashboard/sale
         AppMaterialModule,
         SharedModule,
         ReactiveFormsModule,
+        FormsModule
     ],
     entryComponents: [
         SalesTeamDashboardDialogComponent,
+        SalesOfficerDialogComponent,
         ProjectDetailCampaignDialogComponent,
         ProjectDetailChannelDialogComponent,
-        ProjectSettingProductDialogComponent
+        ProjectSettingProductDialogComponent,
+        UserSettingChangeDialogComponent,
+        UserSettingAddDialogComponent
     ]
 } )
 export class DashboardsModule {

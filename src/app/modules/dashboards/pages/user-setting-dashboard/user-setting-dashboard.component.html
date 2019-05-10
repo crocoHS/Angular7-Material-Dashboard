@@ -1,0 +1,95 @@
+<div class="kt-portlet kt-portlet--mobile">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                User Manager
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-actions">
+                <button type="button" class="btn btn-danger btn-sm btn-bold" (click)="addUser()" ><i class="flaticon2-plus"></i>Add User</button>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div>
+            <mat-form-field appearance="legacy">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            </mat-form-field>
+            <div class="container__mobile">
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="no" class="table__sticky" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+                        <td mat-cell *matCellDef="let element; let i = index" >
+                            {{i + 1}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile">Name</th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile" >
+                            {{element.name}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Email </th>
+                        <td mat-cell *matCellDef="let element"  class="table__mobile">
+                            {{ element.email }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Roles </th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile">
+							<span class="kt-badge kt-badge--brand kt-badge--inline">
+								<ng-template [ngIf]="element.role == 4">Sales Team</ng-template>
+								<ng-template [ngIf]="element.role == 5">Sales Officer</ng-template>
+							</span>
+
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef class="table__mobile"> Status </th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile">
+                            <button mat-flat-button (click)="element.status = !element.status" [color]="element.status ? 'primary' : 'warn'">{{ element.status ? 'Active' : 'Inactive'}}</button>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="create_at">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Create At </th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile">
+                            {{element.create_at | date}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="update_at">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Update At </th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile">
+                            {{element.update_at | date}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="table__mobile"> Action </th>
+                        <td mat-cell style="width: 10%" *matCellDef="let element" class="table__mobile">
+                            <button mat-icon-button title="Edit me"
+                                    (click)="editRow(element)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <!--<button mat-icon-button color="warn" title="Please don't :("
+                                    (click)="deleteRow(element.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>-->
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>

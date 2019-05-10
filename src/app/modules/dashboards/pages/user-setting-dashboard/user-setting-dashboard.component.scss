@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+}
+.mat-form-field{
+    width: 30%;
+    min-width: 200px;
+    margin: 0 auto;
+}
+.mat-row:hover{
+    background-color: rgba(63, 81, 181, .1) !important;
+}
+.mat-row:nth-child(odd){
+    background-color: #f7f7f7;
+}
+
+@media screen and (max-width: 1200px) {
+    .container__mobile {
+        width: 100%;
+        overflow: auto;
+    }
+    table {
+        width: 1200px;
+    }
+    .table__mobile{
+        padding: 0 10px !important;
+    }
+    .mat-table-sticky{
+        border-right: #d8dce6 solid 1px;
+        padding: 10px !important;
+        background-color: antiquewhite;
+    }
+}

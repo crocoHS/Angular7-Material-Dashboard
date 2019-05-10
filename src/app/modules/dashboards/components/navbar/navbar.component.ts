@@ -7,7 +7,7 @@ import { DOCUMENT } from '@angular/common';
     styleUrls: [ './navbar.component.scss' ],
 } )
 export class NavbarComponent implements AfterViewInit {
-    private isShow = false;
+    public isShow = false;
     constructor( @Inject( DOCUMENT ) document ) {
     }
 

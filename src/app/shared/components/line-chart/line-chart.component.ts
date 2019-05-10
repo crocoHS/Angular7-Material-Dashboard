@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { BaseChartDirective, Color, Label } from 'ng2-charts';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 
@@ -16,14 +16,27 @@ export class LineChartComponent implements OnChanges {
     // public lineChartOptions: (ChartOptions & { annotation: any }) = {
     public lineChartOptions: ChartOptions = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
+        /*animation: {
+            duration: 300,
+            easing: 'ease'
+        },*/
+        plugins: {
+            datalabels: {
+                display: false
+            }
+        },
         tooltips: {
             mode: 'x-axis',
-            intersect: false
+            intersect: false,
+            cornerRadius: 5
         },
         elements: {
             line: {
                 tension: 0
+            },
+            point: {
+                radius: 0,
             }
         },
         scales: {
@@ -32,11 +45,6 @@ export class LineChartComponent implements OnChanges {
                 display: true,
                 scaleLabel: {
                     display: false
-                },
-                type: 'time',
-                distribution: 'series',
-                time: {
-                    unit: 'week'
                 },
                 ticks: {
                     display: true,
@@ -76,31 +84,31 @@ export class LineChartComponent implements OnChanges {
     public lineChartColors: Color[] = [
         {
             backgroundColor: 'rgba(88,153,218,.4)',
-            borderColor: 'rgba(88,153,218,1)'
+            borderColor: 'rgba(88,153,218,0)'
         },
         {
             backgroundColor: 'rgba(232,116,59,.4)',
-            borderColor: 'rgba(232,116,59,1)'
+            borderColor: 'rgba(232,116,59,0)'
         },
         {
             backgroundColor: 'rgba(25,169,121,.4)',
-            borderColor: 'rgba(25,169,121,1)'
+            borderColor: 'rgba(25,169,121,0)'
         },
         {
             backgroundColor: 'rgba(82,93,244,.4)',
-            borderColor: 'rgba(82,93,244,1)'
+            borderColor: 'rgba(82,93,244,0)'
         },
         {
             backgroundColor: 'rgba(148,94,207,.4)',
-            borderColor: 'rgba(148,94,207,1)'
+            borderColor: 'rgba(148,94,207,0)'
         },
         {
             backgroundColor: 'rgba(19,164,180,.4)',
-            borderColor: 'rgba(19,164,180,1)'
+            borderColor: 'rgba(19,164,180,0)'
         },
         {
             backgroundColor: 'rgba(237,74,123,.4)',
-            borderColor: 'rgba(237,74,123,1)'
+            borderColor: 'rgba(237,74,123,0)'
         }
     ];
     public lineChartLegend = true;
@@ -109,10 +117,9 @@ export class LineChartComponent implements OnChanges {
 
     @ViewChild( BaseChartDirective ) chart: BaseChartDirective;
 
-    constructor() {
+    constructor( ) {
     }
 
     ngOnChanges() {
     }
-
 }

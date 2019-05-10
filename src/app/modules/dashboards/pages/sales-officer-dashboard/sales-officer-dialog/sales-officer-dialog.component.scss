@@ -1,0 +1,11 @@
+.coverage__field{
+    display: flex;
+
+    & tag-input{
+        width: 70%;
+    }
+    & .mat-checkbox{
+        width: 30%;
+        align-self: center;
+    }
+}

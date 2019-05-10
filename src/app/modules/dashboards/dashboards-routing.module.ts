@@ -10,6 +10,7 @@ import { ProjectDetailComponent } from './pages/project-dashboard/pages/project-
 import { ProjectNewComponent } from './pages/project-dashboard/pages/project-new/project-new.component';
 import { ProjectSettingComponent } from './pages/project-dashboard/pages/project-setting/project-setting.component';
 import {SalesOfficerDashboardComponent} from './pages/sales-officer-dashboard/sales-officer-dashboard.component';
+import { UserSettingDashboardComponent } from './pages/user-setting-dashboard/user-setting-dashboard.component';
 
 const routes: Routes = [
     {
@@ -69,6 +70,13 @@ const routes: Routes = [
                         component: ProjectSettingComponent
                     },
                 ]
+            },
+            {
+                path: 'user-setting',
+                component: UserSettingDashboardComponent,
+                data: {
+                    breadcrumb: 'user-setting'
+                }
             }
         ]
     }

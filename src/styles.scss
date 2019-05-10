@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "assets/style.bundle.css";
+@import "assets/style.bundle2.css";
 @import '~@angular/material/theming';
 @import '~saturn-datepicker/theming';
 
@@ -51,3 +51,7 @@ $main-app-theme: mat-light-theme($main-app-primary, $main-app-accent, $main-app-
 
 @include angular-material-theme($main-app-theme);
 @include sat-datepicker-theme($main-app-theme);
+
+body{
+    background-color: #f9f9fc;
+}

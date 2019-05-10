@@ -17,9 +17,10 @@ import { Component } from '@angular/core';
         </div>
     `,
     styles: [ `
-        .grid-custom{
+        .grid-custom {
             margin-top: 80px;
         }
+
         .bg-image {
             position: absolute;
             top: 0;
@@ -31,12 +32,16 @@ import { Component } from '@angular/core';
             background-position: center top;
             background-size: 100% 350px;
         }
-        .kt-content{
+
+        .kt-content {
             padding: 0 0 30px 0;
         }
     ` ]
 } )
 export class DashboardComponent {
+
+    // TODO: Mbenakno breadcrumb
+
     constructor() {
     }
 }

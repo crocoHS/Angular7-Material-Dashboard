@@ -2,23 +2,6 @@
 <mat-dialog-content>
     <form class="example-form"
           [formGroup]="testGroup">
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Name</mat-label>
-            <input matInput placeholder="name" formControlName="name">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Your URL</mat-label>
-            <input matInput placeholder="email"
-                   formControlName="trackingUrl">
-            <!--				<mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>-->
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Detail</mat-label>
-            <textarea matInput placeholder="Detail"
-                      formControlName="detail"></textarea>
-        </mat-form-field>
 
         <div class="coverage__field">
             <tag-input formControlName="salesTeam"
@@ -37,6 +20,26 @@
             </tag-input>
             <mat-checkbox (change)='change($event, salesTeam)' [formControl]="salesTeamChecked">All City</mat-checkbox>
         </div>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="name" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Your URL</mat-label>
+            <input matInput placeholder="email"
+                   formControlName="trackingUrl">
+            <!--				<mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>-->
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Detail</mat-label>
+            <textarea matInput placeholder="Detail"
+                      formControlName="detail"></textarea>
+        </mat-form-field>
+
+
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

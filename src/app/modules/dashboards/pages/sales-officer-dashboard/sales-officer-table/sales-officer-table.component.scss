@@ -1,0 +1,50 @@
+table {
+    width: 100%;
+}
+.mat-form-field{
+    width: 30%;
+    margin: 0 auto;
+}
+.mat-row:hover{
+    background-color: rgba(63, 81, 181, .1) !important;
+}
+.mat-row:nth-child(odd){
+    background-color: #f7f7f7;
+}
+.mat-exp-pnl{
+    box-shadow: none;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/// gawe dialog
+::ng-deep{
+    @media screen and (max-width: 1200px) {
+        .container__mobile {
+            width: 100%;
+            overflow: auto;
+        }
+        table {
+            width: 1200px;
+        }
+        .table__mobile{
+            padding: 0 10px !important;
+        }
+        .mat-table-sticky{
+            border-right: #d8dce6 solid 1px;
+            padding: 10px !important;
+            background-color: antiquewhite;
+        }
+    }
+    @media screen and (max-width: 768px){
+        .sales_officer_dialog {
+            width: 90vw;
+            height: 90vh;
+            min-height: 700px;
+        }
+    }
+    .sales_officer_dialog {
+        width: 600px;
+        min-height: 500px;
+    }
+}
