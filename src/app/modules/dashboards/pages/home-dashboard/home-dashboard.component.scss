@@ -3,12 +3,20 @@
     justify-content: space-between;
 
     &__expandable {
-        width: 400px;
+        width: 250px;
     }
 
     &__date-picker {
         max-width: 300px;
         width: 90vw;
+    }
+
+    &__title {
+        margin-bottom: 0;
+        height: fit-content;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%)
     }
 
     &__form {
@@ -32,18 +40,21 @@
     height: auto;
     width: 100%;
 }
-.bar-chart{
+
+.bar-chart {
     position: relative;
     min-height: 400px;
     height: auto;
     width: 100%;
 }
-.bar-chart--2{
+
+.bar-chart--2 {
     position: relative;
     min-height: 400px;
     height: auto;
     width: 100%;
 }
+
 @media screen and (max-width: 768px) {
     .col-sm-6 {
         margin-bottom: 20px;
@@ -68,6 +79,7 @@
             width: 90%;
             margin: 0 auto;
         }
+
         &__date-picker {
             max-width: unset;
             width: 90%;
