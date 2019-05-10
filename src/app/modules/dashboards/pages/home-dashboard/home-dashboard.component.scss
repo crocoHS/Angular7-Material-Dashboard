@@ -4,8 +4,6 @@
 
     &__expandable {
         width: 400px;
-        box-shadow: none;
-        border-bottom: 2px solid rgba(0, 0, 0, .3);
     }
 
     &__date-picker {
@@ -15,7 +13,7 @@
 
     &__form {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
     }
 
     &__check-box {

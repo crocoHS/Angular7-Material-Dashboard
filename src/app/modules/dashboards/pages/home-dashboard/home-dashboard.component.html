@@ -36,22 +36,20 @@
                         <sat-datepicker #picker [rangeMode]="true" (closed)="input.blur()"></sat-datepicker>
                         <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
                     </mat-form-field>
-                    <mat-expansion-panel class="chart-option__expandable">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                Category
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
+                    <app-option-dropdown class="chart-option__expandable">
+                        <h5 title>Category</h5>
                         <form class="chart-option__form" [formGroup]="checkBoxCategory">
-                            <mat-checkbox class="chart-option__check-box" formControlName="all" >All</mat-checkbox>
-                            <mat-checkbox class="chart-option__check-box" formControlName="hot">Hot</mat-checkbox>
-                            <mat-checkbox class="chart-option__check-box" formControlName="warm">Warm</mat-checkbox>
-                            <mat-checkbox class="chart-option__check-box" formControlName="new_leads">New Leads</mat-checkbox>
-                            <mat-checkbox class="chart-option__check-box" formControlName="cold">Cold</mat-checkbox>
-                            <mat-checkbox class="chart-option__check-box" formControlName="closed">Closed</mat-checkbox>
-                            <mat-checkbox class="chart-option__check-box" formControlName="unqualified">Unqualified</mat-checkbox>
+                            <mat-checkbox formControlName="all" >All</mat-checkbox>
+                            <mat-checkbox formControlName="hot">Hot</mat-checkbox>
+                            <mat-checkbox formControlName="warm">Warm</mat-checkbox>
+                            <mat-checkbox formControlName="new_leads">New Leads</mat-checkbox>
+                            <mat-checkbox formControlName="cold">Cold</mat-checkbox>
+                            <mat-checkbox formControlName="closed">Closed</mat-checkbox>
+                            <mat-checkbox formControlName="unqualified">Unqualified</mat-checkbox>
                         </form>
-                    </mat-expansion-panel>
+                    </app-option-dropdown>
+
+
                 </div>
                 <app-line-chart *ngIf="dataForChart1$" [data]="dataForChart1$" [label]="labelForChart1$" class="line-chart"></app-line-chart>
             </div>

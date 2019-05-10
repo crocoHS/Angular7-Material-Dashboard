@@ -5,6 +5,7 @@ import { AppMaterialModule } from '../app-material.module';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { BarStackedChartComponent } from './components/bar-stacked-chart/bar-stacked-chart.component';
+import { OptionDropdownComponent } from './components/option-dropdown/option-dropdown.component';
 
 @NgModule( {
     declarations: [
@@ -12,12 +13,14 @@ import { BarStackedChartComponent } from './components/bar-stacked-chart/bar-sta
         LineChartComponent,
         BarChartComponent,
         BarStackedChartComponent,
+        OptionDropdownComponent,
     ],
     exports: [
         WidgetsComponent,
         LineChartComponent,
         BarChartComponent,
-        BarStackedChartComponent
+        BarStackedChartComponent,
+        OptionDropdownComponent
     ],
     imports: [
         CommonModule,
