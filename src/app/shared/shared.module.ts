@@ -20,7 +20,7 @@ import { OptionDropdownComponent } from './components/option-dropdown/option-dro
         LineChartComponent,
         BarChartComponent,
         BarStackedChartComponent,
-        OptionDropdownComponent
+        OptionDropdownComponent,
     ],
     imports: [
         CommonModule,
