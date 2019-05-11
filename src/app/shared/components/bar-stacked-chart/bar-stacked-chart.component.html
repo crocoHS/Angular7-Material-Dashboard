@@ -1,9 +1,11 @@
-<canvas baseChart
-        [datasets]="dataParent.data"
-        [labels]="dataParent.label"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [colors]="barChartColorScheme"
-        [chartType]="barChartType">
-</canvas>
+<div class="chart-line">
+    <canvas baseChart class="chart-line__small"
+            [datasets]="dataParent.data"
+            [labels]="dataParent.label"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [colors]="barChartColorScheme"
+            [chartType]="barChartType">
+    </canvas>
+</div>

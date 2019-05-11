@@ -22,3 +22,18 @@ mat-icon{
     font-size: initial;
     vertical-align: middle;
 }
+.bar-chart {
+    position: relative;
+    min-height: 400px;
+    height: auto;
+    width: 100%;
+}
+@media screen and (max-width: 768px) {
+    .bar-chart{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 78vw;
+        margin: 0 auto;
+    }
+}
+

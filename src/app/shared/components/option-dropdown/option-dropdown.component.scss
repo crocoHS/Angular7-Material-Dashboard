@@ -12,11 +12,7 @@
     height: 100%;
     z-index: 16;
     background-color: darken(white, 3);
-    // TODO: JADIKAN CLASS AGAR SINKRON DENGAN SVG ARROW
-    &:hover{
-        background-color: darken(white, 6);
-    }
-
+    transition: background-color .3s ease-out;
     &-container{
         width: 100%;
         height: 100%;
@@ -28,17 +24,25 @@
     &-svg{
         position: relative;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-50%) rotate(360deg);
         height: 50%;
         fill: var(--dark);
+        transition: transform .3s ease-out;
     }
 }
+.show-hover{
+    background-color: darken(white, 6);
+}
+.show-click{
+    background-color: darken(white, 9);
+}
 .rotate{
-
+    transform: translateY(-50%) rotate(180deg);
 }
 .option-dropdown__dropdown{
     display: flex;
     flex-direction: column;
+    border-radius: 0 0 4px 4px;
     position: absolute;
     top: 100%;
     padding: 10px 10px;
@@ -48,7 +52,7 @@
     width: 100%;
     transform: scaleY(0);
     transform-origin: top;
-    transition: all .3s ease-in-out;
+    transition: all .3s ease-out;
 }
 
 .show-dropdown{

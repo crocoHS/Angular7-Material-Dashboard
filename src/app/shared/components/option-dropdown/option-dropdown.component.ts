@@ -7,13 +7,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class OptionDropdownComponent implements OnInit {
     public isShowDropDown = false;
+    public isHover = false;
 
     constructor() {
     }
 
     showDropdown() {
         this.isShowDropDown = !this.isShowDropDown;
-        console.log('cok', this.isShowDropDown);
     }
 
     ngOnInit() {

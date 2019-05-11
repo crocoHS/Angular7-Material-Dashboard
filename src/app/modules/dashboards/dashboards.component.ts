@@ -28,7 +28,7 @@ import { Component } from '@angular/core';
             z-index: -1;
             width: 100%;
             height: 350px;
-            background-image: url("../../../assets/header.jpg");
+            background-image: url("./assets/header.jpg");
             background-position: center top;
             background-size: 100% 350px;
         }

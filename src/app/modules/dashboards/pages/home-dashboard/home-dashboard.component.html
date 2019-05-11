@@ -48,8 +48,6 @@
                             <mat-checkbox formControlName="unqualified">Unqualified</mat-checkbox>
                         </form>
                     </app-option-dropdown>
-
-
                 </div>
                 <app-line-chart *ngIf="dataForChart1$" [data]="dataForChart1$" [label]="labelForChart1$" class="line-chart"></app-line-chart>
             </div>
@@ -62,11 +60,11 @@
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
-                        Lead Statistic <small>Chart for Leads</small>
+                        Overall Performance
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
-                    <mat-form-field style="font-size: 1.2rem;">
+                    <mat-form-field style="font-size: 1rem;">
                         <mat-select [(ngModel)]="selected" (selectionChange)="changeIt($event.value)" name="performance">
                             <mat-option *ngFor="let jancok of dataParent; let i = index " [value]="i">{{jancok.name}}</mat-option>
                         </mat-select>
@@ -83,11 +81,11 @@
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
-                        Lead Statistic <small>Chart for Leads</small>
+                        Team Performance
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
-                    <mat-form-field style="font-size: 1.2rem;">
+                    <mat-form-field style="font-size: 1rem;">
                         <mat-select [(ngModel)]="selectedTeam" (selectionChange)="haloo($event.value)" name="teamPerformance">
                             <mat-option [value]=0>Top Sales Officer</mat-option>
                             <mat-option [value]=1>Top Sales Team</mat-option>

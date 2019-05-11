@@ -1,13 +1,7 @@
 <div class="row">
     <div class="col-md-3">
-        <div class="kt-portlet kt-portlet--height-fluid">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">Your Team</h3>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-            </div>
+        <div class="kt-mb-20" style="height: 200px;">
+            <app-widgets color="#4ECDC4" icon="laptop" text="Your Officers Performance Last Week" title="+280"></app-widgets>
         </div>
     </div>
     <div class="col-md-9">
@@ -18,7 +12,7 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-<!--                <kt-stacked-bar [dataParent]="dataForChildChart" style="position: relative; height: auto; min-height: 400px"></kt-stacked-bar>-->
+                <app-bar-stacked-chart [dataParent]="dataForChildChart" class="bar-chart"></app-bar-stacked-chart>
             </div>
         </div>
     </div>
