@@ -1,6 +1,6 @@
 <div class="row justify-content-md-center">
     <div class="col-xl-8 col-md-10">
-        <div *ngFor="let project of listOfProject" class="kt-portlet kt-portlet--solid-brand">
+        <div *ngFor="let project of listOfProject" class="kt-portlet">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">{{project.name}}</h3>
@@ -13,7 +13,8 @@
             </div>
             <div class="kt-portlet__foot kt-portlet__foot--sm kt-align-right">
                 <!-- harus di ganti dengan link route ini dan param nya-->
-                <a [routerLink]="['../detail',project.id]" class="btn btn-font-light btn-outline-hover-light">View This</a>
+                <a [routerLink]="['../detail',project.id]" class="btn btn-success">Setting</a>
+                <a [routerLink]="['../detail',project.id]" class="btn btn-primary" style="margin-left: 10px;">View This</a>
                 <!-- <a routerLink="" class="btn btn-font-light btn-outline-hover-light">View This</a> -->
             </div>
         </div>
