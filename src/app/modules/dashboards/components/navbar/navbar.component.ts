@@ -17,10 +17,15 @@ export class NavbarComponent implements AfterViewInit {
     onWindowScroll( e ) {
         if ( window.pageYOffset > this.nav.nativeElement.clientHeight ) {
             const element = document.getElementById( 'navbar' );
+            const elementSvg = document.querySelector( '.navbar-brand__svg' );
             element.classList.add( 'bg-navbar--custom' );
+            elementSvg.classList.add('navbar-brand__svg--dark');
         } else {
             const element = document.getElementById( 'navbar' );
+            const elementSvg = document.querySelector( '.navbar-brand__svg' );
+
             element.classList.remove( 'bg-navbar--custom' );
+            elementSvg.classList.remove( 'navbar-brand__svg--dark' );
         }
     }
 

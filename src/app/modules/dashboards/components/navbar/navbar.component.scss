@@ -62,6 +62,19 @@
 }
 .navbar{
     height: 80px;
+    &-brand{
+        & svg{
+            height: 40px;
+        }
+        &__svg{
+            transition: all .3s ease-in;
+            fill: var(--white);
+        }
+        &__svg--dark{
+            fill: var(--dark);
+        }
+    }
+
 }
 
 .container__nav{

@@ -1,6 +1,6 @@
 .option-dropdown__container{
     width: 100%;
-    height: 30px;
+    height: 40px;
     position: relative;
     cursor: pointer;
 }
@@ -11,8 +11,9 @@
     border-radius: 4px;
     height: 100%;
     z-index: 16;
-    background-color: darken(white, 3);
-    transition: background-color .3s ease-out;
+    color: var(--white);
+    background-color: #5867DD;
+    transition: background-color .2s ease-out;
     &-container{
         width: 100%;
         height: 100%;
@@ -25,16 +26,16 @@
         position: relative;
         top: 50%;
         transform: translateY(-50%) rotate(360deg);
-        height: 50%;
-        fill: var(--dark);
-        transition: transform .3s ease-out;
+        height: 35%;
+        fill: var(--white);
+        transition: transform .5s ease-out;
     }
 }
 .show-hover{
-    background-color: darken(white, 6);
+    background-color: darken(#5867DD, 6);
 }
 .show-click{
-    background-color: darken(white, 9);
+    background-color: darken(#5867DD, 9);
 }
 .rotate{
     transform: translateY(-50%) rotate(180deg);
@@ -47,12 +48,12 @@
     top: 100%;
     padding: 10px 10px;
     background-color: white;
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    box-shadow: 0 0 50px 0 rgba(82, 63, 105, 0.15);
     z-index: 15;
     width: 100%;
     transform: scaleY(0);
     transform-origin: top;
-    transition: all .3s ease-out;
+    transition: all .2s ease-out;
 }
 
 .show-dropdown{

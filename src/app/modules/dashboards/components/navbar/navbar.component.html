@@ -1,6 +1,22 @@
 <nav #nav  class="navbar navbar-expand-md bg-navbar fixed-top" id="navbar" (scroll)="onWindowScroll($event);">
     <div class="container__nav">
-        <a class="navbar-brand" href="#">Hidden brand</a>
+        <a class="navbar-brand" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="203.318" height="64.683" viewBox="0 0 203.318 64.683">
+                <g transform="translate(-12.958 -14.975)">
+                    <text class="navbar-brand__svg" transform="translate(84.276 68.658)" fill="#FDFFFC" font-size="54" font-family="Arial-BoldMT, Arial" font-weight="700" letter-spacing="-0.06em">
+                    <tspan x="0" y="0">JALA</tspan>
+                </text>
+                    <g transform="translate(243.458 -332.025)">
+                        <g transform="translate(-230.5 347)">
+                            <rect width="64" height="64" fill="#fc0000" rx="5"></rect>
+                        </g>
+                        <g transform="translate(-230.5 368.734)">
+                            <path d="M-181.081,382H-230.5v6.112h14.11l15.866,27.505c1.561,2.666,4.032,2.666,5.592,0l16.646-28.806C-176.789,384.146-178.025,382-181.081,382Zm-16.646,25.035-10.014-18.857h20.028Z" transform="translate(230.5 -382)" fill="#fff"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </a>
         <mat-icon (click)="show()">menu</mat-icon>
         <div class="collapse navbar-collapse" [ngClass]="{'show-nav': isShow}" >
             <mat-icon class="custom-icon" (click)="show()">close</mat-icon>

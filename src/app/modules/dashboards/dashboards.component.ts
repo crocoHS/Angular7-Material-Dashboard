@@ -16,27 +16,7 @@ import { Component } from '@angular/core';
             </div>
         </div>
     `,
-    styles: [ `
-        .grid-custom {
-            margin-top: 80px;
-        }
-
-        .bg-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 350px;
-            background-image: url("./assets/header.jpg");
-            background-position: center top;
-            background-size: 100% 350px;
-        }
-
-        .kt-content {
-            padding: 0 0 30px 0;
-        }
-    ` ]
+    styleUrls: [ `./dashboards.component.scss` ]
 } )
 export class DashboardComponent {
 
