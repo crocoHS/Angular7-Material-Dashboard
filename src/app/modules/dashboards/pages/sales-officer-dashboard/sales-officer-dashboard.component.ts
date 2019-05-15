@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {dummyAss} from './dataDummy';
+import {Dummy, dummyAss} from './dataDummy';
+import {SalesOfficerDialogComponent} from './sales-officer-dialog/sales-officer-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
     selector: 'app-sales-officer-dashboard',
@@ -18,7 +20,24 @@ export class SalesOfficerDashboardComponent implements OnInit {
     };
     public dataForTable = dummyAss;
 
-    constructor() {
+    constructor( private dialog: MatDialog ) {
+    }
+
+    addData( ) {
+        const dialogRef = this.dialog.open( SalesOfficerDialogComponent, {
+            panelClass: 'sales_officer_dialog'
+        } );
+        dialogRef.afterClosed().subscribe( ( result: Dummy ) => {
+            // if ( result ) {
+            //     this.dataSource.data.forEach( arr => {
+            //         if ( arr.id === result.id ) {
+            //             Object.assign( arr, result );
+            //         }
+            //     } );
+            //     this.table.renderRows();
+            //     console.log( this.dataSource.data, 'jancok' );
+            // }
+        } );
     }
 
     ngOnInit() {

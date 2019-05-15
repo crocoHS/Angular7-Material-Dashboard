@@ -4,6 +4,12 @@
     height: auto;
     width: 100%;
 }
+mat-icon{
+    height: auto;
+    text-align: left;
+    font-size: initial;
+    vertical-align: middle;
+}
 @media screen and (max-width: 768px) {
     .bar-chart{
         overflow-x: scroll;
