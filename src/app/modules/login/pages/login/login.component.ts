@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     }
 
     loginForm = this.fb.group( {
-        email: [ 'pradhigda17@gmail.com', [ Validators.email, Validators.required ] ],
+        email: [ 'brengsek@gmail.com', [ Validators.email, Validators.required ] ],
         password: [ '123', [ Validators.required ] ]
     } );
 
@@ -30,19 +30,19 @@ export class LoginComponent implements OnInit {
         if ( this.loginForm.valid ) {
             this.http.login( this.loginForm.value )
                 .pipe(
-                    // TODO: UNTUK TEST SAJA, HARUS DIGANTI
-                    // Gawe Demo nang Goyeng pake dibawah ini jika bukan demo
-                    /*tap( (result: any) => {
+                    tap( (result: any) => {
                         const user = new JwtHelperService().decodeToken(result.token);
                         user.token = result.token;
                         this.store.dispatch( new Login( { user } ));
                         this.router.navigateByUrl('/dashboard');
-                    } )*/
-                    tap( (result: any) => {
+                    } )
+                    // TODO: UNTUK TEST SAJA, HARUS DIGANTI
+                    // Gawe Demo nang Goyeng pake dibawah ini jika bukan demo
+                    /*tap( (result: any) => {
                         const user = result;
                         this.store.dispatch( new Login( { user } ));
                         this.router.navigateByUrl('/dashboard');
-                    } )
+                    } )*/
                 )
                 .subscribe(
                     () => {
