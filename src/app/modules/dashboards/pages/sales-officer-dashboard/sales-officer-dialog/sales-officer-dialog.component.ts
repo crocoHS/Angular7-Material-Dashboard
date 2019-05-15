@@ -13,19 +13,19 @@ export class SalesOfficerDialogComponent implements OnInit {
     public allCoverage: Coverage[];
     private curCoverage;
     private dummyData: Dummy;
-    coverageChecked = new FormControl( 'coverageChecked' );
+    coverageChecked = new FormControl( '' );
     /////////////////////
     testGroup = new FormGroup( {
-        name: new FormControl( 'name', Validators.required ),
-        email: new FormControl( 'email', [ Validators.email, Validators.required ] ),
-        phone: new FormControl( 'phone', [
+        name: new FormControl( '', Validators.required ),
+        email: new FormControl( '', [ Validators.email, Validators.required ] ),
+        phone: new FormControl( '', [
             Validators.required,
             Validators.pattern( /[0-9\+\-\ ]/ )
         ] ),
-        address: new FormControl( 'address', Validators.required ),
-        picName: new FormControl( 'picName', Validators.required ),
-        password: new FormControl( 'password', Validators.required ),
-        coverage: new FormControl( 'coverage', Validators.required ),
+        address: new FormControl( '', Validators.required ),
+        picName: new FormControl( '', Validators.required ),
+        password: new FormControl( '', Validators.required ),
+        coverage: new FormControl( '', Validators.required ),
     } );
 
     //////////////////////////
