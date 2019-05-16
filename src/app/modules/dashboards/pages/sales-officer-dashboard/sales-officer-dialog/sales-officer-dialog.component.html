@@ -8,9 +8,12 @@
                        theme='minimal' #city
                        placeholder="Add City"
                        [disable]=false
+                       [validators]="cok"
+                       [errorMessages]="cok2"
                        [onlyFromAutocomplete]="true">
                 <tag-input-dropdown
                     [autocompleteItems]="allCoverage"
+                    [appendToBody]="false"
                     [keepOpen]="false"
                     [showDropdownIfEmpty]="true"
                     [dynamicUpdate]="true"

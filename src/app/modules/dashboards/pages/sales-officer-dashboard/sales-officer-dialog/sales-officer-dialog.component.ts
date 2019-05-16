@@ -9,6 +9,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
     styleUrls: [ './sales-officer-dialog.component.scss' ]
 } )
 export class SalesOfficerDialogComponent implements OnInit {
+    // TODO: MENDING NGGAWE https://github.com/ng-select/ng-select timbang chip, ngebug asu
+    //////////////////////////
+    constructor(
+        public dialogRef: MatDialogRef<SalesOfficerDialogComponent>,
+        @Inject( MAT_DIALOG_DATA ) public data
+    ) {
+    }
 
     public allCoverage: Coverage[];
     private curCoverage;
@@ -27,12 +34,18 @@ export class SalesOfficerDialogComponent implements OnInit {
         password: new FormControl( '', Validators.required ),
         coverage: new FormControl( '', Validators.required ),
     } );
+    public cok = [this.isRequired];
+    public cok2 = {
+        'required' : 'Please tolong'
+    };
 
-    //////////////////////////
-    constructor(
-        public dialogRef: MatDialogRef<SalesOfficerDialogComponent>,
-        @Inject( MAT_DIALOG_DATA ) public data
-    ) {
+    private isRequired( control: FormControl ) {
+        console.log(control.value);
+        if ( control.hasError('required') ) {
+            return {
+                'required': true
+            };
+        }
     }
 
     //////////////////////
@@ -100,7 +113,12 @@ export class SalesOfficerDialogComponent implements OnInit {
 
     onSubmit( data: FormGroup ) {
         if ( data.valid ) {
-            this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
+            if ( this.dummyData ) {
+                this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
+            } else {
+                console.log( data.value );
+                this.dialogRef.close( data.value );
+            }
         }
     }
 

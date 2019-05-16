@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
-    private url = 'http://localhost:3000/api/auth';
+    private url = 'http://52.77.226.131:6969/api/auth';
 
     constructor( private http: HttpClient ) {
     }
