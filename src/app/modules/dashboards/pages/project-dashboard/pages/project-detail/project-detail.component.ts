@@ -122,14 +122,15 @@ export class ProjectDetailComponent implements OnInit {
         // Untuk mendapatkan detail project
         // Harusnya ambil dari API HTTP PROJECT
         // Dan akan dipass ke child berikutnya seperti detailnya untuk component setting
-        this.router.paramMap.subscribe( ( params: ParamMap ) => {
-            const getId = Number( params.get( 'id' ) );
-            this.project.forEach( arr => {
-                if ( arr.id === getId ) {
-                    this.projectInUsedData = arr;
-                }
+        this.router.paramMap
+            .subscribe( ( params: ParamMap ) => {
+                const getId = Number( params.get( 'id' ) );
+                this.project.forEach( arr => {
+                    if ( arr.id === getId ) {
+                        this.projectInUsedData = arr;
+                    }
+                } );
             } );
-        } );
         this.http.get( 'assets/data_palsu.json' )
             .subscribe( ( result: any[] ) => {
                     this.dummyData$ = result;
@@ -144,19 +145,20 @@ export class ProjectDetailComponent implements OnInit {
                 }
             );
         // Ini untuk subscribe listen filter dan merubah data untuk chart dan tabel lead
-        this.filterGroup.valueChanges.subscribe( result => {
-            let res = this.dummyData$;
-            const obj = this.removeFalsy( result );
-            const arrOfVal = Object.values( obj );
-            const arrOfKeys = Object.keys( obj );
-            if ( arrOfVal ) {
-                arrOfKeys.forEach( ( arr, index ) => {
-                    res = res.filter( el => el[ arr ] === arrOfVal[ index ] );
-                } );
-            }
-            this.dataForLeadsComp = res;
-            this.dataForChart = this.forChart( res );
-        } );
+        this.filterGroup.valueChanges
+            .subscribe( result => {
+                let res = this.dummyData$;
+                const obj = this.removeFalsy( result );
+                const arrOfVal = Object.values( obj );
+                const arrOfKeys = Object.keys( obj );
+                if ( arrOfVal ) {
+                    arrOfKeys.forEach( ( arr, index ) => {
+                        res = res.filter( el => el[ arr ] === arrOfVal[ index ] );
+                    } );
+                }
+                this.dataForLeadsComp = res;
+                this.dataForChart = this.forChart( res );
+            } );
     }
 
 }

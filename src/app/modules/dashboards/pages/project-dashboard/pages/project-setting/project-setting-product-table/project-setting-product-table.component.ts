@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { IProducts } from '../project-setting.component';
 import { ProjectSettingProductDialogComponent } from '../project-setting-product-dialog/project-setting-product-dialog.component';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 @Component( {
     selector: 'app-project-setting-product-table',
@@ -11,8 +12,9 @@ import { ProjectSettingProductDialogComponent } from '../project-setting-product
 export class ProjectSettingProductTableComponent implements OnInit {
     @Input() dataFromParent: IProducts[];
     public dataStore: IProducts[];
-
-    constructor( private dialog: MatDialog, private ref: ChangeDetectorRef ) {
+    public projectId: string;
+    constructor( private dialog: MatDialog, private ref: ChangeDetectorRef, private router: ActivatedRoute) {
+        this.projectId = this.router.snapshot.paramMap.get('id');
     }
 
     addProduct() {

@@ -11,8 +11,13 @@ import { ProjectNewComponent } from './pages/project-dashboard/pages/project-new
 import { ProjectSettingComponent } from './pages/project-dashboard/pages/project-setting/project-setting.component';
 import {SalesOfficerDashboardComponent} from './pages/sales-officer-dashboard/sales-officer-dashboard.component';
 import { UserSettingDashboardComponent } from './pages/user-setting-dashboard/user-setting-dashboard.component';
+import { ProjectSettingProductsComponent } from './pages/project-dashboard/pages/project-setting-products/project-setting-products.component';
 
 const routes: Routes = [
+    /*  TODO: WILDCARD ROUTING HARUS ADA, SEMISAL USER TIDAK SENGAJA
+         KETIKA USER TIDAK SENGAJA AKSES project/setting/:id ngawur sebelum lewat list harus di
+            kembalikan ke route project-list
+    */
     {
         path: '',
         component: DashboardComponent,
@@ -68,6 +73,10 @@ const routes: Routes = [
                     {
                         path: 'setting/:id',
                         component: ProjectSettingComponent
+                    },
+                    {
+                        path: 'setting-product/:id',
+                        component: ProjectSettingProductsComponent
                     },
                 ]
             },

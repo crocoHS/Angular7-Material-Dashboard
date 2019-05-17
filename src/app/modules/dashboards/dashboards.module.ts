@@ -31,6 +31,7 @@ import { SalesOfficerTableComponent } from './pages/sales-officer-dashboard/sale
 import { UserSettingDashboardComponent } from './pages/user-setting-dashboard/user-setting-dashboard.component';
 import { UserSettingChangeDialogComponent } from './pages/user-setting-dashboard/user-setting-change-dialog/user-setting-change-dialog.component';
 import { UserSettingAddDialogComponent } from './pages/user-setting-dashboard/user-setting-add-dialog/user-setting-add-dialog.component';
+import { ProjectSettingProductsComponent } from './pages/project-dashboard/pages/project-setting-products/project-setting-products.component';
 
 @NgModule( {
     declarations: [
@@ -60,6 +61,7 @@ import { UserSettingAddDialogComponent } from './pages/user-setting-dashboard/us
         UserSettingDashboardComponent,
         UserSettingChangeDialogComponent,
         UserSettingAddDialogComponent,
+        ProjectSettingProductsComponent,
     ],
     imports: [
         CommonModule,

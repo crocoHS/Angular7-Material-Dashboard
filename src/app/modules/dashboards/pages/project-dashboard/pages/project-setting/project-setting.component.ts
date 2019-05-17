@@ -93,7 +93,6 @@ export class ProjectSettingComponent implements OnInit {
             Object.assign( this.dataProject, this.projectForm.value );
             this.dataProject.products = this.dataProduct.dataStore;
             this.dataProject.status = this.dataStatus.dataStore;
-            console.log( this.dataProject );
             this.location.back();
         }
     }

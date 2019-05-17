@@ -1,0 +1,54 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">Product Setting</h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="image__carousel">
+                    <img *ngFor="let img of productImage; let i = index" [src]="img" alt="image {{i}}"
+                         [ngClass]="{'image__carousel--active': carouselImage === i}">
+                </div>
+                <div class="image__container">
+                    <div class="image__item" *ngFor="let img of productImage; let i = index">
+                        <img alt="cok" [src]="img" (click)="changeImage(i)">
+                    </div>
+                    <div class="image__item image__item--upload" (click)="upload.click()">
+                        <input #upload type="file">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <form [formGroup]="formGroup" class="form__group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Name"
+                               formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Description"
+                                  formControlName="description"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <input type="number" matInput placeholder="Price"
+                               formControlName="price">
+                        <span matPrefix>Rp.&nbsp;</span>
+                        <span matSuffix>.00</span>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <input type="number" matInput placeholder="Min. Booking Price"
+                               formControlName="minPrice" [min]="formGroup.get('price').value">
+                        <span matPrefix>Rp.&nbsp;</span>
+                        <span matSuffix>.00</span>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,10 @@
-.custom {
-    display: block;
-    margin: 0 0 0 auto
+.product__action {
+    display: flex;
+    justify-content: flex-end;
+}
+.product__action button{
+    margin-right: 10px;
+    &:last-child{
+        margin-right: 0;
+    }
 }

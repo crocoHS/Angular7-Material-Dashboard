@@ -28,6 +28,11 @@
         </tbody>
     </table>
 </div>
-<button class="btn btn-brand custom" (click)="addProduct()">
-    <i class="flaticon2-plus"></i> Add Product
-</button>
+<div class="product__action">
+    <button class="btn btn-warning" [routerLink]="['../../setting-product', projectId]">
+        <i class="flaticon2-plus"></i> Setting Products
+    </button>
+    <button class="btn btn-brand" (click)="addProduct()">
+        <i class="flaticon2-plus"></i> Add Product
+    </button>
+</div>

@@ -1,0 +1,70 @@
+
+////// FIX Number type mombol prefix e ////////
+.mat-form-field-infix {
+    top: -0.25em;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: -0.25em !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-label {
+    margin-top: 0em;
+}
+/////////////////////////////////////////////////
+
+.form__group{
+    display: flex;
+    flex-direction: column;
+}
+
+.image{
+    &__container{
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    &__item{
+        width: 6vw;
+        height: 6vw;
+        margin: 10px;
+        cursor: pointer;
+        & img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &--upload{
+            background-color: var(--gray);
+            & input {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    }
+
+    &__carousel{
+        width: 100%;
+        height: calc(100vw/6);
+        position: relative;
+        & img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            visibility: hidden;
+            transition: all .7s ease;
+        }
+        &--active{
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    }
+}
