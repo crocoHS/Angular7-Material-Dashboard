@@ -1,15 +1,13 @@
 
 ////// FIX Number type mombol prefix e ////////
-.mat-form-field-infix {
+:host ::ng-deep .mat-form-field-infix{
     top: -0.25em;
 }
-
-.mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix {
-    top: -0.25em !important;
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+    margin-top: 0;
 }
-
-.mat-form-field-appearance-outline .mat-form-field-label {
-    margin-top: 0em;
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix, :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: -0.25em;
 }
 /////////////////////////////////////////////////
 
@@ -17,7 +15,14 @@
     display: flex;
     flex-direction: column;
 }
-
+.form__divider{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & mat-form-field{
+        width: 48%;
+    }
+}
 .image{
     &__container{
         width: 100%;
@@ -31,26 +36,44 @@
         width: 6vw;
         height: 6vw;
         margin: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.1);
         cursor: pointer;
         & img{
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
+        ///////////////////////
         &--upload{
             background-color: var(--gray);
+            position: relative;
             & input {
                 opacity: 0;
                 visibility: hidden;
             }
+
         }
+        &--svg{
+            width: 50%;
+            height: 50%;
+            fill: rgba(255,255,255,.5);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        /////////////////////////
     }
 
     &__carousel{
         width: 100%;
-        height: calc(100vw/6);
+        height: calc(100vw/3);
         position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.1);
         & img{
             position: absolute;
             top: 0;
