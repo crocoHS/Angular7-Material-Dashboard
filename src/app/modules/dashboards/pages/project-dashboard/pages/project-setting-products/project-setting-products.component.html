@@ -28,46 +28,105 @@
                                 </g>
                             </svg>
                         </div>
-                        <input #upload type="file">
+                        <input #upload type="file" accept="image/*">
                     </div>
                 </div>
             </div>
             <div class="col-md-5">
-                <form [formGroup]="formGroup" class="form__group">
+                <div class="kt-portlet kt-portlet--bordered">
+                    <div class="kt-portlet__body">
+                        <div class="kt-section kt-section--first">
+                            <h3 class="kt-section__title">Product Detail</h3>
+                            <form [formGroup]="formGroup" class="form__group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput placeholder="Name"
+                                           formControlName="name">
+                                </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Name</mat-label>
-                        <input matInput placeholder="Name"
-                               formControlName="name">
-                    </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Description</mat-label>
+                                    <textarea matInput placeholder="Description"
+                                              formControlName="description"></textarea>
+                                </mat-form-field>
+                                <div class="form__divider">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Price</mat-label>
+                                        <input type="number" matInput placeholder="Price" min="0"
+                                               formControlName="price">
+                                        <span matPrefix>Rp.&nbsp;</span>
+                                        <span matSuffix>.00</span>
+                                    </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="Description"
-                                  formControlName="description"></textarea>
-                    </mat-form-field>
-                    <div class="form__divider">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Price</mat-label>
-                            <input type="number" matInput placeholder="Price" min="0"
-                                   formControlName="price">
-                            <span matPrefix>Rp.&nbsp;</span>
-                            <span matSuffix>.00</span>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline">
-                            <mat-label>Min. Booking Price</mat-label>
-                            <input type="number" matInput placeholder="Min. Booking Price"
-                                   formControlName="minPrice" min="0" [max]="formGroup.get('price').value"
-                                   (change)="changeMinPrice()">
-                            <span matPrefix>Rp.&nbsp;</span>
-                            <span matSuffix>.00</span>
-                            <mat-hint>Must not exceeded from Price</mat-hint>
-                        </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Min. Booking Price</mat-label>
+                                        <input type="number" matInput placeholder="Min. Booking Price"
+                                               formControlName="minPrice" min="0" [max]="formGroup.get('price').value"
+                                               (change)="changeMinPrice()">
+                                        <span matPrefix>Rp.&nbsp;</span>
+                                        <span matSuffix>.00</span>
+                                        <mat-hint>Must not exceeded from Price</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <!--                    <button (click)="cok()">BLOK</button>-->
+                            </form>
+                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                            <h3 class="kt-section__title">Product Category</h3>
+                            <form class="form__group" [formGroup]="formGroup2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Category</mat-label>
+                                    <input matInput placeholder="Category"
+                                           formControlName="category">
+                                    <mat-hint>Category of Product. Ex: Apartment, Ruko</mat-hint>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-chip-list #chipList>
+                                        <mat-chip *ngFor="let tags of tagMulti" [selectable]="false"
+                                                  [removable]="true" (removed)="remove(tags)">
+                                            {{tags.name}}
+                                            <mat-icon matChipRemove>cancel</mat-icon>
+                                        </mat-chip>
+                                        <input placeholder="Add Sub Category"
+                                               formControlName="subCategory"
+                                               [matChipInputFor]="chipList"
+                                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                               [matChipInputAddOnBlur]="true"
+                                               (matChipInputTokenEnd)="add($event)">
+                                    </mat-chip-list>
+                                    <mat-hint>Sub Category of Product. Ex: Location, Sales Team</mat-hint>
+                                </mat-form-field>
+                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                                <h3 class="kt-section__title">Product Info</h3>
+                                <div class="form__divider--three" formArrayName="infos" *ngFor="let item of infosFormGroup.controls; let i=index">
+                                    <ng-container [formGroupName]="i">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Info Name</mat-label>
+                                            <input matInput placeholder="Info Name"
+                                            formControlName="name">
+                                            <mat-hint>Ex: Bedroom</mat-hint>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Info Value</mat-label>
+                                            <input matInput placeholder="Info Value"
+                                                   formControlName="value">
+                                        </mat-form-field>
+                                        <button mat-icon-button>
+                                            <mat-icon (click)="deleteInfo(i)">delete</mat-icon>
+                                        </button>
+                                    </ng-container>
+                                </div>
+                                <button class="btn btn-primary" (click)="addInfo()">Add Info</button>
+                            </form>
+                        </div>
                     </div>
-                    <!--                    <button (click)="cok()">BLOK</button>-->
-                </form>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="kt-portlet__foot">
+        <div class="footer--action">
+            <button type="submit" class="btn btn-success" (click)="submitAllForm()">Submit</button>
+            <button type="submit" class="btn btn-secondary" style="margin-left: 5px;">Cancel</button>
         </div>
     </div>
 </div>
