@@ -20,7 +20,7 @@
                 <button mat-flat-button (click)="editProductsActive(product)" [color]="product.status ? 'primary' : 'warn'">{{ product.status ? 'Active' : 'Inactive'}}</button>
             </td>
             <td>
-                <button mat-icon-button (click)="editProducts(product)" color="warn">
+                <button mat-icon-button [routerLink]="['product', product.id]" color="warn">
                     <mat-icon>edit</mat-icon>
                 </button>
             </td>
@@ -29,9 +29,6 @@
     </table>
 </div>
 <div class="product__action">
-    <button class="btn btn-warning" [routerLink]="['../../setting-product', projectId]">
-        <i class="flaticon2-plus"></i> Setting Products
-    </button>
     <button class="btn btn-brand" (click)="addProduct()">
         <i class="flaticon2-plus"></i> Add Product
     </button>

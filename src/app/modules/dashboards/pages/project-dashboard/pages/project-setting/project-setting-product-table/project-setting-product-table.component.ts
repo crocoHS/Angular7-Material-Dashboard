@@ -40,8 +40,8 @@ export class ProjectSettingProductTableComponent implements OnInit {
         } );
     }
 
-    editProducts( data ) {
-        const dialogRef = this.dialog.open( ProjectSettingProductDialogComponent, {
+    editProducts( index ) {
+        /*const dialogRef = this.dialog.open( ProjectSettingProductDialogComponent, {
             maxWidth: '500px',
             width: '90vw',
             panelClass: [ 'product-dialog' ],
@@ -53,7 +53,8 @@ export class ProjectSettingProductTableComponent implements OnInit {
                 this.ref.markForCheck();
                 console.log( this.dataStore );
             }
-        } );
+        } );*/
+    console.log(index);
     }
 
     editProductsActive( data ) {

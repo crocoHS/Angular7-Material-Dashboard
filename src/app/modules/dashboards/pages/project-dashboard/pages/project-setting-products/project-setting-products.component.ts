@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, ValidationErrors, Validators }
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
+import {ActivatedRoute} from '@angular/router';
 
 @Component( {
     selector: 'app-project-setting-products',
@@ -37,7 +38,8 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     public infos: any[] = [];
 
     /////////////////////////////
-    constructor( private fb: FormBuilder ) {
+    constructor( private fb: FormBuilder, private router: ActivatedRoute) {
+        console.log(this.router.snapshot.params);
     }
 
     // for Price Form

@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboards.component';
-import { HomeDashboardComponent } from './pages/home-dashboard/home-dashboard.component';
-import { SalesTeamDashboardComponent } from './pages/sales-team-dashboard/sales-team-dashboard.component';
-import { AuthGuardService } from '../../core/guards/auth-guard.service';
-import { ProjectDashboardComponent } from './pages/project-dashboard/project-dashboard.component';
-import { ProjectListComponent } from './pages/project-dashboard/pages/project-list/project-list.component';
-import { ProjectDetailComponent } from './pages/project-dashboard/pages/project-detail/project-detail.component';
-import { ProjectNewComponent } from './pages/project-dashboard/pages/project-new/project-new.component';
-import { ProjectSettingComponent } from './pages/project-dashboard/pages/project-setting/project-setting.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {DashboardComponent} from './dashboards.component';
+import {HomeDashboardComponent} from './pages/home-dashboard/home-dashboard.component';
+import {SalesTeamDashboardComponent} from './pages/sales-team-dashboard/sales-team-dashboard.component';
+import {AuthGuardService} from '../../core/guards/auth-guard.service';
+import {ProjectDashboardComponent} from './pages/project-dashboard/project-dashboard.component';
+import {ProjectListComponent} from './pages/project-dashboard/pages/project-list/project-list.component';
+import {ProjectDetailComponent} from './pages/project-dashboard/pages/project-detail/project-detail.component';
+import {ProjectNewComponent} from './pages/project-dashboard/pages/project-new/project-new.component';
+import {ProjectSettingComponent} from './pages/project-dashboard/pages/project-setting/project-setting.component';
 import {SalesOfficerDashboardComponent} from './pages/sales-officer-dashboard/sales-officer-dashboard.component';
-import { UserSettingDashboardComponent } from './pages/user-setting-dashboard/user-setting-dashboard.component';
-import { ProjectSettingProductsComponent } from './pages/project-dashboard/pages/project-setting-products/project-setting-products.component';
+import {UserSettingDashboardComponent} from './pages/user-setting-dashboard/user-setting-dashboard.component';
+import {ProjectSettingProductsComponent} from './pages/project-dashboard/pages/project-setting-products/project-setting-products.component';
 
 const routes: Routes = [
     /*  TODO: WILDCARD ROUTING HARUS ADA, SEMISAL USER TIDAK SENGAJA
@@ -72,12 +72,25 @@ const routes: Routes = [
                     },
                     {
                         path: 'setting/:id',
-                        component: ProjectSettingComponent
+                        children: [
+                            {
+                                path: '',
+                                component: ProjectSettingComponent
+                            },
+                            {
+                                path: 'product/:prodId',
+                                component: ProjectSettingProductsComponent
+                            },
+                            {
+                                path: '**',
+                                redirectTo: ''
+                            },
+                        ],
                     },
                     {
-                        path: 'setting-product/:id',
-                        component: ProjectSettingProductsComponent
-                    },
+                        path: '**',
+                        redirectTo: ''
+                    }
                 ]
             },
             {
@@ -86,13 +99,18 @@ const routes: Routes = [
                 data: {
                     breadcrumb: 'user-setting'
                 }
-            }
+            },
+            {
+                path: '**',
+                redirectTo: ''
+            },
         ]
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class DashboardsRoutingModule { }
+export class DashboardsRoutingModule {
+}
