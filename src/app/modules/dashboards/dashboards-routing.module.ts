@@ -17,6 +17,7 @@ const routes: Routes = [
     /*  TODO: WILDCARD ROUTING HARUS ADA, SEMISAL USER TIDAK SENGAJA
          KETIKA USER TIDAK SENGAJA AKSES project/setting/:id ngawur sebelum lewat list harus di
             kembalikan ke route project-list
+            IKI UWES KUDUNE
     */
     {
         path: '',

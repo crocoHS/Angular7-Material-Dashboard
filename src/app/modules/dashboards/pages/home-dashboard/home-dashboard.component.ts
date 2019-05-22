@@ -213,7 +213,7 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
     ngOnInit() {
         const startDate = moment().subtract( 30, 'days' );
         const endDate = moment();
-        this.http.getDataLocal().subscribe( val => {
+        this.http.getDataLeads().subscribe( val => {
             this.storeData = this.groupData( val );
             const timeChart = this.timeForChart( startDate, endDate );
             const range = this.generateLabel( startDate, endDate, timeChart );

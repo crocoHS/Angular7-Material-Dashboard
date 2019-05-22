@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -11,23 +11,36 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth/auth.effects';
 import { DashboardOverviewService } from './services/dashboard-overview/dashboard-overview.service';
+import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
+import { HttpTokenInterceptor } from './interceptors/http-token.interceptor';
+import { GlobalErrorHandler } from './error/global-error-handler';
 
 @NgModule( {
     declarations: [],
     imports: [
         CommonModule,
         HttpClientModule,
-
         // ----------------------- NGRX store ---------------------- //
-        StoreModule.forRoot(reducers, { metaReducers }),
+        StoreModule.forRoot( reducers, { metaReducers } ),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        StoreModule.forFeature('auth', fromAuth.reducer),
-        EffectsModule.forRoot([AuthEffects]),
+        StoreModule.forFeature( 'auth', fromAuth.reducer ),
+        EffectsModule.forRoot( [ AuthEffects ] ),
     ],
     providers: [
         AuthenticationService,
         AuthGuardService,
-        DashboardOverviewService
+        DashboardOverviewService,
+        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorHandlerInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpTokenInterceptor,
+            multi: true
+        }
     ]
 } )
 export class CoreModule {

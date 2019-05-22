@@ -2,6 +2,7 @@
 @import "assets/style.bundle2.css";
 @import '~@angular/material/theming';
 @import '~saturn-datepicker/theming';
+@import '~ngx-toastr/toastr';
 
 $md-main-theme: (
     50 : #ebedfb,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { dummyAss } from './dataDummy';
+import { DashboardOverviewService } from '../../../../core/services/dashboard-overview/dashboard-overview.service';
 
 @Component( {
     selector: 'app-sales-team-dashboard',
@@ -7,6 +8,8 @@ import { dummyAss } from './dataDummy';
     styleUrls: [ './sales-team-dashboard.component.scss' ]
 } )
 export class SalesTeamDashboardComponent implements OnInit {
+    // TODO: INI MASIH BELUM SAMA DENGAN YANG ADA
+    // Button add yo gurung onok
     public dataForChildChart = {
         data: [
             { data: [ 65, 0 ], label: 'Hot' },
@@ -18,7 +21,7 @@ export class SalesTeamDashboardComponent implements OnInit {
     };
     public dataForTable = dummyAss;
 
-    constructor() {
+    constructor( private http: DashboardOverviewService ) {
     }
 
     ngOnInit() {

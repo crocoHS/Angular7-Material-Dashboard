@@ -69,7 +69,7 @@ import { ProjectSettingProductsComponent } from './pages/project-dashboard/pages
         AppMaterialModule,
         SharedModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
     ],
     entryComponents: [
         SalesTeamDashboardDialogComponent,

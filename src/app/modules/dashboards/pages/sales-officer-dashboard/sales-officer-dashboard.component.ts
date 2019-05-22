@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material';
     styleUrls: ['./sales-officer-dashboard.component.scss']
 })
 export class SalesOfficerDashboardComponent implements OnInit {
+    // TODO: IKI YO SEK NGEBUG
     public dataForChildChart = {
         data: [
             {data: [65, 0], label: 'Hot'},

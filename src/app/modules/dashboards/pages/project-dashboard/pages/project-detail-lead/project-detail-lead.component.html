@@ -21,12 +21,24 @@
             <ng-container matColumnDef="category">
                 <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Category</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <span *ngIf="element.category === 'cold'" class="cold-bg">{{ element.category }}</span>
-                    <span *ngIf="element.category === 'hot'" class="hot-bg">{{ element.category }}</span>
-                    <span *ngIf="element.category === 'unqualified'" class="unqualified-bg">{{ element.category }}</span>
-                    <span *ngIf="element.category === 'new lead'" class="new-leads-bg">{{ element.category }}</span>
-                    <span *ngIf="element.category === 'closed'" class="closed-bg">{{ element.category }}</span>
-                    <span *ngIf="element.category === 'warm'" class="warm-bg">{{ element.category }}</span>
+                    <ng-template [ngIf]="element.category === 'cold'">
+                        <span class="cold-bg">{{ element.category }}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="element.category === 'hot'" >
+                        <span class="hot-bg">{{ element.category }}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="element.category === 'unqualified'" >
+                        <span class="unqualified-bg">{{ element.category }}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="element.category === 'new lead'">
+                        <span class="new-leads-bg">{{ element.category }}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="element.category === 'closed'" >
+                        <span class="closed-bg">{{ element.category }}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="element.category === 'warm'" >
+                        <span class="warm-bg">{{ element.category }}</span>
+                    </ng-template>
                 </td>
             </ng-container>
 

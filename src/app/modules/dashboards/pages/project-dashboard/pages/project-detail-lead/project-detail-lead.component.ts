@@ -25,7 +25,7 @@ export class ProjectDetailLeadComponent implements OnChanges {
     @ViewChild( MatTable ) table: MatTable<ILead>;
     @ViewChild( MatSort ) sort: MatSort;
     displayedColumns: string[] = [ 'id', 'name', 'category', 'status', 'salesTeam', 'salesOfficer', 'campaign', 'channel' ];
-    dataSource = new MatTableDataSource<ILead>();
+    dataSource = new MatTableDataSource<ILead>(this.dataFromParent);
 
     constructor() {
     }
@@ -38,7 +38,7 @@ export class ProjectDetailLeadComponent implements OnChanges {
     }
 
     ngOnChanges( data: SimpleChanges ) {
-        if ( data[ 'dataFromParent' ] ) {
+        if ( data[ 'dataFromParent' ]) {
             this.dataSource.data = this.dataFromParent;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

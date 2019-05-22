@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store';
+import { Logout } from '../../store/auth/auth.actions';
 
 @Injectable()
 export class AuthenticationService {
     private url = 'https://mersacs.com/api/auth';
 
-    constructor( private http: HttpClient ) {
+    constructor( private http: HttpClient, private store: Store<AppState> ) {
     }
 
     // Untuk demo saja
@@ -26,5 +29,9 @@ export class AuthenticationService {
         return this.http.post( this.url, body );
         // UNTUK DEMO SAJA
         // return this.userPayload$;
+    }
+
+    logout() {
+        this.store.dispatch( new Logout() );
     }
 }

@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
                 )
                 .subscribe(
                     () => {
-                    },
-                    ( err ) => alert( err )
+                    }
                 );
         }
     }

@@ -47,6 +47,20 @@ export class ProjectDetailComponent implements OnInit {
     } );
 
     constructor( private router: ActivatedRoute, private http: HttpClient ) {
+        this.filterGroup.valueChanges
+            .subscribe( result => {
+                let res = this.dummyData$;
+                const obj = this.removeFalsy( result );
+                const arrOfVal = Object.values( obj );
+                const arrOfKeys = Object.keys( obj );
+                if ( arrOfVal ) {
+                    arrOfKeys.forEach( ( arr, index ) => {
+                        res = res.filter( el => el[ arr ] === arrOfVal[ index ] );
+                    } );
+                }
+                this.dataForLeadsComp = res;
+                this.dataForChart = this.forChart( res );
+            } );
     }
 
     // Gawe filter
@@ -61,9 +75,16 @@ export class ProjectDetailComponent implements OnInit {
     }
 
     setSelectArray( arrayData, key ) {
-        return Array.from( new Set( arrayData.map( ( item: any ) => item[ key ] ) ) );
+        return arrayData.reduce( ( acc, cur ) => {
+            if ( !acc.includes( cur[key] ) ) {
+                acc.push( cur[key] );
+            }
+            return acc;
+        }, [] );
+        // return Array.from( new Set( arrayData.map( ( item: any ) => item[ key ] ) ) );
     }
 
+    // TODO: Harus di improve
     setSelectArrayAll( arrayData: ILead[] ) {
         this.dataForFilter = {
             campaign: this.setSelectArray( arrayData, 'campaign' ),
@@ -145,20 +166,7 @@ export class ProjectDetailComponent implements OnInit {
                 }
             );
         // Ini untuk subscribe listen filter dan merubah data untuk chart dan tabel lead
-        this.filterGroup.valueChanges
-            .subscribe( result => {
-                let res = this.dummyData$;
-                const obj = this.removeFalsy( result );
-                const arrOfVal = Object.values( obj );
-                const arrOfKeys = Object.keys( obj );
-                if ( arrOfVal ) {
-                    arrOfKeys.forEach( ( arr, index ) => {
-                        res = res.filter( el => el[ arr ] === arrOfVal[ index ] );
-                    } );
-                }
-                this.dataForLeadsComp = res;
-                this.dataForChart = this.forChart( res );
-            } );
+
     }
 
 }

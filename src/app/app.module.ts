@@ -10,6 +10,7 @@ import { APP_ROUTES } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule( {
     declarations: [
@@ -18,14 +19,15 @@ import { SharedModule } from './shared/shared.module';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        AppMaterialModule,
         CoreModule,
         SharedModule,
+        AppMaterialModule,
         RouterModule.forRoot(
             APP_ROUTES
         ),
         FormsModule,
         HttpClientModule,
+        ToastrModule.forRoot(),
     ],
     providers: [],
     bootstrap: [ AppComponent ]

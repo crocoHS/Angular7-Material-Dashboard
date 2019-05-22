@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DashboardOverviewService {
-
+    private url = 'https://mersacs.com/api/';
     constructor( private http: HttpClient ) {
     }
-
-    getDataLocal() {
-        return this.http.get( './assets/MOCK_DATA.json' );
+    getDataLeads() {
+        return this.http.get( this.url + 'leadsChart' );
+    }
+    getIseng() {
+        return this.http.get( this.url + '/productListByProject/2' );
     }
 }
