@@ -15,7 +15,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
     intercept( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
         return next.handle( req ).pipe(
-            retry( 1 ),
+            retry( 2 ),
             catchError( ( err: HttpErrorResponse ) => {
                 if ( err.status === 401 ) {
                     const service = this.injector.get( AuthenticationService );

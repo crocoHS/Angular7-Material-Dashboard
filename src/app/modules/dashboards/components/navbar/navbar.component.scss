@@ -1,25 +1,34 @@
 @keyframes fade {
-    from{
+    from {
         top: -40%;
     }
-    to{
+    to {
         top: 0;
     }
 }
 
-.jancok{
+.asukerek {
+    position: absolute;
+    top: 70px;
+    left: unset;
+    right: 20px;
+}
+
+.jancok {
     background-color: red;
 }
 
-.bg-navbar{
+.bg-navbar {
     color: #f7f7f7;
-    background-color: rgba(255,255,255, .1);
+    background-color: rgba(255, 255, 255, .1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.fixed-top{
+
+.fixed-top {
     position: absolute;
 }
-.bg-navbar--custom{
+
+.bg-navbar--custom {
     color: #6c7293;
     background-color: #fff;
     box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.1);
@@ -28,56 +37,64 @@
     transition: 1s;
     animation: fade 1s ease;
 }
-.navbar-nav{
+
+.navbar-nav {
     width: 100%;
 }
-.nav-item{
+
+.nav-item {
     padding: 0 1.25rem;
     margin: auto .5rem;
     border-radius: 4px;
-
-    &:hover{
-        background-color: rgba(255,255,255, .1);
+    position: relative;
+    &:hover {
+        background-color: rgba(255, 255, 255, .1);
     }
 }
-.active{
-    background-color: rgba(255,255,255, .1);
+
+.active {
+    background-color: rgba(255, 255, 255, .1);
 }
-.nav-link{
+
+.nav-link {
     font-weight: 500;
     border-radius: 4px;
     padding: 0.75rem 0.75rem;
     color: unset;
     height: 100%;
 
-    &--custom{
+    &--custom {
         padding: 0 0.75rem;
         display: flex;
         align-items: center;
 
-        & span:first-child{
+        & span:first-child {
             margin-right: 1rem;
         }
     }
 }
-.navbar{
+
+.navbar {
     height: 80px;
-    &-brand{
-        & svg{
+
+    &-brand {
+        & svg {
             height: 40px;
         }
-        &__svg{
+
+        &__svg {
             transition: all .3s ease-in;
             fill: var(--white);
         }
-        &__svg--dark{
+
+        &__svg--dark {
             fill: var(--dark);
         }
     }
 
 }
 
-.container__nav{
+.container__nav {
     max-width: 1380px;
     width: 90vw;
     display: flex;
@@ -86,8 +103,7 @@
 }
 
 
-
-.bg-custom{
+.bg-custom {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -95,14 +111,14 @@
     z-index: 0;
     top: 0;
     left: 0;
-    background-color: rgba(255,255,255, .1);
+    background-color: rgba(255, 255, 255, .1);
 }
 
 .show {
     display: block;
 }
 
-.mat-icon{
+.mat-icon {
     display: none;
     width: 3rem;
     height: 3rem;
@@ -110,7 +126,7 @@
     cursor: pointer;
 }
 
-.custom-icon{
+.custom-icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -119,39 +135,40 @@
     height: 2rem;
     background-color: rgba(108, 114, 147, .2);
 
-    &--person{
+    &--person {
         display: inline-block;
         line-height: 150%;
         font-size: 2rem;
         text-align: center;
         width: calc(2rem + 20px);
         height: 100%;
-        background-color: rgba(255,255,255, .07);
+        background-color: rgba(255, 255, 255, .07);
         border-radius: 4px;
     }
 }
 
-.nav-item--custom{
+.nav-item--custom {
     display: flex;
     align-items: center;
     cursor: pointer;
     flex-grow: 1;
     justify-content: flex-end;
-    &:hover{
+
+    &:hover {
         background-color: unset;
 
         & .nav-link--custom .custom-icon--person {
-            background-color: rgba(255,255,255, .1);
+            background-color: rgba(255, 255, 255, .1);
         }
     }
 }
 
 @media (max-width: 768px) {
-    .container__nav{
+    .container__nav {
         width: 90vw;
         justify-content: space-between;
     }
-    .collapse{
+    .collapse {
         background-color: #f7f7f7;
         position: absolute;
         z-index: 1;
@@ -168,38 +185,40 @@
         box-shadow: 0 0 7px 5px rgba(0, 0, 0, 0.1);
         transition: all .5s ease-in-out;
     }
-    .show-nav{
+    .show-nav {
         transform: scaleX(1);
         visibility: visible;
     }
-    .mat-icon{
+    .mat-icon {
         display: block;
     }
-    .bg-navbar{
+    .bg-navbar {
         color: #6c7293;
         background-color: #f7f7f7;
     }
-    .bg-navbar--custom{
+    .bg-navbar--custom {
         color: #6c7293;
     }
-    .bg-custom{
-        background-color: rgba(0,0,0,.3);
+    .bg-custom {
+        background-color: rgba(0, 0, 0, .3);
     }
-    .navbar-nav{
+    .navbar-nav {
         height: 100%;
     }
-    .nav-item{
+    .nav-item {
         margin: 0;
-        &:hover{
+
+        &:hover {
             background-color: rgba(108, 114, 147, .3);
         }
 
-        &--custom{
+        &--custom {
             flex-grow: 0;
             margin: auto 0 0 0;
             justify-content: unset;
             align-items: unset;
-            &:hover{
+
+            &:hover {
                 background-color: unset;
 
                 & .nav-link--custom .custom-icon--person {
@@ -209,9 +228,10 @@
         }
 
     }
-    .nav-link--custom{
+    .nav-link--custom {
         width: 100%;
-        & span:last-child{
+
+        & span:last-child {
             margin-left: auto;
         }
     }

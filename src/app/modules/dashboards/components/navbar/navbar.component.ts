@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Inject,  ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {trigger} from '@angular/animations';
 
 @Component( {
     selector: 'app-navbar',
