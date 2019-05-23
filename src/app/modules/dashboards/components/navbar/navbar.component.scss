@@ -6,16 +6,14 @@
         top: 0;
     }
 }
-
-.asukerek {
+.kt-user-card{
+    background: var(--primary);
+}
+.dropdown-custom {
     position: absolute;
     top: 70px;
     left: unset;
     right: 20px;
-}
-
-.jancok {
-    background-color: red;
 }
 
 .bg-navbar {
@@ -62,6 +60,7 @@
     padding: 0.75rem 0.75rem;
     color: unset;
     height: 100%;
+    text-align: center;
 
     &--custom {
         padding: 0 0.75rem;
@@ -76,10 +75,11 @@
 
 .navbar {
     height: 80px;
-
+    width: 100%;
     &-brand {
         & svg {
             height: 40px;
+            width: 100%;
         }
 
         &__svg {
@@ -129,7 +129,7 @@
 .custom-icon {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     font-size: 2rem;
     width: 2rem;
     height: 2rem;
@@ -174,14 +174,14 @@
         z-index: 1;
         display: block;
         top: 0;
-        left: 0;
+        right: 0;
         height: 100vh;
         width: 100vw;
         max-width: 240px;
         padding: 2rem;
         visibility: hidden;
         transform: scaleX(0);
-        transform-origin: left;
+        transform-origin: right;
         box-shadow: 0 0 7px 5px rgba(0, 0, 0, 0.1);
         transition: all .5s ease-in-out;
     }
@@ -234,5 +234,14 @@
         & span:last-child {
             margin-left: auto;
         }
+    }
+    .navbar-brand__svg{
+        fill: var(--dark);
+    }
+    .dropdown-custom{
+        top: -200px;
+        left: unset;
+        right: 0;
+
     }
 }
