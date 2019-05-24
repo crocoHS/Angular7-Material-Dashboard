@@ -65,7 +65,7 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <mat-form-field style="font-size: 1rem;">
-                        <mat-select [(ngModel)]="selected" (selectionChange)="changeIt($event.value)" name="performance">
+                        <mat-select [(ngModel)]="selected" (selectionChange)="changeChart1($event.value)" name="performance">
                             <mat-option *ngFor="let jancok of dataParent; let i = index " [value]="i">{{jancok.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <mat-form-field style="font-size: 1rem;">
-                        <mat-select [(ngModel)]="selectedTeam" (selectionChange)="haloo($event.value)" name="teamPerformance">
+                        <mat-select [(ngModel)]="selectedTeam" (selectionChange)="changeChart2($event.value)" name="teamPerformance">
                             <mat-option [value]=0>Top Sales Officer</mat-option>
                             <mat-option [value]=1>Top Sales Team</mat-option>
                         </mat-select>

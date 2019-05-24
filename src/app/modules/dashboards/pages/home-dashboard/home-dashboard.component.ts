@@ -163,7 +163,8 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
                     return jancok.push( thisObj );
                 } );
                 arrObj = [ ...jancok ];
-            } else {
+            }
+            /*else {
                 this.storeData[ category ].forEach( arr => {
                     const index = this.labelForChart1$.findIndex( res =>
                         moment( res, time.format ).isSame( moment( arr.date ), time.time )
@@ -173,9 +174,20 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
                     }
                 } );
                 arrObj.push( obj );
-            }
+            }*/
         } else if ( category === 'all' ) {
-            const allCategory = Object.keys( this.storeData );
+            for ( const objectKeys in this.storeData ) {
+                for ( const arr of this.storeData[ objectKeys ] ) {
+                    const index = this.labelForChart1$.findIndex( res =>
+                        moment( res, time.format ).isSame( moment( arr.date ), time.time )
+                    );
+                    if (index !== -1) {
+                        obj.data[index]++;
+                    }
+                }
+            }
+            // coro iki rodok lemot
+            /*const allCategory = Object.keys( this.storeData );
             allCategory.forEach( cat => {
                 this.storeData[ cat ].forEach( arr => {
                     const index = this.labelForChart1$.findIndex( res =>
@@ -183,7 +195,7 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
                     );
                     obj.data[ index ]++;
                 } );
-            } );
+            } );*/
             arrObj.push( obj );
         }
         return arrObj;
@@ -191,7 +203,7 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
 
     // UNTUK BAR CHART nomer 1 & 2
     mappingData( selectedValue ) {
-        let result = {};
+        const result = {};
         this.dataParent[ selectedValue ].data.forEach( obj => {
             Object.keys( obj ).forEach( key => {
                 result[ key ] = ( result[ key ] || [] ).concat( [ obj[ key ] ] );
@@ -200,11 +212,11 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    haloo( selectedValue ) {
+    changeChart2( selectedValue ) {
         this.forChildChart2 = this.dataForChildChart[ selectedValue ];
     }
 
-    changeIt( selectedValue ) {
+    changeChart1( selectedValue ) {
         this.forChildChart = this.mappingData( selectedValue );
     }
 
@@ -226,9 +238,10 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
         } );
         /// UNTUK BAR CHART
         this.dataParent = dummyData;
-        this.changeIt( this.selected );
+        this.changeChart1( this.selected );
         this.dataForChildChart = dummy2;
-        this.haloo( this.selectedTeam );
+        this.changeChart2( this.selectedTeam );
+
     }
 
     ngOnDestroy(): void {
