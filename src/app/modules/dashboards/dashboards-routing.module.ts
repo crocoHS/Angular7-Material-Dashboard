@@ -24,7 +24,7 @@ const routes: Routes = [
         component: DashboardComponent,
         canActivate: [AuthGuardService],
         data: {
-            breadcrumb: 'jancok'
+            breadcrumb: 'Home'
         },
         children: [
             {

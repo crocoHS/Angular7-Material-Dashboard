@@ -13,4 +13,9 @@
             <li class="breadcrumb-item active">Library</li>
         </ol>
     </nav>
+   <!-- <ul>
+        <li *ngFor="let breadcrumb of breadcrumbs$ | async">
+            <a [routerLink]="[breadcrumb.url, breadcrumb.params]">{{ breadcrumb.label }}</a>
+        </li>
+    </ul>-->
 </div>
