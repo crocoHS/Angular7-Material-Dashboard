@@ -55,4 +55,5 @@ $main-app-theme: mat-light-theme($main-app-primary, $main-app-accent, $main-app-
 
 body{
     background-color: #f9f9fc;
+    overflow-x: hidden;
 }

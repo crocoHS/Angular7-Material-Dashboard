@@ -17,5 +17,8 @@
         &::before{
             content: '';
         }
+        & a {
+            color: inherit;
+        }
     }
 }

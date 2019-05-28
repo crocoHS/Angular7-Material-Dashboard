@@ -3,19 +3,18 @@
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a>Home</a>
+                <a routerLink="/">Home</a>
             </li>
-            <li class="breadcrumb-item">
-                <mat-icon>
-                    navigate_next
-                </mat-icon>
-            </li>
-            <li class="breadcrumb-item active">Library</li>
+            <ng-container *ngFor="let breadcrumb of breadcrumbs$ | async; let i = index">
+                <li class="breadcrumb-item">
+                    <mat-icon>
+                        navigate_next
+                    </mat-icon>
+                </li>
+                <li class="breadcrumb-item">
+                    <a routerLink="{{ breadcrumbsRoute[i] }}">{{ breadcrumb | titlecase }}</a>
+                </li>
+            </ng-container>
         </ol>
     </nav>
-   <!-- <ul>
-        <li *ngFor="let breadcrumb of breadcrumbs$ | async">
-            <a [routerLink]="[breadcrumb.url, breadcrumb.params]">{{ breadcrumb.label }}</a>
-        </li>
-    </ul>-->
 </div>

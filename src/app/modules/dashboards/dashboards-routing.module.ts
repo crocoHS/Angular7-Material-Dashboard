@@ -14,18 +14,10 @@ import {UserSettingDashboardComponent} from './pages/user-setting-dashboard/user
 import {ProjectSettingProductsComponent} from './pages/project-dashboard/pages/project-setting-products/project-setting-products.component';
 
 const routes: Routes = [
-    /*  TODO: WILDCARD ROUTING HARUS ADA, SEMISAL USER TIDAK SENGAJA
-         KETIKA USER TIDAK SENGAJA AKSES project/setting/:id ngawur sebelum lewat list harus di
-            kembalikan ke route project-list
-            IKI UWES KUDUNE
-    */
     {
         path: '',
         component: DashboardComponent,
         canActivate: [AuthGuardService],
-        data: {
-            breadcrumb: 'Home'
-        },
         children: [
             {
                 path: '',
@@ -33,30 +25,18 @@ const routes: Routes = [
             },
             {
                 path: 'overview',
-                component: HomeDashboardComponent,
-                data: {
-                    breadcrumb: 'overview'
-                }
+                component: HomeDashboardComponent
             },
             {
                 path: 'sales-team',
-                component: SalesTeamDashboardComponent,
-                data: {
-                    breadcrumb: 'sales-team'
-                }
+                component: SalesTeamDashboardComponent
             },
             {
                 path: 'sales-officer',
-                component: SalesOfficerDashboardComponent,
-                data: {
-                    breadcrumb: 'sales-officer'
-                }
+                component: SalesOfficerDashboardComponent
             },
             {
                 path: 'project',
-                data: {
-                    breadcrumb: 'project'
-                },
                 children: [
                     {
                         path: '',
@@ -68,40 +48,38 @@ const routes: Routes = [
                     },
                     {
                         path: 'detail/:id',
-                        component: ProjectDetailComponent,
-                        data: {
-                            breadcrumb: 'detail'
-                        }
+                        component: ProjectDetailComponent
                     },
                     {
                         path: 'new-project',
-                        component: ProjectNewComponent,
-                        data: {
-                            breadcrumb: 'New Project'
-                        }
+                        component: ProjectNewComponent
                     },
                     {
                         path: 'setting/:id',
                         children: [
                             {
                                 path: '',
-                                component: ProjectSettingComponent,
-                                data: {
-                                    breadcrumb: 'Setting'
-                                }
+                                component: ProjectSettingComponent
                             },
                             {
                                 path: 'product/:prodId',
-                                component: ProjectSettingProductsComponent,
-                                data: {
-                                    breadcrumb: 'Setting Product'
-                                }
+                                component: ProjectSettingProductsComponent
                             },
                             {
                                 path: '**',
                                 redirectTo: ''
                             },
                         ],
+                    },
+                    {
+                        path: 'detail',
+                        pathMatch: 'full',
+                        redirectTo: 'list'
+                    },
+                    {
+                        path: 'setting',
+                        pathMatch: 'full',
+                        redirectTo: 'list'
                     },
                     {
                         path: '**',
@@ -111,10 +89,7 @@ const routes: Routes = [
             },
             {
                 path: 'user-setting',
-                component: UserSettingDashboardComponent,
-                data: {
-                    breadcrumb: 'user-setting'
-                }
+                component: UserSettingDashboardComponent
             },
             {
                 path: '**',

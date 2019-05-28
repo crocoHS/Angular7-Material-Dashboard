@@ -1,26 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {untilDestroyed} from 'ngx-take-until-destroy';
 
-interface IBreadcrumb {
-    label: string;
-    url: string;
-}
 
-@Component( {
+@Component({
     selector: 'app-breadcrumb',
     templateUrl: './breadcrumb.component.html',
-    styleUrls: [ './breadcrumb.component.scss' ]
-} )
-export class BreadcrumbComponent implements OnInit {
+    styleUrls: ['./breadcrumb.component.scss']
+})
+export class BreadcrumbComponent implements OnInit, OnDestroy {
     public breadcrumbs$ = this.router.events.pipe(
-        filter( event => event instanceof NavigationEnd ),
+        untilDestroyed(this),
+        filter(event => event instanceof NavigationEnd),
         distinctUntilChanged(),
-        map(() => this.activatedRoute),
-        map(route => route.firstChild),
-        switchMap(route => route.data),
-        map(data => data['breadcrumb'])
-    ).subscribe(val => console.log(val));
+        map((value: NavigationEnd) => this.generateBreadcrumb(value))
+    );
+    public breadcrumbsRoute = [];
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -28,9 +24,27 @@ export class BreadcrumbComponent implements OnInit {
     ) {
     }
 
+    generateBreadcrumb(route: NavigationEnd) {
+        const arr = route.urlAfterRedirects.split('/').filter(val => {
+            return val !== '' && val !== 'dashboard';
+        });
+        this.breadcrumbsRoute = [];
+        if (arr.length !== 1) {
+            arr.forEach((val, i) => {
+                i === 0 ? this.breadcrumbsRoute.push(val) :
+                    this.breadcrumbsRoute.push(`${this.breadcrumbsRoute[i - 1]}/${val}`);
+            });
+        } else {
+            this.breadcrumbsRoute.push(arr);
+        }
+        return arr;
+    }
+
     ngOnInit() {
 
     }
 
+    ngOnDestroy() {
+    }
 
 }
