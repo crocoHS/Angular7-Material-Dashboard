@@ -54,6 +54,9 @@ const routes: Routes = [
             },
             {
                 path: 'project',
+                data: {
+                    breadcrumb: 'project'
+                },
                 children: [
                     {
                         path: '',
@@ -61,26 +64,38 @@ const routes: Routes = [
                     },
                     {
                         path: 'list',
-                        component: ProjectListComponent
+                        component: ProjectListComponent,
                     },
                     {
                         path: 'detail/:id',
-                        component: ProjectDetailComponent
+                        component: ProjectDetailComponent,
+                        data: {
+                            breadcrumb: 'detail'
+                        }
                     },
                     {
                         path: 'new-project',
-                        component: ProjectNewComponent
+                        component: ProjectNewComponent,
+                        data: {
+                            breadcrumb: 'New Project'
+                        }
                     },
                     {
                         path: 'setting/:id',
                         children: [
                             {
                                 path: '',
-                                component: ProjectSettingComponent
+                                component: ProjectSettingComponent,
+                                data: {
+                                    breadcrumb: 'Setting'
+                                }
                             },
                             {
                                 path: 'product/:prodId',
-                                component: ProjectSettingProductsComponent
+                                component: ProjectSettingProductsComponent,
+                                data: {
+                                    breadcrumb: 'Setting Product'
+                                }
                             },
                             {
                                 path: '**',
