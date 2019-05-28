@@ -11,8 +11,6 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: [ './project-setting-products.component.scss' ]
 } )
 export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
-    // TODO: KEPIKIRIAN TERUS CARA NGGAWE CATEGORY
-
     // FORM GROUP Product
     public formGroup = this.fb.group( {
         name: [ '', Validators.required ],

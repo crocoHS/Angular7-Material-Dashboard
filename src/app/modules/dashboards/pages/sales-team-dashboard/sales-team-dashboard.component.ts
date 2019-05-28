@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { dummyAss } from './dataDummy';
-import { DashboardOverviewService } from '../../../../core/services/dashboard-overview/dashboard-overview.service';
+import { Dummy } from '../sales-officer-dashboard/dataDummy';
+import { SalesTeamDashboardDialogComponent } from './sales-team-dashboard-dialog/sales-team-dashboard-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component( {
     selector: 'app-sales-team-dashboard',
@@ -8,8 +10,10 @@ import { DashboardOverviewService } from '../../../../core/services/dashboard-ov
     styleUrls: [ './sales-team-dashboard.component.scss' ]
 } )
 export class SalesTeamDashboardComponent implements OnInit {
-    // TODO: INI MASIH BELUM SAMA DENGAN YANG ADA
-    // Button add yo gurung onok
+    /*
+    TODO: INI MASIH BELUM SAMA DENGAN DASHBOARD YANG ADA PUNYA MAS YAYAN
+            Button add yo gurung onok
+   */
     public dataForChildChart = {
         data: [
             { data: [ 65, 0 ], label: 'Hot' },
@@ -21,8 +25,26 @@ export class SalesTeamDashboardComponent implements OnInit {
     };
     public dataForTable = dummyAss;
 
-    constructor( private http: DashboardOverviewService ) {
+    constructor( private dialog: MatDialog ) {
     }
+
+    addData() {
+        const dialogRef = this.dialog.open( SalesTeamDashboardDialogComponent, {
+            panelClass: 'sales_team_dialog'
+        } );
+        dialogRef.afterClosed().subscribe( ( result: Dummy ) => {
+            // if ( result ) {
+            //     this.dataSource.data.forEach( arr => {
+            //         if ( arr.id === result.id ) {
+            //             Object.assign( arr, result );
+            //         }
+            //     } );
+            //     this.table.renderRows();
+            //     console.log( this.dataSource.data, 'jancok' );
+            // }
+        } );
+    }
+
 
     ngOnInit() {
     }

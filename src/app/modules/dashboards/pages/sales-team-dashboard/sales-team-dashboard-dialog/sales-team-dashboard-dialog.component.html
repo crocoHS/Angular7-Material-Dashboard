@@ -11,6 +11,7 @@
                        [onlyFromAutocomplete]="true">
                 <tag-input-dropdown
                     [autocompleteItems]="allCoverage"
+                    [appendToBody]="false"
                     [keepOpen]="false"
                     [showDropdownIfEmpty]="true"
                     [dynamicUpdate]="true"
@@ -18,6 +19,7 @@
                 </tag-input-dropdown>
             </tag-input>
             <mat-checkbox (change)='change($event, city)' [formControl]="coverageChecked">All City</mat-checkbox>
+            <mat-error id="coverage__custom" @myInsertRemoveTrigger *ngIf="testGroup.get('coverage').hasError('required')">Please Add Coverage</mat-error>
         </div>
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Name</mat-label>
@@ -56,6 +58,6 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button type="submit" mat-flat-button (click)="onSubmit(testGroup)" color="primary">Submit</button>
     <button type="submit" (click)="onNoClick()" mat-flat-button>Cancel</button>
+    <button type="submit" mat-flat-button (click)="onSubmit(testGroup)" color="primary" [disabled]="!isValid" >Submit</button>
 </mat-dialog-actions>

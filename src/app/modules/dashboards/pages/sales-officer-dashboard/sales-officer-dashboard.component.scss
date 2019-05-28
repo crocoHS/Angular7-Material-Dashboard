@@ -18,3 +18,17 @@ mat-icon{
         margin: 0 auto;
     }
 }
+
+::ng-deep{
+    .sales_officer_dialog {
+        width: 600px;
+        min-height: 500px;
+    }
+    @media screen and (max-width: 768px){
+        .sales_officer_dialog {
+            width: 90vw;
+            height: 90vh;
+            min-height: 700px;
+        }
+    }
+}

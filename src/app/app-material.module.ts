@@ -21,7 +21,7 @@ import {
 import { ChartsModule } from 'ng2-charts';
 import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { TagInputModule } from 'ngx-chips';
-import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const MatModule = [
     MatFormFieldModule,
@@ -52,7 +52,8 @@ const MatModule = [
     MatSortModule,
     /// CHART MODULE
     ChartsModule,
-    /// TOAST MODULE
+    /// Spinner MODULE
+    NgxSpinnerModule
 ];
 
 @NgModule( {

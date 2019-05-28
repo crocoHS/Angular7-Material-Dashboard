@@ -1,49 +1,72 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { coverage, Coverage, Dummy } from '../dataDummy';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component( {
     selector: 'app-sales-team-dashboard-dialog',
     templateUrl: './sales-team-dashboard-dialog.component.html',
-    styleUrls: [ './sales-team-dashboard-dialog.component.scss' ]
+    styleUrls: [ './sales-team-dashboard-dialog.component.scss' ],
+    animations: [
+        trigger( 'myInsertRemoveTrigger', [
+            transition( ':enter', [
+                style( { opacity: 0, transform: 'translateY(-100%)' } ),
+                animate( '.2s', style( { opacity: 1, transform: 'translateY(0)' } ) ),
+            ] ),
+            transition( ':leave', [
+                animate( '.2s', style( { opacity: 0, transform: 'translateY(-100%)' } ) )
+            ] )
+        ] )
+    ]
 } )
-export class SalesTeamDashboardDialogComponent implements OnInit {
+export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
     public allCoverage: Coverage[];
     private curCoverage;
     private dummyData: Dummy;
-    coverageChecked = new FormControl( 'coverageChecked' );
+    coverageChecked = new FormControl( '' );
     /////////////////////
     testGroup = new FormGroup( {
-        name: new FormControl( 'name', Validators.required ),
-        email: new FormControl( 'email', [ Validators.email, Validators.required ] ),
-        phone: new FormControl( 'phone', [
+        name: new FormControl( '', Validators.required ),
+        email: new FormControl( '', [ Validators.email, Validators.required ] ),
+        phone: new FormControl( '', [
             Validators.required,
             Validators.pattern( /[0-9\+\-\ ]/ )
         ] ),
-        address: new FormControl( 'address', Validators.required ),
-        picName: new FormControl( 'picName', Validators.required ),
-        password: new FormControl( 'password', Validators.required ),
-        coverage: new FormControl( 'coverage', Validators.required ),
+        address: new FormControl( '', Validators.required ),
+        picName: new FormControl( '', Validators.required ),
+        password: new FormControl( '', Validators.required ),
+        coverage: new FormControl( '', Validators.required ),
     } );
 
     //////////////////////////
     constructor(
         public dialogRef: MatDialogRef<SalesTeamDashboardDialogComponent>,
-        @Inject( MAT_DIALOG_DATA ) public data
+        @Inject( MAT_DIALOG_DATA ) public data,
+        private spinner: NgxSpinnerService
     ) {
+        this.testGroup.valueChanges.pipe( untilDestroyed( this ) )
+            .subscribe( value => {
+                this.isValid = this.testGroup.valid;
+            } );
     }
+
+    public isValid;
+
     //////////////////////////
     change( event, elRef ) {
         if ( event.checked ) {
             elRef.disable = true;
             elRef.placeholder = '';
-            return this.testGroup.patchValue({coverage: this.allCoverage});
+            return this.testGroup.patchValue( { coverage: this.allCoverage } );
         }
         elRef.disable = false;
         elRef.placeholder = 'Add City';
-        return this.testGroup.patchValue({coverage: this.curCoverage});
+        return this.testGroup.patchValue( { coverage: this.curCoverage } );
     }
+
     onKeyDown( e: KeyboardEvent ) {
         if (
             // Allow: Delete, Backspace, Tab, Escape, Enter
@@ -80,21 +103,46 @@ export class SalesTeamDashboardDialogComponent implements OnInit {
             picName: value.picName,
             password: value.password,
             coverage: value.coverage
-        });
-        this.coverageChecked.setValue(false);
+        } );
+        this.coverageChecked.setValue( false );
     }
+
     ngOnInit() {
-        this.dummyData = this.data;
+        if ( this.data ) {
+            console.log('cok');
+            this.dummyData = this.data;
+            this.curCoverage = this.dummyData.coverage;
+            this.setAllValue( this.dummyData );
+        }
+        // TODO: COVERAGE SUBSCRIBE KE API
         this.allCoverage = coverage;
-        this.curCoverage = this.dummyData.coverage;
-        this.setAllValue(this.dummyData);
     }
+
+    ngOnDestroy(): void {
+    }
+
     onNoClick(): void {
         this.dialogRef.close();
     }
-    onSubmit(data: FormGroup) {
+
+    // TODO: SET TIMEOUT HARUS DIHILANGKAN KARENA SEMENTARA
+    onSubmit( data: FormGroup ) {
         if ( data.valid ) {
-            this.dialogRef.close(Object.assign(this.dummyData, data.value));
+            if ( this.dummyData ) {
+                this.spinner.show();
+                setTimeout( () => {
+                    this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
+                    console.log( 'cok' );
+                    this.spinner.hide();
+                }, 2000 );
+            } else {
+                this.spinner.show();
+                setTimeout( () => {
+                    this.dialogRef.close( data.value );
+                    console.log( 'cok2' );
+                    this.spinner.hide();
+                }, 2000 );
+            }
         }
     }
 

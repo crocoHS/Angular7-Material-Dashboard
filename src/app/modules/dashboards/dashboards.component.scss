@@ -2,6 +2,10 @@
     margin-top: 80px;
 }
 
+.loader ::ng-deep .overlay {
+    position: fixed !important;
+}
+
 .bg-image {
     position: absolute;
     top: 0;

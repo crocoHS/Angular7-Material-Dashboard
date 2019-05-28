@@ -38,15 +38,5 @@ table {
             background-color: antiquewhite;
         }
     }
-    @media screen and (max-width: 768px){
-        .sales_team_dialog {
-            width: 90vw;
-            height: 90vh;
-            min-height: 700px;
-        }
-    }
-    .sales_team_dialog {
-        width: 600px;
-        min-height: 500px;
-    }
+
 }

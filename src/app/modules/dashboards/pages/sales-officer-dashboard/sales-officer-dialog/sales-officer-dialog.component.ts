@@ -1,21 +1,41 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { coverage, Coverage, Dummy } from '../dataDummy';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component( {
     selector: 'app-sales-officer-dialog',
     templateUrl: './sales-officer-dialog.component.html',
-    styleUrls: [ './sales-officer-dialog.component.scss' ]
+    styleUrls: [ './sales-officer-dialog.component.scss' ],
+    animations: [
+        trigger( 'myInsertRemoveTrigger', [
+            transition( ':enter', [
+                style( { opacity: 0, transform: 'translateY(-100%)' } ),
+                animate( '.2s', style( { opacity: 1, transform: 'translateY(0)' } ) ),
+            ] ),
+            transition( ':leave', [
+                animate( '.2s', style( { opacity: 0, transform: 'translateY(-100%)' } ) )
+            ] )
+        ] )
+    ]
 } )
-export class SalesOfficerDialogComponent implements OnInit {
-    // TODO: MENDING NGGAWE https://github.com/ng-select/ng-select timbang chip, ngebug asu
+export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
     //////////////////////////
     constructor(
         public dialogRef: MatDialogRef<SalesOfficerDialogComponent>,
-        @Inject( MAT_DIALOG_DATA ) public data
+        @Inject( MAT_DIALOG_DATA ) public data,
+        private spinner: NgxSpinnerService
     ) {
+        this.testGroup.valueChanges.pipe( untilDestroyed( this ) )
+            .subscribe( value => {
+                this.isValid = this.testGroup.valid;
+            } );
     }
+
+    public isValid;
 
     public allCoverage: Coverage[];
     private curCoverage;
@@ -34,19 +54,6 @@ export class SalesOfficerDialogComponent implements OnInit {
         password: new FormControl( '', Validators.required ),
         coverage: new FormControl( '', Validators.required ),
     } );
-    public cok = [this.isRequired];
-    public cok2 = {
-        'required' : 'Please tolong'
-    };
-
-    private isRequired( control: FormControl ) {
-        console.log(control.value);
-        if ( control.hasError('required') ) {
-            return {
-                'required': true
-            };
-        }
-    }
 
     //////////////////////
     change( event, elRef ) {
@@ -101,23 +108,38 @@ export class SalesOfficerDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dummyData = this.data;
+        if ( this.data ) {
+            this.dummyData = this.data;
+            this.curCoverage = this.dummyData.coverage;
+            this.setAllValue( this.dummyData );
+        }
         this.allCoverage = coverage;
-        this.curCoverage = this.dummyData.coverage;
-        this.setAllValue( this.dummyData );
+    }
+
+    ngOnDestroy(): void {
     }
 
     onNoClick(): void {
         this.dialogRef.close();
     }
 
+    // TODO: SET TIMEOUT HARUS DIHILANGKAN KARENA SEMENTARA
     onSubmit( data: FormGroup ) {
         if ( data.valid ) {
             if ( this.dummyData ) {
-                this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
+                this.spinner.show();
+                setTimeout( () => {
+                    this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
+                    console.log( 'cok' );
+                    this.spinner.hide();
+                }, 2000 );
             } else {
-                console.log( data.value );
-                this.dialogRef.close( data.value );
+                this.spinner.show();
+                setTimeout( () => {
+                    this.dialogRef.close( data.value );
+                    console.log( 'cok2' );
+                    this.spinner.hide();
+                }, 2000 );
             }
         }
     }

@@ -1,6 +1,7 @@
 .coverage__field{
     display: flex;
-
+    position: relative;
+    padding-bottom: 1.5rem;
     & tag-input{
         width: 70%;
     }
@@ -12,4 +13,18 @@
 .example-form{
     display: flex;
     flex-direction: column;
+}
+#coverage__custom{
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: .8rem;
+}
+
+mat-dialog-actions button {
+    margin-right: 5px;
+
+    &:last-child{
+        margin-right: 0;
+    }
 }
