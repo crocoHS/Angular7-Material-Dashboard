@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { animate, sequence, state, style, transition, trigger } from '@angular/animations';
 import { Store } from '@ngrx/store';
@@ -31,19 +31,43 @@ import { Logout } from '../../../../core/store/auth/auth.actions';
                     } ) )
                 ] )
             ] )
-            // transition('state1 => state2', animate('700ms')),
         ] )
     ]
 } )
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent {
     public isShow = false;
     public state = 'state1';
 
-    constructor( @Inject( DOCUMENT ) document,
-                 private store: Store<AppState> ) {
+    private changeDetectorRef: ChangeDetectorRef;
+
+    constructor(
+        @Inject( DOCUMENT ) document,
+        private store: Store<AppState>,
+        cd: ChangeDetectorRef
+    ) {
+        this.changeDetectorRef = cd;
     }
 
     @ViewChild( 'nav' ) nav: ElementRef;
+
+    @ViewChild( 'dropdownUserProfile' ) dropdownUserProfile: ElementRef;
+    @ViewChild( 'dropdownButton' ) dropdownButton: ElementRef;
+
+    @HostListener( 'document:click', [ '$event' ] )
+    onClick( event ) {
+        if ( this.state === 'state2' ) {
+            if ( !this.dropdownButton.nativeElement.contains( event.target ) ) {
+                if ( !this.dropdownUserProfile.nativeElement.contains( event.target ) ) {
+                    this.showUser();
+                    this.changeDetectorRef.detectChanges();
+                }
+            }
+        }
+    }
+
+    /*
+    * TODO: bisa diimprove lagi tanpa menggunakan document
+    */
 
     @HostListener( 'window:scroll', [ '$event' ] )
     onWindowScroll( e ) {
@@ -81,15 +105,7 @@ export class NavbarComponent implements AfterViewInit {
     }
 
     logout() {
-        this.store.dispatch(new Logout());
-    }
-
-    ngAfterViewInit() {
-        // if ( window.innerWidth >= 1024 ) {
-        //     this.collapse = 'closed';
-        // } else {
-        //     this.collapse = 'open';
-        // }
+        this.store.dispatch( new Logout() );
     }
 
 }

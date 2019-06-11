@@ -52,14 +52,14 @@
                     </a>
                 </li>
                 <li class="nav-item nav-item--custom" [routerLinkActive]="'active'">
-                    <a class="nav-link nav-link--custom" (click)="showUser()">
+                    <a class="nav-link nav-link--custom" (click)="showUser()" #dropdownButton>
                         <span>Hi, COK</span>
                         <span>
                             <mat-icon class="custom-icon--person">person</mat-icon>
                         </span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl dropdown-custom"
-                         [@changeState]='state'>
+                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl dropdown-custom" #dropdownUserProfile
+                         [@changeState]="state">
                         <!--begin: Head -->
                         <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" >
                             <div class="kt-user-card__avatar">

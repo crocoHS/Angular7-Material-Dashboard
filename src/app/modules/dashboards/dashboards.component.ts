@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {animate, query, style, transition, trigger} from '@angular/animations';
-import {RouterOutlet} from '@angular/router';
+import { Component } from '@angular/core';
+import { animate, group, keyframes, query, style, transition, trigger } from '@angular/animations';
+import { RouterOutlet } from '@angular/router';
 
-@Component({
+@Component( {
     selector: 'app-dashboard',
     template: `
         <section>
@@ -29,37 +29,43 @@ import {RouterOutlet} from '@angular/router';
             </ngx-spinner>
         </section>
     `,
-    styleUrls: [`./dashboards.component.scss`],
+    styleUrls: [ `./dashboards.component.scss` ],
     animations: [
-        trigger('routeAnimations', [
-            transition('* <=> *', [
+        trigger( 'routeAnimations', [
+            transition( '* <=> *', [
                 // Set a default  style for enter and leave
-                query(':enter, :leave', [
-                    style({
+                query( ':enter, :leave', [
+                    style( {
                         position: 'absolute',
-                        left: 0,
                         width: '100%',
-                        opacity: 0,
-                        transformOrigin: 'right',
-                        transform: 'translateX(100%)',
-                    }),
-                ]),
+                    } ),
+                ], { optional: true } ),
                 // Animate the new page in
-                query(':enter', [
-                    animate('300ms ease-in', style({ opacity: 1, transform: 'translateX(0)' })),
-                ]),
-            ]),
-        ])
+                /*
+                    Untuk settingan ini tidak sequence, karena memakai function group
+                    jika ingin sequence, langsung pakai query tanpa function group
+                */
+                group( [
+                    query( ':leave', [
+                        animate( '500ms ease', style( { opacity: 0, transform: 'scale(0.8)' } ) ),
+                    ], { optional: true } ),
+                    query( ':enter', [
+                        animate( '500ms ease', keyframes( [
+                            style( { opacity: 0, transform: 'scale(0.8)', offset: 0 } ),
+                            style( { opacity: 1, transform: 'scale(1)', offset: 1 } ),
+                        ] ) ),
+                    ] ),
+                ] )
+            ] ),
+        ] )
     ]
-})
+} )
 export class DashboardComponent {
-
-    // TODO: Mbenakno breadcrumb .. iki uwes
 
     constructor() {
     }
 
-    prepareRoute(outlet: RouterOutlet) {
+    prepareRoute( outlet: RouterOutlet ) {
         return outlet && outlet.activatedRouteData;
     }
 }
