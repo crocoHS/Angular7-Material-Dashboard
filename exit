@@ -1,0 +1,186 @@
+[33mcommit 87d26b2f39e19b29d1160bcf430e885516fb5cea[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31mgitlab/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Tue Jun 11 07:54:24 2019 +0700
+
+    fix minor navbar and animation
+
+[33mcommit 6a5cc5d6dbf4f429d79f08fc246307067886007c[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Tue May 28 17:45:35 2019 +0700
+
+    fix navbar
+
+[33mcommit fc074a4add3c47a9d3f3474f061e79d9a3d73f86[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Tue May 28 11:37:54 2019 +0700
+
+    fix dialog and add spinner
+
+[33mcommit e13a5ad94719574cc9c2739c363ada357c1544ca[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Tue May 28 11:28:14 2019 +0700
+
+    fix dialog and add spinner
+
+[33mcommit 2667b69414be65cc13fb2fd34961bec2fdb67d73[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Tue May 28 07:39:05 2019 +0700
+
+    fix dialog and add spinner
+
+[33mcommit 288c03687ecffa63f6d9ab335a290971c811d289[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Sat May 25 06:22:17 2019 +0700
+
+    fix dropdown and chart home
+
+[33mcommit baf8faaa6b200de7d5d8d435dcea8fc5f65efbe2[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Fri May 24 00:18:51 2019 +0700
+
+    fix navbar
+
+[33mcommit acf7ea13d96242c0817c31fc36e3bef49804ea46[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Wed May 22 17:15:24 2019 +0700
+
+    fix navbar user
+
+[33mcommit e1565e66282fe50e9a55aedce28f8c8319e08040[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Wed May 22 12:36:48 2019 +0700
+
+    add error handler
+
+[33mcommit 1269afc09244968c8d0903a85a578a86489e22fb[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Mon May 20 17:02:42 2019 +0700
+
+    fix route
+
+[33mcommit 8c4eae37f8f13b15ea93a6589c4651fedd372627[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Mon May 20 05:06:58 2019 +0700
+
+    add product category
+
+[33mcommit 0a9558e27da79c052333a1bdd064ce369e68e3b4[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Sat May 18 09:06:06 2019 +0700
+
+    add products setting
+
+[33mcommit ab639ad08ae4f84906ddd922a90abb4d4a7ce459[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Fri May 17 17:04:06 2019 +0700
+
+    add products setting
+
+[33mcommit e50e8bfebd481b9729788d0e3483a6a497422525[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Thu May 16 13:08:40 2019 +0700
+
+    change service
+
+[33mcommit d0186418c8145b99067dd07e483bbd25a221f6ef[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Thu May 16 09:19:05 2019 +0700
+
+    change service
+
+[33mcommit 98325c236718e020796e6d95baf016bc3b1cebd6[m
+Merge: 069c238 9753a48
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Thu May 16 03:16:15 2019 +0700
+
+    Merge branch 'master' of github.com:mersacs/JalaNewMetronic
+
+[33mcommit 069c2386a29788750a99ddee5b370c7e94294a2f[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Thu May 16 03:15:07 2019 +0700
+
+    test
+
+[33mcommit 9753a48dc6b648bd288284b38da475e8878c73ae[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Wed May 15 23:13:34 2019 +0700
+
+    add button
+
+[33mcommit b8d5faabce4001037566e4bb37cb6f4acdd61762[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Wed May 15 18:25:36 2019 +0700
+
+    change favico
+
+[33mcommit 6f20781f51203ebd20384eefb354c6debd87209a[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Wed May 15 01:44:13 2019 +0700
+
+    add btn project
+
+[33mcommit 445727d472c46dc7e5ea7c56832da72c44a32e1e[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Wed May 15 01:32:21 2019 +0700
+
+    update style and bg
+
+[33mcommit ceb4c6408b4385e1620e6559ddd2ca79998d2941[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Sat May 11 17:23:14 2019 +0700
+
+    fix dropdown and dialog
+
+[33mcommit 63727ab9b7faa3a277ec335cb7afa798ed65bd7e[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Sat May 11 15:17:42 2019 +0700
+
+    fix to responsive ready
+
+[33mcommit 6fb6b3845f69cab3c74a028aab46c8ad4dc96f41[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Fri May 10 23:17:13 2019 +0700
+
+    fix option-dropdown
+
+[33mcommit 762eb4e0a6732339a1ef56efa20d6ee52ecf9a2a[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Fri May 10 20:13:38 2019 +0700
+
+    add dropdown component
+
+[33mcommit 0d0bfd7e01262c1ae03e48b7d88bb94e28bb53e8[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Fri May 10 12:39:38 2019 +0700
+
+    dashboard chart
+
+[33mcommit 5ecea501a40ed356caf75422765d45a9b54ccd3e[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Tue May 7 00:50:23 2019 +0700
+
+    add sales
+
+[33mcommit 60be7cf7769dca6dfe67068a87ab6e5fd4d5323b[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Mon May 6 21:54:19 2019 +0700
+
+    add pages
+
+[33mcommit 76174eb860af3165b3613fba7da2487f17c8b98e[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Sat May 4 19:15:22 2019 +0700
+
+    chart js
+
+[33mcommit be3b49b1c88cbf475efb641c0d05ccc9db4a25dc[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Fri May 3 19:46:50 2019 +0700
+
+    update dashboard page
+
+[33mcommit 01b360cf4d8949af14980238247e5eb8dcc40f92[m
+Author: mersacs <mersacs.telkom@gmail.com>
+Date:   Tue Apr 30 04:24:57 2019 +0700
+
+    hello bitch
