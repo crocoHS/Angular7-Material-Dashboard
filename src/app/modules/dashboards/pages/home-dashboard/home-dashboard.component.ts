@@ -1,4 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostListener,
+    OnDestroy,
+    OnInit,
+    Renderer2,
+    ViewChild
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/store';
 import { DashboardOverviewService } from '../../../../core/services/dashboard-overview/dashboard-overview.service';
@@ -8,13 +17,14 @@ import { debounceTime } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { dummyData, DummyData } from './dummy';
 import { dummy2 } from './dummy2';
+import { dummy3 } from './dummy3';
 
 @Component( {
     selector: 'app-home-dashboard',
     templateUrl: './home-dashboard.component.html',
     styleUrls: [ './home-dashboard.component.scss' ]
 } )
-export class HomeDashboardComponent implements OnInit, OnDestroy {
+export class HomeDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     public storeData;
     public dataForChart1$: { data: number[], label: string }[] = [ { data: [], label: '' } ];
     public labelForChart1$ = [];
@@ -36,12 +46,14 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
     selectedTeam = 0;
     forChildChart;
     forChildChart2;
-
+    forChildChart3;
     //////
+
     constructor(
         private store: Store<AppState>,
         private http: DashboardOverviewService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private el: ElementRef
     ) {
         this.checkBoxCategory.valueChanges
             .pipe(
@@ -52,6 +64,23 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
                 this.updateChart( val );
             } );
     }
+
+    ////// Untuk Filter
+    @ViewChild('rowFixed') rowSticky: ElementRef;
+    isStickyPos;
+    isSticky = false;
+    stickyHeight;
+    @HostListener( 'window:scroll', [ '$event' ] )
+    onScroll() {
+        if (this.isStickyPos < window.pageYOffset) {
+            this.isSticky = true;
+            console.log('true');
+        } else {
+            this.isSticky = false;
+            console.log('false');
+        }
+    }
+    //////
 
     updateChart( data: any ) {
         const timeChart = this.timeForChart( this.myFilter.value.begin, this.myFilter.value.end );
@@ -241,9 +270,14 @@ export class HomeDashboardComponent implements OnInit, OnDestroy {
         this.changeChart1( this.selected );
         this.dataForChildChart = dummy2;
         this.changeChart2( this.selectedTeam );
-
+        this.forChildChart3 = dummy3;
     }
 
     ngOnDestroy(): void {
+    }
+
+    ngAfterViewInit(): void {
+        this.isStickyPos = Number(window.pageYOffset + this.rowSticky.nativeElement.getBoundingClientRect().top);
+        this.stickyHeight = Number(this.rowSticky.nativeElement.offsetHeight);
     }
 }

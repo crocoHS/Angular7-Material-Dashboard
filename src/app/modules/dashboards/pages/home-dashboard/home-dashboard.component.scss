@@ -29,10 +29,24 @@
         width: 50%;
     }
 }
+.kontol {
+    top: 0;
+    transition: all 1s ease;
+    height: auto;
+
+    &-anjeng{
+        position: fixed;
+        top: 90px;
+        z-index: 100;
+    }
+}
 
 .row-custom {
     height: 150px;
     margin-bottom: 20px;
+
+    &--fixed {
+    }
 }
 
 .line-chart, .bar-chart--2, .bar-chart {
@@ -40,6 +54,16 @@
     min-height: 400px;
     height: auto;
     width: 100%;
+}
+
+.bar-chart--3 {
+    position: relative;
+    height: auto;
+    width: 100%;
+}
+
+.bar-chart--3 ::ng-deep .chart-line {
+    height: 200px;
 }
 
 @media screen and (max-width: 768px) {

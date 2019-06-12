@@ -12,6 +12,15 @@
         <app-widgets color="#1A535C" icon="user" text="Total Project" title="10"></app-widgets>
     </div>
 </div>
+<div class="row" #rowFixed>
+    <div class="col-xl-4" [ngStyle]="{'height': isSticky ? stickyHeight : 'auto'}">
+        <div class="kt-portlet kontol" [ngClass]="{'kontol-anjeng': isSticky}">
+            <div class="kt-portlet__body">
+                ANJENG
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col">
         <div class="kt-portlet kt-portlet--mobile">
@@ -50,6 +59,22 @@
                     </app-option-dropdown>
                 </div>
                 <app-line-chart *ngIf="dataForChart1$" [data]="dataForChart1$" [label]="labelForChart1$" class="line-chart"></app-line-chart>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Leads Generate
+                    </h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <app-bar-stacked-chart [dataParent]="forChildChart3" class="bar-chart--3"></app-bar-stacked-chart>
             </div>
         </div>
     </div>
