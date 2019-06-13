@@ -1,4 +1,5 @@
 import {
+    AfterContentInit,
     AfterViewInit,
     Component,
     ElementRef,
@@ -24,7 +25,26 @@ import { dummy3 } from './dummy3';
     templateUrl: './home-dashboard.component.html',
     styleUrls: [ './home-dashboard.component.scss' ]
 } )
-export class HomeDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HomeDashboardComponent implements OnInit, OnDestroy, AfterContentInit {
+
+    //////
+
+    constructor(
+        private store: Store<AppState>,
+        private http: DashboardOverviewService,
+        private fb: FormBuilder,
+        private renderer: Renderer2
+    ) {
+        this.checkBoxCategory.valueChanges
+            .pipe(
+                debounceTime( 1000 ),
+                untilDestroyed( this )
+            )
+            .subscribe( val => {
+                this.updateChart( val );
+            } );
+    }
+
     public storeData;
     public dataForChart1$: { data: number[], label: string }[] = [ { data: [], label: '' } ];
     public labelForChart1$ = [];
@@ -47,39 +67,24 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
     forChildChart;
     forChildChart2;
     forChildChart3;
-    //////
+    @ViewChild( 'testColor' ) testColor;
+    @ViewChild( 'testColor2' ) testColor2;
+    ////// Untuk Filter Floating
+    @ViewChild( 'rowFixed' ) rowSticky: ElementRef;
+    @ViewChild( 'rowMoving' ) rowMoving: ElementRef;
+    private floatHeight;
+    private floatPos;
 
-    constructor(
-        private store: Store<AppState>,
-        private http: DashboardOverviewService,
-        private fb: FormBuilder,
-        private el: ElementRef
-    ) {
-        this.checkBoxCategory.valueChanges
-            .pipe(
-                debounceTime( 1000 ),
-                untilDestroyed( this )
-            )
-            .subscribe( val => {
-                this.updateChart( val );
-            } );
-    }
-
-    ////// Untuk Filter
-    @ViewChild('rowFixed') rowSticky: ElementRef;
-    isStickyPos;
-    isSticky = false;
-    stickyHeight;
     @HostListener( 'window:scroll', [ '$event' ] )
     onScroll() {
-        if (this.isStickyPos < window.pageYOffset) {
-            this.isSticky = true;
-            console.log('true');
+        if ( this.floatPos < window.pageYOffset ) {
+            const cobakpos = window.pageYOffset - this.floatPos;
+            this.renderer.setStyle( this.rowMoving.nativeElement, 'top', `${ cobakpos + 90 }px` );
         } else {
-            this.isSticky = false;
-            console.log('false');
+            this.renderer.setStyle( this.rowMoving.nativeElement, 'top', `0` );
         }
     }
+
     //////
 
     updateChart( data: any ) {
@@ -210,8 +215,8 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
                     const index = this.labelForChart1$.findIndex( res =>
                         moment( res, time.format ).isSame( moment( arr.date ), time.time )
                     );
-                    if (index !== -1) {
-                        obj.data[index]++;
+                    if ( index !== -1 ) {
+                        obj.data[ index ]++;
                     }
                 }
             }
@@ -249,6 +254,24 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
         this.forChildChart = this.mappingData( selectedValue );
     }
 
+    test() {
+        ////// Gawe Bar Chart //////////
+        const randColor = () => Math.round( Math.random() * 255 );
+        const randData = Math.round( Math.random() * this.forChildChart.name.length - 1 );
+        const color = `rgba(${ randColor() },${ randColor() },${ randColor() },0.4)`;
+        this.testColor.barChartColorScheme[ 0 ][ 'backgroundColor' ][ randData ] = color;
+        this.testColor.chart.chart.update();
+    }
+
+    test2() {
+         ////// Gawe Stacked Chart //////////
+        const randColor = () => Math.round(Math.random() * 255);
+        const randData = Math.round(Math.random() * 2);
+        const color = `rgba(${randColor()},${randColor()},${randColor()},0.4)`;
+        this.forChildChart2.data[randData]['backgroundColor'] = color;
+        this.testColor2.chart.chart.update();
+    }
+
     ///////////////////////////////////
 
     ngOnInit() {
@@ -276,8 +299,8 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterViewInit 
     ngOnDestroy(): void {
     }
 
-    ngAfterViewInit(): void {
-        this.isStickyPos = Number(window.pageYOffset + this.rowSticky.nativeElement.getBoundingClientRect().top);
-        this.stickyHeight = Number(this.rowSticky.nativeElement.offsetHeight);
+    ngAfterContentInit(): void {
+        this.floatHeight = this.rowMoving.nativeElement.clientHeight;
+        this.floatPos = Number( window.pageYOffset + this.rowSticky.nativeElement.getBoundingClientRect().top );
     }
 }

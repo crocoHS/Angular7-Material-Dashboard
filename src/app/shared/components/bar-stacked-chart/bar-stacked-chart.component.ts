@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { BaseChartDirective, Color, Label } from 'ng2-charts';
 
 @Component( {
     selector: 'app-bar-stacked-chart',
@@ -9,7 +9,7 @@ import { Color, Label } from 'ng2-charts';
 } )
 export class BarStackedChartComponent implements OnInit {
     @Input() dataParent;
-
+    @ViewChild(BaseChartDirective) public chart: BaseChartDirective;
     constructor() {
     }
 
@@ -148,6 +148,7 @@ export class BarStackedChartComponent implements OnInit {
             borderColor: 'rgba(237,74,123,0)'
         }
     ];
+
     ngOnInit() {
         if ( window.innerWidth < 768 ) {
             this.barChartOptions.scales.yAxes = [ {
@@ -171,5 +172,4 @@ export class BarStackedChartComponent implements OnInit {
             };
         }
     }
-
 }

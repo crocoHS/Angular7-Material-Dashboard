@@ -13,10 +13,38 @@
     </div>
 </div>
 <div class="row" #rowFixed>
-    <div class="col-xl-4" [ngStyle]="{'height': isSticky ? stickyHeight : 'auto'}">
-        <div class="kt-portlet kontol" [ngClass]="{'kontol-anjeng': isSticky}">
+    <div class="col-xl-4 col-sm-12 kt-mb-20" [style.height]="floatHeight + 'px'">
+        <div class="kt-portlet kt-floating" #rowMoving>
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        Filter <small>For All Chart</small>
+                    </h3>
+                </div>
+            </div>
             <div class="kt-portlet__body">
-                ANJENG
+                <div class="filter--body">
+                    <mat-form-field class="chart-option__date-picker">
+                        <input matInput #input
+                               placeholder="Choose a date"
+                               [satDatepicker]="picker"
+                               [max]="maxDate"
+                               (dateChange)="changeDate()"
+                               [formControl]="myFilter"
+                               (focus)="picker.open()"
+                        >
+                        <sat-datepicker #picker [rangeMode]="true" (closed)="input.blur()"></sat-datepicker>
+                        <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Project</mat-label>
+                        <mat-select value="0">
+                            <mat-option value="0">All</mat-option>
+                            <mat-option value="1">Project 1</mat-option>
+                            <mat-option value="2">Project 2</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
         </div>
     </div>
@@ -33,18 +61,11 @@
             </div>
             <div class="kt-portlet__body" style="width: auto;">
                 <div class="chart-option">
-                    <mat-form-field class="chart-option__date-picker">
-                        <input matInput #input
-                               placeholder="Choose a date"
-                               [satDatepicker]="picker"
-                               [max]="maxDate"
-                               (dateChange)="changeDate()"
-                               [formControl]="myFilter"
-                               (focus)="picker.open()"
-                        >
-                        <sat-datepicker #picker [rangeMode]="true" (closed)="input.blur()"></sat-datepicker>
-                        <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
-                    </mat-form-field>
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="0">
+                        <mat-button-toggle value="0">Day</mat-button-toggle>
+                        <mat-button-toggle value="1">Month</mat-button-toggle>
+                        <mat-button-toggle value="2">Year</mat-button-toggle>
+                    </mat-button-toggle-group>
                     <app-option-dropdown class="chart-option__expandable">
                         <h6 title class="chart-option__title">Category</h6>
                         <form class="chart-option__form" [formGroup]="checkBoxCategory">
@@ -73,7 +94,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="kt-portlet__body">
+            <div class="kt-portlet__body" >
                 <app-bar-stacked-chart [dataParent]="forChildChart3" class="bar-chart--3"></app-bar-stacked-chart>
             </div>
         </div>
@@ -97,7 +118,8 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <app-bar-chart [data]="forChildChart" class="bar-chart"></app-bar-chart>
+                <button (click)="test()">Test Color</button>
+                <app-bar-chart [data]="forChildChart" class="bar-chart" #testColor></app-bar-chart>
             </div>
         </div>
     </div>
@@ -119,7 +141,8 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <app-bar-stacked-chart [dataParent]="forChildChart2" class="bar-chart--2"></app-bar-stacked-chart>
+                <button (click)="test2()">Test Color</button>
+                <app-bar-stacked-chart [dataParent]="forChildChart2" class="bar-chart--2" #testColor2></app-bar-stacked-chart>
             </div>
         </div>
     </div>
