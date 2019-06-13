@@ -72,8 +72,8 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterContentIn
     ////// Untuk Filter Floating
     @ViewChild( 'rowFixed' ) rowSticky: ElementRef;
     @ViewChild( 'rowMoving' ) rowMoving: ElementRef;
-    private floatHeight;
-    private floatPos;
+    public floatHeight;
+    public floatPos;
 
     @HostListener( 'window:scroll', [ '$event' ] )
     onScroll() {
