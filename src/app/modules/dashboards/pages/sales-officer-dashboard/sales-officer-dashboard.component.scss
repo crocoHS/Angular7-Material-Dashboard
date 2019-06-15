@@ -27,7 +27,7 @@ mat-icon{
     @media screen and (max-width: 768px){
         .sales_officer_dialog {
             width: 90vw;
-            height: 90vh;
+            max-height: 90vh;
             min-height: 700px;
         }
     }

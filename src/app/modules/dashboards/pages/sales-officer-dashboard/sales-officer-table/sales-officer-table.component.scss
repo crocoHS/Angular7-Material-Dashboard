@@ -16,24 +16,33 @@ table {
     width: 90%;
     margin: 0 auto;
 }
+.table {
+    &__mobile{
+        padding: 0 20px;
+    }
 
-/// gawe dialog
-::ng-deep{
-    @media screen and (max-width: 1200px) {
-        .container__mobile {
-            width: 100%;
-            overflow: auto;
-        }
-        table {
-            width: 1200px;
-        }
-        .table__mobile{
-            padding: 0 10px !important;
-        }
-        .mat-table-sticky{
-            border-right: #d8dce6 solid 1px;
-            padding: 10px !important;
-            background-color: antiquewhite;
-        }
+    &--small {
+        width: 12.5%;
+    }
+    &--large {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container__mobile {
+        width: 100%;
+        overflow: auto;
+    }
+    table {
+        width: 1200px;
+    }
+    .table__mobile{
+        padding: 0 10px !important;
+    }
+    .mat-table-sticky{
+        border-right: #d8dce6 solid 1px;
+        padding: 10px !important;
+        background-color: antiquewhite;
     }
 }

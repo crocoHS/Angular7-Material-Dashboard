@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { coverage, Coverage, Dummy } from '../dataDummy';
+import { salesTeams, ISalesTeam, Dummy } from '../dataDummy';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -37,10 +37,10 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
 
     public isValid;
 
-    public allCoverage: Coverage[];
-    private curCoverage;
+    public salesTeams: ISalesTeam[];
+    private curSalesTeam: ISalesTeam[];
     private dummyData: Dummy;
-    coverageChecked = new FormControl( '' );
+    isSalesTeamChecked = new FormControl( '' );
     /////////////////////
     testGroup = new FormGroup( {
         name: new FormControl( '', Validators.required ),
@@ -50,9 +50,9 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
             Validators.pattern( /[0-9\+\-\ ]/ )
         ] ),
         address: new FormControl( '', Validators.required ),
-        picName: new FormControl( '', Validators.required ),
+        gender: new FormControl( 'male', Validators.required ),
         password: new FormControl( '', Validators.required ),
-        coverage: new FormControl( '', Validators.required ),
+        salesTeam: new FormControl( '', Validators.required ),
     } );
 
     //////////////////////
@@ -60,11 +60,11 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
         if ( event.checked ) {
             elRef.disable = true;
             elRef.placeholder = '';
-            return this.testGroup.patchValue( { coverage: this.allCoverage } );
+            return this.testGroup.patchValue( { salesTeam: this.salesTeams } );
         }
         elRef.disable = false;
         elRef.placeholder = 'Add City';
-        return this.testGroup.patchValue( { coverage: this.curCoverage } );
+        return this.testGroup.patchValue( { salesTeam: this.curSalesTeam } );
     }
 
     onKeyDown( e: KeyboardEvent ) {
@@ -100,20 +100,20 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
             email: value.email,
             phone: value.phone,
             address: value.address,
-            picName: value.picName,
+            gender: value.gender,
             password: value.password,
-            coverage: value.coverage
+            salesTeam: value.salesTeam
         } );
-        this.coverageChecked.setValue( false );
+        this.isSalesTeamChecked.setValue( false );
     }
 
     ngOnInit() {
         if ( this.data ) {
             this.dummyData = this.data;
-            this.curCoverage = this.dummyData.coverage;
+            this.curSalesTeam = this.dummyData.salesTeam;
             this.setAllValue( this.dummyData );
         }
-        this.allCoverage = coverage;
+        this.salesTeams = salesTeams;
     }
 
     ngOnDestroy(): void {

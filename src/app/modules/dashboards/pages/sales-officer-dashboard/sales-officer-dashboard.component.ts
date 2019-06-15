@@ -9,15 +9,18 @@ import {MatDialog} from '@angular/material';
     styleUrls: ['./sales-officer-dashboard.component.scss']
 })
 export class SalesOfficerDashboardComponent implements OnInit {
-    // TODO: IKI YO SEK NGEBUG
+    /*
+    TODO: - IKI YO SEK NGEBUG
+          - Dialog integrate with sales team
+    */
     public dataForChildChart = {
         data: [
-            {data: [65, 0], label: 'Hot'},
+            {data: [65, 0, 32, 23, 90], label: 'Hot'},
             {data: [28, 50], label: 'New Lead'},
             {data: [28, 0, 0, 70], label: 'Cold'},
             {data: [28, 0, 60], label: 'Closed'}
         ],
-        label: ['Team Bandung', 'Team Jakarta', 'Team Surabaya', 'Team Jayapura']
+        label: ['Sales Officer 1', 'Sales Officer 2', 'Sales Officer 3', 'Sales Officer 4', 'Sales Officer 5']
     };
     public dataForTable = dummyAss;
 

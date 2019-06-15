@@ -14,8 +14,6 @@ export class SalesTeamDashboardTableComponent implements OnInit {
     click = true;
     @Input() dataFromParent: Dummy[];
     dataSource = new MatTableDataSource<Dummy>( this.dataFromParent );
-    // @ViewChild("jancok", { read: ElementRef}) jancok: ElementRef;
-    // Gawe tombol klik, element binding
     @ViewChild( MatPaginator ) paginator: MatPaginator;
     @ViewChild( MatTable ) table: MatTable<Dummy>;
     @ViewChild( MatSort ) sort: MatSort;

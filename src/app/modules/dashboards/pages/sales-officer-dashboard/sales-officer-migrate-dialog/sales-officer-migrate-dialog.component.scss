@@ -1,0 +1,30 @@
+.example-form{
+    display: flex;
+    flex-direction: column;
+    & div {
+        margin-bottom: 20px;
+        & h6 {
+        display: inline-block;
+        margin-right: 40px;
+        }
+    }
+}
+
+.form__select{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+
+    & mat-checkbox {
+        width: 40%;
+    }
+}
+
+.mat-dialog-actions button {
+    margin-right: 5px;
+
+    &:last-child{
+        margin-right: 0;
+    }
+}

@@ -3,14 +3,14 @@
     <form class="example-form"
           [formGroup]="testGroup">
         <div class="coverage__field">
-            <tag-input formControlName="coverage"
+            <tag-input formControlName="salesTeam"
                        [identifyBy]="'id'" [displayBy]="'name'"
                        theme='minimal' #city
-                       placeholder="Add City"
+                       placeholder="Add Sales Team"
                        [disable]=false
                        [onlyFromAutocomplete]="true">
                 <tag-input-dropdown
-                    [autocompleteItems]="allCoverage"
+                    [autocompleteItems]="salesTeams"
                     [appendToBody]="false"
                     [keepOpen]="false"
                     [showDropdownIfEmpty]="true"
@@ -18,8 +18,8 @@
                     [identifyBy]="'id'" [displayBy]="'name'">
                 </tag-input-dropdown>
             </tag-input>
-            <mat-checkbox (change)='change($event, city)' [formControl]="coverageChecked">All City</mat-checkbox>
-            <mat-error id="coverage__custom" @myInsertRemoveTrigger *ngIf="testGroup.get('coverage').hasError('required')">Please Add Coverage</mat-error>
+            <mat-checkbox (change)='change($event, city)' [formControl]="isSalesTeamChecked">All Sales Teams</mat-checkbox>
+            <mat-error id="coverage__custom" @myInsertRemoveTrigger *ngIf="testGroup.get('salesTeam').hasError('required')">Please Add Sales Team</mat-error>
         </div>
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Name</mat-label>
@@ -46,9 +46,11 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>PIC Name</mat-label>
-            <input matInput placeholder="PIC Name"
-                   formControlName="picName">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+            </mat-select>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">

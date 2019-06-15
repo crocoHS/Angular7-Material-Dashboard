@@ -26,9 +26,10 @@ import { dummy3 } from './dummy3';
     styleUrls: [ './home-dashboard.component.scss' ]
 } )
 export class HomeDashboardComponent implements OnInit, OnDestroy, AfterContentInit {
-
-    //////
-
+    /*
+    TODO: - Menunggu Api jadi
+          - Semua method di class ini harusnya bisa bersih karena tinggal api call saja
+    */
     constructor(
         private store: Store<AppState>,
         private http: DashboardOverviewService,
@@ -103,7 +104,6 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterContentIn
         } );
     }
 
-    // TODO: Tinggal ganti cara untuk tambah data, digawe mari ae
     changeDate() {
         const timeChart = this.timeForChart( this.myFilter.value.begin, this.myFilter.value.end );
         const range = this.generateLabel( this.myFilter.value.begin, this.myFilter.value.end, timeChart );

@@ -26,23 +26,23 @@ export class LoginComponent implements OnInit {
         password: [ '123', [ Validators.required ] ]
     } );
 
+    /*
+        UNTUK TEST SAJA, HARUS DIGANTI
+        TODO: - Form Control untuk login
+              - Show Error Login ex: Wrong Password and Username
+              - Disable Button menghindari multi click
+              - Show Loading Spinner setelah success login dan navigate ke next URL
+    */
     onSubmit() {
         if ( this.loginForm.valid ) {
             this.http.login( this.loginForm.value )
                 .pipe(
-                    tap( (result: any) => {
-                        const user = new JwtHelperService().decodeToken(result.token);
+                    tap( ( result: any ) => {
+                        const user = new JwtHelperService().decodeToken( result.token );
                         user.token = result.token;
-                        this.store.dispatch( new Login( { user } ));
-                        this.router.navigateByUrl('/dashboard');
+                        this.store.dispatch( new Login( { user } ) );
+                        this.router.navigateByUrl( '/dashboard' );
                     } )
-                    // TODO: UNTUK TEST SAJA, HARUS DIGANTI
-                    // Gawe Demo nang Goyeng pake dibawah ini jika bukan demo
-                    /*tap( (result: any) => {
-                        const user = result;
-                        this.store.dispatch( new Login( { user } ));
-                        this.router.navigateByUrl('/dashboard');
-                    } )*/
                 )
                 .subscribe(
                     () => {

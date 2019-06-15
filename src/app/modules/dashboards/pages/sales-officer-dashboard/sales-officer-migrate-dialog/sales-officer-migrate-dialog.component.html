@@ -1,0 +1,29 @@
+<h3 mat-dialog-title>Lead Migration Form</h3>
+<div>
+    <form class="example-form"
+          [formGroup]="formGroup">
+        <h6 class="font-weight-light">Who do you want to migrate lead ?</h6>
+        <mat-form-field appearance="outline">
+            <mat-label>Select Sales Officer</mat-label>
+            <mat-select formControlName="salesOfficer">
+                <mat-option *ngFor="let sales of data.salesOfficers" [value]="sales.id">{{sales.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div>
+            <h6 class="font-weight-light">What kind of lead do you want to migrate ?</h6>
+            <button class="btn btn-primary btn-sm" (click)="checkAll()">All</button>
+        </div>
+        <div class="form__select" formGroupName="category">
+            <mat-checkbox formControlName="new_leads">New Leads</mat-checkbox>
+            <mat-checkbox formControlName="hot">Hot</mat-checkbox>
+            <mat-checkbox formControlName="cold">Cold</mat-checkbox>
+            <mat-checkbox formControlName="unqualified">Unqualified</mat-checkbox>
+            <mat-checkbox formControlName="closed">Closed</mat-checkbox>
+            <mat-checkbox formControlName="warm">Warm</mat-checkbox>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
+    <button type="submit" mat-flat-button (click)="onSubmit(formGroup)" color="primary" [disabled]="!isValid">Submit</button>
+</div>

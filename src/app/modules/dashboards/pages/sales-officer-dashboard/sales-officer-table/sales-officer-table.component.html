@@ -5,65 +5,54 @@
     <div class="container__mobile">
         <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id" class="table__sticky" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
-                <td mat-cell *matCellDef="let element;" style="width: 5%"> {{element.id}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                <td mat-cell *matCellDef="let i = index" style="width: 5%"> {{i}} </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Name</th>
-                <td mat-cell *matCellDef="let element" class="table__mobile" style="width: 10%"> {{element.name}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Name / Joined </th>
+                <td mat-cell *matCellDef="let element" class="table__mobile">
+                    {{element.name}}<br>
+                    <small>{{element.joinDate | date}}</small>
+                </td>
             </ng-container>
 
-            <ng-container matColumnDef="coverage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Coverage Area</th>
-                <td mat-cell *matCellDef="let element" style="width: 20%" class="table__mobile">
+            <ng-container matColumnDef="leads">
+                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Leads </th>
+                <td mat-cell *matCellDef="let element" class="table__mobile table--small">
+                    <button mat-raised-button color="primary">{{element.leads}}</button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="point">
+                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Point </th>
+                <td mat-cell *matCellDef="let element" class="table__mobile table--small">
+                    <button mat-raised-button color="primary">{{element.point}}</button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="salesTeam">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Sales Team </th>
+                <td mat-cell *matCellDef="let element" class="table__mobile table--large">
                     <mat-expansion-panel class="mat-exp-pnl">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                Coverage Area
+                                Sales Team
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <mat-list *ngFor="let cok of element.coverage">
+                        <mat-list *ngFor="let cok of element.salesTeam">
                             <mat-list-item> {{cok.name}} </mat-list-item>
                         </mat-list>
                     </mat-expansion-panel>
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="pic">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> PIC Contact</th>
-                <td mat-cell *matCellDef="let element" class="table__mobile">
-                    <p>{{element.picName}} </p>
-                    <p>{{element.email}} </p>
-                    <p>{{element.phone}} </p>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="salesOfficer">
-                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Sales Officer</th>
-                <td mat-cell *matCellDef="let element" class="table__mobile">
-                    <button mat-raised-button color="primary">{{element.salesOfficer}}</button>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="leads">
-                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Leads </th>
-                <td mat-cell *matCellDef="let element" class="table__mobile">
-                    <button mat-raised-button color="primary">{{element.leads}}</button>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="channels">
-                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Channels </th>
-                <td mat-cell *matCellDef="let element" class="table__mobile">
-                    <button mat-raised-button color="primary">{{element.channels}}</button>
-                </td>
-            </ng-container>
-
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef class="table__mobile"> Status </th>
-                <td mat-cell *matCellDef="let element" class="table__mobile">
-                    <mat-button-toggle value={{element.status}}>Active</mat-button-toggle>
+                <td mat-cell *matCellDef="let element; let i = index" class="table__mobile table--small">
+                    <button mat-raised-button [color]="element.status ? 'primary' : 'warn'"
+                    (click)="changeStatus(i)"
+                    >{{element.status ? 'Active' : 'InActive'}}</button>
                 </td>
             </ng-container>
 
@@ -71,12 +60,12 @@
                 <th mat-header-cell *matHeaderCellDef class="table__mobile"> Action </th>
                 <td mat-cell style="width: 10%" *matCellDef="let element" class="table__mobile">
                     <button mat-icon-button title="Edit me"
-                            (click)="editRow(element)">
+                            (click)="editOfficers(element)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" title="Please don't :("
-                            (click)="deleteRow(element.id)">
-                        <mat-icon>delete</mat-icon>
+                    <button mat-icon-button color="primary" title="Migrate leads"
+                            (click)="migrateLeads(element)">
+                        <mat-icon>transfer_within_a_station</mat-icon>
                     </button>
                 </td>
             </ng-container>

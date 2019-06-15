@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { coverage, Coverage, Dummy } from '../dataDummy';
+import { salesTeams, ISalesTeam, Dummy } from '../dataDummy';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { SalesOfficerDialogComponent } from '../sales-officer-dialog/sales-officer-dialog.component';
+import { SalesOfficerMigrateDialogComponent } from '../sales-officer-migrate-dialog/sales-officer-migrate-dialog.component';
 
 @Component( {
     selector: 'app-sales-officer-table',
@@ -9,8 +10,8 @@ import { SalesOfficerDialogComponent } from '../sales-officer-dialog/sales-offic
     styleUrls: [ './sales-officer-table.component.scss' ]
 } )
 export class SalesOfficerTableComponent implements OnInit {
-    displayedColumns: string[] = [ 'id', 'name', 'coverage', 'pic', 'salesOfficer', 'leads', 'channels', 'status', 'action' ];
-    allCoverage: Coverage[];
+    displayedColumns: string[] = [ 'id', 'name', 'leads', 'point', 'salesTeam', 'status', 'action' ];
+    allCoverage: ISalesTeam[];
     click = true;
     @Input() dataFromParent: Dummy[];
     dataSource = new MatTableDataSource<Dummy>();
@@ -29,13 +30,13 @@ export class SalesOfficerTableComponent implements OnInit {
         }
     }
 
-    mapping( arrAll: number[] ): Coverage[] {
+    mapping( arrAll: number[] ): ISalesTeam[] {
         return arrAll.map( val => {
             return this.allCoverage.find( obj => obj.id === val );
         } );
     }
 
-    editRow( dataFromElement: string ) {
+    editOfficers( dataFromElement: string ) {
         const dialogRef = this.dialog.open( SalesOfficerDialogComponent, {
             panelClass: 'sales_officer_dialog',
             data: dataFromElement
@@ -48,28 +49,57 @@ export class SalesOfficerTableComponent implements OnInit {
                     }
                 } );
                 this.table.renderRows();
-                console.log( this.dataSource.data, 'jancok' );
             }
         } );
     }
 
-    deleteRow( id ) {
-        const object = this.dataSource.data.filter( obj => obj.id !== id );
-        this.dataSource.data = object;
-        this.table.renderRows();
+    migrateLeads( dataFromElement: any ) {
+        dataFromElement.salesOfficers = this.dataFromParent.reduce( (acc, cur) => {
+            if ( dataFromElement.id !== cur.id ) {
+                acc.push(cur);
+            }
+            return acc;
+        }, [] );
+        const dialogRef = this.dialog.open( SalesOfficerMigrateDialogComponent, {
+            data: dataFromElement
+        } );
+        dialogRef.afterClosed().subscribe( ( result: Dummy ) => {
+            /*if ( result ) {
+                this.dataSource.data.forEach( arr => {
+                    if ( arr.id === result.id ) {
+                        Object.assign( arr, result );
+                    }
+                } );
+                this.table.renderRows();
+            }*/
+            console.log( result );
+        } );
     }
 
+    /*
+        deleteRow( id ) {
+            const object = this.dataSource.data.filter( obj => obj.id !== id );
+            this.dataSource.data = object;
+            this.table.renderRows();
+        }
+    */
+
+    changeStatus( i ) {
+        this.dataSource.data[ i ].status = !this.dataSource.data[ i ].status;
+    }
+
+    // mapping sales team
     bangsat() {
         this.dataFromParent.forEach( arrAll => {
-            const exist = arrAll.coverage.some( el => typeof el === 'object' );
+            const exist = arrAll.salesTeam.some( el => typeof el === 'object' );
             if ( !exist ) {
-                return arrAll.coverage = this.mapping( arrAll.coverage );
+                return arrAll.salesTeam = this.mapping( arrAll.salesTeam );
             }
         } );
     }
 
     ngOnInit() {
-        this.allCoverage = coverage;
+        this.allCoverage = salesTeams;
         this.bangsat();
         this.dataSource.data = this.dataFromParent;
         this.dataSource.paginator = this.paginator;
