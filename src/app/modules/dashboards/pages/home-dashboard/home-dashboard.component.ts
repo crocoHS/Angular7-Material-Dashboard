@@ -257,7 +257,7 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterContentIn
     test() {
         ////// Gawe Bar Chart //////////
         const randColor = () => Math.round( Math.random() * 255 );
-        const randData = Math.round( Math.random() * this.forChildChart.name.length - 1 );
+        const randData = Math.round( Math.random() * (this.forChildChart.name.length - 1) );
         const color = `rgba(${ randColor() },${ randColor() },${ randColor() },0.4)`;
         this.testColor.barChartColorScheme[ 0 ][ 'backgroundColor' ][ randData ] = color;
         this.testColor.chart.chart.update();
@@ -266,7 +266,7 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterContentIn
     test2() {
          ////// Gawe Stacked Chart //////////
         const randColor = () => Math.round(Math.random() * 255);
-        const randData = Math.round(Math.random() * 2);
+        const randData = Math.round(Math.random() * (this.forChildChart2.data.length - 1));
         const color = `rgba(${randColor()},${randColor()},${randColor()},0.4)`;
         this.forChildChart2.data[randData]['backgroundColor'] = color;
         this.testColor2.chart.chart.update();
