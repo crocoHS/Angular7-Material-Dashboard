@@ -12,6 +12,7 @@ import {ProjectSettingComponent} from './pages/project-dashboard/pages/project-s
 import {SalesOfficerDashboardComponent} from './pages/sales-officer-dashboard/sales-officer-dashboard.component';
 import {UserSettingDashboardComponent} from './pages/user-setting-dashboard/user-setting-dashboard.component';
 import {ProjectSettingProductsComponent} from './pages/project-dashboard/pages/project-setting-products/project-setting-products.component';
+import {ProfileDashboardComponent} from "./pages/profile-dashboard/profile-dashboard.component";
 
 const routes: Routes = [
     {
@@ -90,6 +91,10 @@ const routes: Routes = [
             {
                 path: 'user-setting',
                 component: UserSettingDashboardComponent
+            },
+            {
+                path: 'profile',
+                component: ProfileDashboardComponent
             },
             {
                 path: '**',
