@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 
 export interface ILead {
@@ -25,7 +25,7 @@ export class ProjectDetailLeadComponent implements OnChanges {
     @ViewChild( MatTable ) table: MatTable<ILead>;
     @ViewChild( MatSort ) sort: MatSort;
     displayedColumns: string[] = [ 'id', 'name', 'category', 'status', 'salesTeam', 'salesOfficer', 'campaign', 'channel' ];
-    dataSource = new MatTableDataSource<ILead>(this.dataFromParent);
+    dataSource;
 
     constructor() {
     }
@@ -38,7 +38,8 @@ export class ProjectDetailLeadComponent implements OnChanges {
     }
 
     ngOnChanges( data: SimpleChanges ) {
-        if ( data[ 'dataFromParent' ]) {
+        if ( !data[ 'dataFromParent' ].firstChange) {
+            this.dataSource = new MatTableDataSource<ILead>();
             this.dataSource.data = this.dataFromParent;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

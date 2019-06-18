@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import { ActivatedRoute, ActivationEnd, NavigationEnd, Router } from '@angular/router';
+import { distinctUntilChanged, filter, map, pluck } from 'rxjs/operators';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 
 
@@ -41,7 +41,6 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
     }
 
     ngOnDestroy() {
