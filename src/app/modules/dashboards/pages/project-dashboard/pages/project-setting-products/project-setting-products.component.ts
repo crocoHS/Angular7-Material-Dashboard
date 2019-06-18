@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component( {
     selector: 'app-project-setting-products',
@@ -26,7 +25,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     } );
 
     // Data Product Image
-    public productImage: string[];
+    public productImage: any[];
     // for Carousel
     public carouselImage = 0;
     // for Sub Category
@@ -36,9 +35,19 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     public infos: any[] = [];
 
     /////////////////////////////
-    constructor( private fb: FormBuilder, private router: ActivatedRoute) {
-        console.log(this.router.snapshot.params);
+    constructor( private fb: FormBuilder, private router: ActivatedRoute ) {
+        console.log( this.router.snapshot.params );
     }
+
+    // for Image Upload /////
+    addImage(files) {
+        // const file: File = inputRef.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = (ev) => this.productImage.push(reader.result);
+    }
+
+    /////////////////////////
 
     // for Price Form
     changeMinPrice() {
@@ -55,7 +64,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     }
 
     // For Sub Category ///////////////
-    add( event: MatChipInputEvent ): void {
+    addSubCategory( event: MatChipInputEvent ): void {
         const input = event.input;
         const value = event.value;
         // Add our fruit
@@ -68,8 +77,8 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
         }
     }
 
-    remove( fruit ): void {
-        const index = this.tagMulti.indexOf( fruit );
+    removeSubCategory( tags ): void {
+        const index = this.tagMulti.indexOf( tags );
         if ( index >= 0 ) {
             this.tagMulti.splice( index, 1 );
         }
@@ -96,14 +105,15 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     /////////////////////////////////////////////////
     // Submit All Form
     submitAllForm() {
-        console.log(this.formGroup.value , this.formGroup2.value);
+        console.log( this.formGroup.value, this.formGroup2.value );
     }
 
     ngOnInit() {
         // TODO: SUBSCRIBE KE PRODUCT ,PRODUCT CATEGORY ,PRODUCT IMAGE
-        this.productImage =
+        /*this.productImage =
             [ 'https://dummyimage.com/600x400/000/fff.jpg', 'https://dummyimage.com/1024x600/000/fff.jpg',
-                'https://dummyimage.com/600x400/000/fff.jpg', 'https://dummyimage.com/1024x600/000/fff.jpg' ];
+                'https://dummyimage.com/600x400/000/fff.jpg', 'https://dummyimage.com/1024x600/000/fff.jpg' ];*/
+        this.productImage = [];
     }
 
     ngOnDestroy(): void {

@@ -8,8 +8,13 @@
         <div class="row">
             <div class="col-md-7">
                 <div class="image__carousel">
-                    <img *ngFor="let img of productImage; let i = index" [src]="img" alt="image {{i}}"
-                         [ngClass]="{'image__carousel--active': carouselImage === i}">
+                    <ng-template [ngIf]="productImage.length === 0" [ngIfElse]="showImage">
+                        <img src="https://www.lauriloewenberg.com/wp-content/uploads/2019/04/No_Image_Available.jpg" class="image__carousel--active" alt="no image placeholder">
+                    </ng-template>
+                    <ng-template #showImage>
+                        <img *ngFor="let img of productImage; let i = index" [src]="img" alt="image {{i}}"
+                             [ngClass]="{'image__carousel--active': carouselImage === i}">
+                    </ng-template>
                 </div>
                 <div class="image__container">
                     <div class="image__item" *ngFor="let img of productImage; let i = index">
@@ -28,7 +33,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <input #upload type="file" accept="image/*">
+                        <input #upload type="file" accept="image/*" (change)="addImage(upload.files)">
                     </div>
                 </div>
             </div>
@@ -68,7 +73,6 @@
                                         <mat-hint>Must not exceeded from Price</mat-hint>
                                     </mat-form-field>
                                 </div>
-                                <!--                    <button (click)="cok()">BLOK</button>-->
                             </form>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                             <h3 class="kt-section__title">Product Category</h3>
@@ -82,7 +86,7 @@
                                 <mat-form-field appearance="outline">
                                     <mat-chip-list #chipList>
                                         <mat-chip *ngFor="let tags of tagMulti" [selectable]="false"
-                                                  [removable]="true" (removed)="remove(tags)">
+                                                  [removable]="true" (removed)="removeSubCategory(tags)">
                                             {{tags.name}}
                                             <mat-icon matChipRemove>cancel</mat-icon>
                                         </mat-chip>
@@ -91,7 +95,7 @@
                                                [matChipInputFor]="chipList"
                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                                [matChipInputAddOnBlur]="true"
-                                               (matChipInputTokenEnd)="add($event)">
+                                               (matChipInputTokenEnd)="addSubCategory($event)">
                                     </mat-chip-list>
                                     <mat-hint>Sub Category of Product. Ex: Location, Sales Team</mat-hint>
                                 </mat-form-field>
