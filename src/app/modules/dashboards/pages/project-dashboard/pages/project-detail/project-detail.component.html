@@ -5,9 +5,17 @@
         </div>
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-actions">
-                <a [routerLink]="['../../setting/',projectInUsedData.id]" class="btn btn-danger btn-sm btn-bold">
-                    <mat-icon>settings</mat-icon>Setting
-                </a>
+                <div class="btn-group btn-group-sm">
+                    <button (click)="uploadDialog()" class="btn btn-warning btn-bold">
+                        <mat-icon>cloud_download</mat-icon>Export
+                    </button>
+                    <button (click)="uploadDialog()" class="btn btn-brand btn-bold">
+                        <mat-icon>cloud_upload</mat-icon>Import
+                    </button>
+                    <a [routerLink]="['../../setting/',projectInUsedData.id]" class="btn btn-danger btn-bold">
+                        <mat-icon>settings</mat-icon>Setting
+                    </a>
+                </div>
             </div>
         </div>
     </div>

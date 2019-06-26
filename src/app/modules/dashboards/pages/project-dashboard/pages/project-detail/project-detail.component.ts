@@ -3,6 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ILead } from '../project-detail-lead/project-detail-lead.component';
+import { MatDialog } from '@angular/material';
+import { ProjectDetailUploadDialogComponent } from './project-detail-upload-dialog/project-detail-upload-dialog.component';
+import { ICampaign } from '../project-detail-campaign/project-detail-campaign.component';
 
 @Component( {
     selector: 'app-project-detail',
@@ -46,7 +49,11 @@ export class ProjectDetailComponent implements OnInit {
         category: new FormControl( '' ),
     } );
 
-    constructor( private router: ActivatedRoute, private http: HttpClient ) {
+    constructor(
+        private router: ActivatedRoute,
+        private http: HttpClient,
+        private dialog: MatDialog
+    ) {
         this.filterGroup.valueChanges
             .subscribe( result => {
                 let res = this.dummyData$;
@@ -63,6 +70,17 @@ export class ProjectDetailComponent implements OnInit {
             } );
     }
 
+    // Upload Dialog ////////////
+    uploadDialog() {
+        const dialogRef = this.dialog.open( ProjectDetailUploadDialogComponent, {
+            panelClass: 'project_detail_upload_dialog',
+        } );
+        dialogRef.afterClosed().subscribe( ( result: ICampaign ) => {
+
+        } );
+    }
+
+    /////////////////////////////
     // Gawe filter
     removeFalsy( obj ) {
         let newObj = {};
@@ -76,8 +94,8 @@ export class ProjectDetailComponent implements OnInit {
 
     setSelectArray( arrayData, key ) {
         return arrayData.reduce( ( acc, cur ) => {
-            if ( !acc.includes( cur[key] ) ) {
-                acc.push( cur[key] );
+            if ( !acc.includes( cur[ key ] ) ) {
+                acc.push( cur[ key ] );
             }
             return acc;
         }, [] );

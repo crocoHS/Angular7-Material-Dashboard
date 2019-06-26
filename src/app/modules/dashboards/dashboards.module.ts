@@ -34,6 +34,7 @@ import { UserSettingAddDialogComponent } from './pages/user-setting-dashboard/us
 import { ProjectSettingProductsComponent } from './pages/project-dashboard/pages/project-setting-products/project-setting-products.component';
 import { SalesOfficerMigrateDialogComponent } from './pages/sales-officer-dashboard/sales-officer-migrate-dialog/sales-officer-migrate-dialog.component';
 import { ProfileDashboardComponent } from './pages/profile-dashboard/profile-dashboard.component';
+import { ProjectDetailUploadDialogComponent } from './pages/project-dashboard/pages/project-detail/project-detail-upload-dialog/project-detail-upload-dialog.component';
 
 @NgModule( {
     declarations: [
@@ -66,6 +67,7 @@ import { ProfileDashboardComponent } from './pages/profile-dashboard/profile-das
         ProjectSettingProductsComponent,
         SalesOfficerMigrateDialogComponent,
         ProfileDashboardComponent,
+        ProjectDetailUploadDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -84,6 +86,7 @@ import { ProfileDashboardComponent } from './pages/profile-dashboard/profile-das
         ProjectSettingProductDialogComponent,
         UserSettingChangeDialogComponent,
         UserSettingAddDialogComponent,
+        ProjectDetailUploadDialogComponent
     ]
 } )
 export class DashboardsModule {

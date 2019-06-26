@@ -1,0 +1,24 @@
+<h3 mat-dialog-title>Upload Form
+    <small class="font-weight-light kt-font-sm">Please Use Only Template Format</small>
+</h3>
+<mat-dialog-content>
+    <div class="dialog-content">
+        <mat-form-field appearance="outline">
+            <mat-label>Channel</mat-label>
+            <mat-select value="upload">
+                <mat-option value="upload" disabled>Upload</mat-option>
+            </mat-select>
+            <mat-hint>Only Upload Channel</mat-hint>
+        </mat-form-field>
+        <div class="dialog-upload">
+            <input type="file" #imageInput accept=".xlsx, .xls" (change)="uploadFiles(imageInput)">
+            <button (click)="imageInput.click()" class="btn btn-brand btn-bold">{{placeholderUploadButton}}</button>
+            <button (click)="clearUpload(imageInput)" *ngIf="isClearUploadShow"  class="btn btn-danger btn-bold">Delete</button>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-align">
+    <button mat-stroked-button color="primary">Template</button>
+    <button mat-stroked-button (click)="onNoClick()">Cancel</button>
+    <button mat-flat-button (click)="onSubmit(imageInput)" color="primary" [disabled]="!isClearUploadShow">Submit</button>
+</mat-dialog-actions>

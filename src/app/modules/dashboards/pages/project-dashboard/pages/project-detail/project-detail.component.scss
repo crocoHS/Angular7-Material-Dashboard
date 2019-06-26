@@ -28,6 +28,8 @@ mat-icon{
     height: auto;
     width: 100%;
 }
+
+
 @media screen and (max-width: 768px) {
     .bar-chart{
         overflow-x: scroll;
@@ -36,4 +38,14 @@ mat-icon{
         margin: 0 auto;
     }
 }
+::ng-deep {
+    .project_detail_upload_dialog{
+        width: 50vw;
+    }
 
+    @media screen and (max-width: 768px) {
+        .project_detail_upload_dialog{
+            width: 90vw;
+        }
+    }
+}

@@ -38,7 +38,7 @@ export class ProjectDetailLeadComponent implements OnChanges {
     }
 
     ngOnChanges( data: SimpleChanges ) {
-        if ( !data[ 'dataFromParent' ].firstChange) {
+        if ( data[ 'dataFromParent' ].currentValue) {
             this.dataSource = new MatTableDataSource<ILead>();
             this.dataSource.data = this.dataFromParent;
             this.dataSource.paginator = this.paginator;

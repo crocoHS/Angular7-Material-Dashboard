@@ -1,0 +1,35 @@
+.dialog{
+    &-content{
+        width: 100%;
+        padding: 3%;
+        flex-direction: column;
+    }
+
+    &-upload{
+        margin-top: 20px;
+
+        & input {
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+        & button:last-child{
+            margin-left: 10px;
+        }
+    }
+
+    &-align{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        & button{
+            margin-right: 10px;
+            &:first-child{
+                margin-right: auto;
+            }
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+}
