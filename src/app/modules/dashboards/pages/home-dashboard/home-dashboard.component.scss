@@ -32,8 +32,14 @@
 .kt-floating {
     top: 0;
     z-index: 100;
+    width: 500px;
     position: absolute;
-    transition: all .3s ease;
+    transition: width .3s ease;
+
+    &--custom{
+        width: 200px;
+        box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.2);
+    }
 
     & .kt-portlet__head {
         background-color: var(--primary);
@@ -45,18 +51,15 @@
 
 .kt-portlet__body--custom{
     transform: scaleY(1);
-    opacity: 1;
-    height: auto;
-    padding: auto;
-    transform-origin: top;
-    transition: all .3s ease-in;
+    transform-origin: top left;
+    overflow: hidden;
+    max-height: 400px;
+    transition: all .4s ease;
 
     &--hidden{
         transform: scaleY(0);
-        opacity: 0;
-        height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
+        max-height: 0;
+        padding: unset;
     }
 }
 
@@ -78,18 +81,18 @@
     opacity: 1;
     cursor: pointer;
     visibility: visible;
-    transition: all .5s ease-out;
+    transition: transform .5s ease-out;
 
+    &-hide{
+        opacity: 0;
+        visibility: hidden;
+    }
     &-svg{
         transform: rotate(360deg);
         height: 100%;
         width: 100%;
         fill: var(--white);
         transition: transform .5s ease-out;
-    }
-    &-hide{
-        opacity: 0;
-        visibility: hidden;
     }
 }
 .rotate{

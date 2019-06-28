@@ -14,7 +14,7 @@
 </div>
 <div class="row" #rowFixed>
     <div class="col-xl-4 col-sm-12 kt-mb-20" [style.height]="floatHeight + 'px'">
-        <div class="kt-portlet kt-floating" #rowMoving>
+        <div class="kt-portlet kt-floating" [class.kt-floating--custom]="isFilterCollapse" #rowMoving>
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="kt-portlet__body kt-portlet__body--custom" [class.kt-portlet__body--custom--hidden]="isFilterCollapse">
+            <div class="kt-portlet__body kt-portlet__body--custom" [class.kt-portlet__body--custom--hidden]="isFilterCollapse" >
                 <div class="filter--body">
                     <mat-form-field class="chart-option__date-picker">
                         <input matInput #input
