@@ -10,6 +10,7 @@ export interface IProducts {
     detail: string;
     price: number;
     status: boolean;
+    stock: number;
 }
 
 export interface IStatus {
@@ -38,7 +39,8 @@ const dataDummy: IProjectDetail = {
         name: 'Sebar money',
         detail: 'Bagi - bagi untuk untuk sobat misqueen',
         price: 5000000,
-        status: true
+        status: true,
+        stock: 50,
     } ],
     status: [
         { id: 1, name: 'New Leads', point: 0, status: false },

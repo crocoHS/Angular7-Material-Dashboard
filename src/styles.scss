@@ -37,6 +37,41 @@ $md-main-theme: (
     )
 );
 
+$md-second-theme: (
+    50 : #e7edfe,
+    100 : #c3d3fb,
+    200 : #9bb6f9,
+    300 : #7298f7,
+    400 : #5482f5,
+    500 : #366cf3,
+    600 : #3064f1,
+    700 : #2959ef,
+    800 : #224fed,
+    900 : #163dea,
+    A100 : #ffffff,
+    A200 : #e7ebff,
+    A400 : #b4c0ff,
+    A700 : #9baaff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+
 $custom-typography: mat-typography-config(
     $font-family: 'Poppins, Roboto'
 );
@@ -44,7 +79,7 @@ $custom-typography: mat-typography-config(
 @include mat-core($custom-typography);
 
 $main-app-primary: mat-palette($md-main-theme);
-$main-app-accent:  mat-palette($mat-teal, A200, A100, A400);
+$main-app-accent:  mat-palette($md-second-theme);
 $main-app-warn:    mat-palette($mat-pink);
 
 // Create the theme object (a Sass map containing all of the palettes).

@@ -16,6 +16,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
         description: [ '', Validators.required ],
         price: [ '', [ Validators.required, Validators.pattern( '^[0-9]+$' ) ] ],
         minPrice: [ '' ],
+        stock: [ 0 ],
     } );
     // FORM GROUP Product TAGS / CATEGORY
     public formGroup2 = this.fb.group( {

@@ -43,6 +43,23 @@
     }
 }
 
+.kt-portlet__body--custom{
+    transform: scaleY(1);
+    opacity: 1;
+    height: auto;
+    padding: auto;
+    transform-origin: top;
+    transition: all .3s ease-in;
+
+    &--hidden{
+        transform: scaleY(0);
+        opacity: 0;
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
 .filter--body{
     display: flex;
     flex-direction: row;
@@ -55,6 +72,30 @@
         }
     }
 }
+.dropdown__filter{
+    width: 19px;
+    height: 19px;
+    opacity: 1;
+    cursor: pointer;
+    visibility: visible;
+    transition: all .5s ease-out;
+
+    &-svg{
+        transform: rotate(360deg);
+        height: 100%;
+        width: 100%;
+        fill: var(--white);
+        transition: transform .5s ease-out;
+    }
+    &-hide{
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+.rotate{
+    transform: rotate(180deg);
+}
+
 
 .row-custom {
     height: 150px;

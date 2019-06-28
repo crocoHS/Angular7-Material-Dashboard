@@ -5,10 +5,16 @@
             <mat-label>Name Product*</mat-label>
             <input matInput formControlName="name" placeholder="Name Product">
         </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Price*</mat-label>
-            <input matInput type="number" formControlName="price" placeholder="Price">
-        </mat-form-field>
+        <div class="product-dialog-divider">
+            <mat-form-field appearance="outline">
+                <mat-label>Price*</mat-label>
+                <input matInput type="number" formControlName="price" placeholder="Price">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Stock*</mat-label>
+                <input matInput type="number" formControlName="stock" placeholder="Stock">
+            </mat-form-field>
+        </div>
         <mat-form-field appearance="outline">
             <mat-label>Detail*</mat-label>
             <textarea matInput formControlName="detail" placeholder="Detail"></textarea>

@@ -18,6 +18,7 @@ export class ProjectSettingProductDialogComponent implements OnInit {
     formProduct = this.fb.group( {
         name: [ '' , Validators.required],
         price: [ '' , [Validators.required]],
+        stock: [ '' , [Validators.required]],
         detail: [ '' , Validators.required ],
     } );
 
@@ -41,6 +42,7 @@ export class ProjectSettingProductDialogComponent implements OnInit {
             this.formProduct.setValue( {
                 name: this.data.name,
                 price: this.data.price,
+                stock: this.data.stock,
                 detail: this.data.detail,
             } );
         }

@@ -31,7 +31,8 @@ export class ProjectSettingProductTableComponent implements OnInit {
                     name: result.name,
                     detail: result.detail,
                     price: result.price,
-                    status: true
+                    status: true,
+                    stock: result.stock
                 };
                 this.dataStore.push( finalResult );
                 this.ref.markForCheck();

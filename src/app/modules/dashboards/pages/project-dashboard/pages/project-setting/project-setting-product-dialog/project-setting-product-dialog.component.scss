@@ -6,6 +6,16 @@ form {
     }
 }
 
+.product-dialog-divider{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & mat-form-field{
+        width: 48%;
+    }
+}
+
 .mat-dialog-actions{
     display: flex;
     align-items: center;
@@ -13,5 +23,11 @@ form {
 
     & > * {
         margin: 0 5px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .product-dialog-divider{
+        flex-direction: column;
     }
 }

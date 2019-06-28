@@ -157,7 +157,7 @@ export class BarStackedChartComponent implements OnInit {
                     display: false,
                 },
                 ticks: {
-                    display: false,
+                    display: true,
                     beginAtZero: true,
                     fontColor: '#646c9a',
                     fontSize: 13,

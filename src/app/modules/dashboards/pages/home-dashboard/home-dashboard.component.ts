@@ -75,17 +75,26 @@ export class HomeDashboardComponent implements OnInit, OnDestroy, AfterContentIn
     @ViewChild( 'rowMoving' ) rowMoving: ElementRef;
     public floatHeight;
     public floatPos;
+    public isFilterCollapse = false;
+    public isFilterButtonShow = false;
 
     @HostListener( 'window:scroll', [ '$event' ] )
     onScroll() {
         if ( this.floatPos < window.pageYOffset ) {
             const cobakpos = window.pageYOffset - this.floatPos;
             this.renderer.setStyle( this.rowMoving.nativeElement, 'top', `${ cobakpos + 90 }px` );
+            this.isFilterCollapse = true;
+            this.isFilterButtonShow = true;
+
         } else {
             this.renderer.setStyle( this.rowMoving.nativeElement, 'top', `0` );
+            this.isFilterCollapse = false;
+            this.isFilterButtonShow = false;
         }
     }
-
+    filterCollapse() {
+        this.isFilterCollapse = !this.isFilterCollapse;
+    }
     //////
 
     updateChart( data: any ) {
