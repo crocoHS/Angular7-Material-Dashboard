@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <app-sales-officer-table [dataFromParent]="dataForTable"></app-sales-officer-table>
+                <app-sales-officer-table [dataFromParent]="dataForTable | async"></app-sales-officer-table>
             </div>
         </div>
     </div>

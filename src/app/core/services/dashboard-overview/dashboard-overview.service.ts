@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api.service';
 
 @Injectable()
 export class DashboardOverviewService {
-    private url = 'https://mersacs.com/api/';
-    constructor( private http: HttpClient ) {
+    private url = this.apiService.getUrl() + '/dashboard/';
+    constructor( private http: HttpClient, private apiService: ApiService) {
     }
     getDataLeads() {
         return this.http.get( this.url + 'leadsChart' );

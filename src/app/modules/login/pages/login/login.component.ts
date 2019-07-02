@@ -20,9 +20,13 @@ export class LoginComponent implements OnInit {
                  private router: Router
     ) {
     }
-
+    // [{"key":"email","value":"johncena@gmail.com","description":"","type":"text","enabled":true}]
+    // [{"key":"password","value":"123","description":"","type":"text","enabled":true}]
+    ////////////////////////////////////
+    // email: [ 'brengsek@gmail.com', [ Validators.email, Validators.required ] ],
+    // password: [ '123', [ Validators.required ] ]
     loginForm = this.fb.group( {
-        email: [ 'brengsek@gmail.com', [ Validators.email, Validators.required ] ],
+        email: [ 'johncena@gmail.com', [ Validators.email, Validators.required ] ],
         password: [ '123', [ Validators.required ] ]
     } );
 

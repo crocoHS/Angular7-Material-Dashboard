@@ -1,10 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { salesTeams, ISalesTeam, Dummy } from '../dataDummy';
+// import { salesTeams, ISalesTeam, Dummy } from '../dataDummy';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { DashboardSalesTeamService } from '../../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
+import { ISalesOfficer, SalesOfficer } from '../../../../../shared/models/sales-officer.model';
+import { SalesTeam } from '../../../../../shared/models/sales-team.model';
+import { map } from 'rxjs/operators';
 
 @Component( {
     selector: 'app-sales-officer-dialog',
@@ -27,7 +31,8 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
     constructor(
         public dialogRef: MatDialogRef<SalesOfficerDialogComponent>,
         @Inject( MAT_DIALOG_DATA ) public data,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private http: DashboardSalesTeamService
     ) {
         this.testGroup.valueChanges.pipe( untilDestroyed( this ) )
             .subscribe( value => {
@@ -37,9 +42,9 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
 
     public isValid;
 
-    public salesTeams: ISalesTeam[];
-    private curSalesTeam: ISalesTeam[];
-    private dummyData: Dummy;
+    public salesTeams;
+    private curSalesTeam;
+    private dummyData: SalesOfficer;
     isSalesTeamChecked = new FormControl( '' );
     /////////////////////
     testGroup = new FormGroup( {
@@ -50,7 +55,7 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
             Validators.pattern( /[0-9\+\-\ ]/ )
         ] ),
         address: new FormControl( '', Validators.required ),
-        gender: new FormControl( 'male', Validators.required ),
+        gender: new FormControl( 'Male', Validators.required ),
         password: new FormControl( '', Validators.required ),
         salesTeam: new FormControl( '', Validators.required ),
     } );
@@ -63,7 +68,7 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
             return this.testGroup.patchValue( { salesTeam: this.salesTeams } );
         }
         elRef.disable = false;
-        elRef.placeholder = 'Add City';
+        elRef.placeholder = 'Add Sales Team';
         return this.testGroup.patchValue( { salesTeam: this.curSalesTeam } );
     }
 
@@ -94,7 +99,7 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
 
     ///////////////////////
 
-    setAllValue( value: Dummy ) {
+    setAllValue( value: SalesOfficer ) {
         this.testGroup.setValue( {
             name: value.name,
             email: value.email,
@@ -113,7 +118,13 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
             this.curSalesTeam = this.dummyData.salesTeam;
             this.setAllValue( this.dummyData );
         }
-        this.salesTeams = salesTeams;
+        this.http.getAllSalesTeam()
+            .pipe(
+                map( ( value: any[] ) => {
+                    return value.map( val => new SalesTeam( val ).getNameAndId() );
+                } )
+            )
+            .subscribe( val => this.salesTeams = val );
     }
 
     ngOnDestroy(): void {
@@ -122,15 +133,17 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
     onNoClick(): void {
         this.dialogRef.close();
     }
-
-    // TODO: SET TIMEOUT HARUS DIHILANGKAN KARENA SEMENTARA
+    /*
+    TODO:   - SET TIMEOUT HARUS DIHILANGKAN KARENA SEMENTARA
+            - SET TIMEOUT diganti Subscribe
+    */
     onSubmit( data: FormGroup ) {
         if ( data.valid ) {
             if ( this.dummyData ) {
                 this.spinner.show();
                 setTimeout( () => {
-                    this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
-                    console.log( 'cok' );
+                    this.dialogRef.close( this.dummyData.updateThis(data.value) );
+                    // console.log( this.dummyData.updateThis(data.value) );
                     this.spinner.hide();
                 }, 2000 );
             } else {

@@ -14,6 +14,9 @@ import { DashboardOverviewService } from './services/dashboard-overview/dashboar
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 import { HttpTokenInterceptor } from './interceptors/http-token.interceptor';
 import { GlobalErrorHandler } from './error/global-error-handler';
+import { ApiService } from './services/api.service';
+import { DashboardSalesOfficerService } from './services/dashboard-sales-officer/dashboard-sales-officer.service';
+import { DashboardSalesTeamService } from './services/dashboard-sales-team/dashboard-sales-team.service';
 
 @NgModule( {
     declarations: [],
@@ -27,9 +30,12 @@ import { GlobalErrorHandler } from './error/global-error-handler';
         EffectsModule.forRoot( [ AuthEffects ] ),
     ],
     providers: [
+        ApiService,
         AuthenticationService,
         AuthGuardService,
         DashboardOverviewService,
+        DashboardSalesOfficerService,
+        DashboardSalesTeamService,
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
         {
             provide: HTTP_INTERCEPTORS,

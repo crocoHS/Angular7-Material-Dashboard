@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store';
 import { Logout } from '../../store/auth/auth.actions';
+import { ApiService } from '../api.service';
 
 @Injectable()
 export class AuthenticationService {
-    private url = 'https://mersacs.com/api/auth';
+    private url = this.apiService.getUrl() + '/auth';
 
-    constructor( private http: HttpClient, private store: Store<AppState> ) {
+    constructor( private http: HttpClient,
+                 private store: Store<AppState>,
+                 private apiService: ApiService) {
     }
 
     // Untuk demo saja

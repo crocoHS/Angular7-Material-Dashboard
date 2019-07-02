@@ -1,10 +1,10 @@
-<h3 mat-dialog-title>Sales Team Form</h3>
+<h3 mat-dialog-title>Sales Officer Form</h3>
 <mat-dialog-content>
     <form class="example-form"
           [formGroup]="testGroup">
         <div class="coverage__field">
             <tag-input formControlName="salesTeam"
-                       [identifyBy]="'id'" [displayBy]="'name'"
+                       [identifyBy]="'_id'" [displayBy]="'name'"
                        theme='minimal' #city
                        placeholder="Add Sales Team"
                        [disable]=false
@@ -15,7 +15,7 @@
                     [keepOpen]="false"
                     [showDropdownIfEmpty]="true"
                     [dynamicUpdate]="true"
-                    [identifyBy]="'id'" [displayBy]="'name'">
+                    [identifyBy]="'_id'" [displayBy]="'name'">
                 </tag-input-dropdown>
             </tag-input>
             <mat-checkbox (change)='change($event, city)' [formControl]="isSalesTeamChecked">All Sales Teams</mat-checkbox>
@@ -48,8 +48,8 @@
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Gender</mat-label>
             <mat-select formControlName="gender">
-                <mat-option value="male">Male</mat-option>
-                <mat-option value="female">Female</mat-option>
+                <mat-option value="Male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
             </mat-select>
         </mat-form-field>
 
