@@ -120,8 +120,8 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
         }
         this.http.getAllSalesTeam()
             .pipe(
-                map( ( value: any[] ) => {
-                    return value.map( val => new SalesTeam( val ).getNameAndId() );
+                map( ( value: SalesTeam[] ) => {
+                    return value.map( val => val.getNameAndId() );
                 } )
             )
             .subscribe( val => this.salesTeams = val );

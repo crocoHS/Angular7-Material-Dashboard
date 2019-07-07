@@ -6,7 +6,7 @@
         <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id" class="table__sticky" sticky>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
-                <td mat-cell *matCellDef="let element;" style="width: 5%"> {{element.id}} </td>
+                <td mat-cell *matCellDef="let i = index;" style="width: 5%"> {{i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
@@ -24,7 +24,7 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-list *ngFor="let cok of element.coverage">
-                            <mat-list-item> {{cok.name}} </mat-list-item>
+                            <mat-list-item> {{cok.city}} </mat-list-item>
                         </mat-list>
                     </mat-expansion-panel>
                 </td>
@@ -33,42 +33,45 @@
             <ng-container matColumnDef="pic">
                 <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header> PIC Contact</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <p>{{element.picName}} </p>
-                    <p>{{element.email}} </p>
-                    <p>{{element.phone}} </p>
+                    <p>{{element.pic.name}} <br>
+                        <small>{{element.pic.email}} </small>
+                        <small>{{element.pic.phone}} </small>
+                    </p>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="salesOfficer">
                 <th mat-header-cell class="table__mobile" *matHeaderCellDef> Sales Officer</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <button mat-raised-button color="primary">{{element.salesOfficer}}</button>
+                    <button mat-raised-button color="primary">{{element.salesOfficerCount}}</button>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="leads">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Leads </th>
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Leads</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <button mat-raised-button color="primary">{{element.leads}}</button>
+                    <button mat-raised-button color="primary">{{element.leadsCount}}</button>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="channels">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Channels </th>
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Channels</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <button mat-raised-button color="primary">{{element.channels}}</button>
+                    <button mat-raised-button color="primary">{{element.channelsCount}}</button>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Status </th>
-                <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <mat-button-toggle value={{element.status}}>Active</mat-button-toggle>
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Status</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element; let i = index">
+                    <button mat-raised-button [color]="element.status ? 'primary' : 'warn'"
+                            (click)="changeStatus(i)"
+                    >{{element.status ? 'Active' : 'InActive'}}</button>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action </th>
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action</th>
                 <td mat-cell class="table__mobile" style="width: 10%" *matCellDef="let element">
                     <button mat-icon-button title="Edit me"
                             (click)="editRow(element)">

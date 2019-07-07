@@ -4,7 +4,7 @@
           [formGroup]="testGroup">
         <div class="coverage__field">
             <tag-input formControlName="coverage"
-                       [identifyBy]="'id'" [displayBy]="'name'"
+                       [identifyBy]="'id'" [displayBy]="'city'"
                        theme='minimal' #city
                        placeholder="Add City"
                        [disable]=false
@@ -15,7 +15,7 @@
                     [keepOpen]="false"
                     [showDropdownIfEmpty]="true"
                     [dynamicUpdate]="true"
-                    [identifyBy]="'id'" [displayBy]="'name'">
+                    [identifyBy]="'id'" [displayBy]="'city'">
                 </tag-input-dropdown>
             </tag-input>
             <mat-checkbox (change)='change($event, city)' [formControl]="coverageChecked">All City</mat-checkbox>

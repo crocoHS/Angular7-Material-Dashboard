@@ -67,11 +67,8 @@ export class SalesOfficer {
         };
     }
 
-    updateThis( payload ) {
-        const key = Object.keys(payload);
-        key.forEach(val => {
-            this[val] = payload[val];
-        });
+    updateThis( payload: Partial<SalesOfficer> ) {
+        Object.assign(this, payload);
         return this;
     }
 }

@@ -1,3 +1,5 @@
+import { CityCoverage } from './city-coverage.model';
+
 export interface ISalesTeam {
     id: string;
     name: string;
@@ -23,10 +25,7 @@ export interface ISalesTeam {
 export class SalesTeam {
     id: string;
     name: string;
-    coverage: [ {
-        id: number;
-        city: string;
-    } ];
+    coverage: string[];
     pic: {
         id: string;
         name: string;
@@ -36,6 +35,8 @@ export class SalesTeam {
         address: string;
     };
     salesOfficerCount: number;
+    leadsCount: number;
+    channelsCount: number;
     createAt: string;
     channel: string;
     status: boolean;
@@ -44,9 +45,11 @@ export class SalesTeam {
     constructor( payload: any ) {
         this.id = payload._id;
         this.name = payload.name;
-        this.coverage = payload.coverage;
+        this.coverage = payload.coverage.map( val => new CityCoverage( val ) );
         this.pic = new Pic( payload.pic ).getPic();
         this.salesOfficerCount = payload.sales_officer_count;
+        this.leadsCount = payload.leads_count;
+        this.channelsCount = payload.channels_count;
         this.createAt = payload.create_at;
         this.channel = payload.channel;
         this.status = payload.status;
@@ -58,6 +61,11 @@ export class SalesTeam {
             _id: this.id,
             name: this.name
         };
+    }
+
+    updateThis( payload: Partial<SalesTeam> ) {
+        Object.assign( this, payload );
+        return this;
     }
 }
 
@@ -87,5 +95,10 @@ export class Pic {
             password: this.password,
             address: this.address
         };
+    }
+
+    updatePic( payload: Partial<Pic> ) {
+        Object.assign(this, payload);
+        return this;
     }
 }

@@ -18,22 +18,28 @@
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
-                        Filter <small>For All Chart</small>
+                        Filter
+                        <small>For All Chart</small>
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <div class="kt-portlet__head-actions">
-                        <div class="dropdown__filter" (click)="filterCollapse()" [class.dropdown__filter-hide]="!isFilterButtonShow">
-                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" class="dropdown__filter-svg" [class.rotate]="isFilterCollapse">
+                        <div class="dropdown__filter" (click)="filterCollapse()"
+                             [class.dropdown__filter-hide]="!isFilterButtonShow">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" class="dropdown__filter-svg"
+                                 [class.rotate]="isFilterCollapse">
                                 <g>
-                                    <path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"/>
+                                    <path
+                                        d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"/>
                                 </g>
                             </svg>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="kt-portlet__body kt-portlet__body--custom" [class.kt-portlet__body--custom--hidden]="isFilterCollapse" >
+            <div class="kt-portlet__body kt-portlet__body--custom"
+                 [class.kt-portlet__body--custom--hidden]="isFilterCollapse">
                 <div class="filter--body">
                     <mat-form-field class="chart-option__date-picker">
                         <input matInput #input
@@ -66,7 +72,8 @@
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
-                        Lead Statistic <small>Chart for Leads</small>
+                        Lead Statistic
+                        <small>Chart for Leads</small>
                     </h3>
                 </div>
             </div>
@@ -90,7 +97,8 @@
                         </form>
                     </app-option-dropdown>
                 </div>
-                <app-line-chart *ngIf="dataForChart1$" [data]="dataForChart1$" [label]="labelForChart1$" class="line-chart"></app-line-chart>
+                <app-line-chart *ngIf="dataForChart1$" [data]="dataForChart1$" [label]="labelForChart1$"
+                                class="line-chart"></app-line-chart>
             </div>
         </div>
     </div>
@@ -105,7 +113,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="kt-portlet__body" >
+            <div class="kt-portlet__body">
                 <app-bar-stacked-chart [dataParent]="forChildChart3" class="bar-chart--3"></app-bar-stacked-chart>
             </div>
         </div>
@@ -122,8 +130,10 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <mat-form-field style="font-size: 1rem;">
-                        <mat-select [(ngModel)]="selected" (selectionChange)="changeChart1($event.value)" name="performance">
-                            <mat-option *ngFor="let jancok of dataParent; let i = index " [value]="i">{{jancok.name}}</mat-option>
+                        <mat-select [(ngModel)]="selected" (selectionChange)="changeChart1($event.value)"
+                                    name="performance">
+                            <mat-option *ngFor="let jancok of dataParent; let i = index "
+                                        [value]="i">{{jancok.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -144,7 +154,8 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <mat-form-field style="font-size: 1rem;">
-                        <mat-select [(ngModel)]="selectedTeam" (selectionChange)="changeChart2($event.value)" name="teamPerformance">
+                        <mat-select [(ngModel)]="selectedTeam" (selectionChange)="changeChart2($event.value)"
+                                    name="teamPerformance">
                             <mat-option [value]=0>Top Sales Officer</mat-option>
                             <mat-option [value]=1>Top Sales Team</mat-option>
                         </mat-select>
@@ -153,7 +164,8 @@
             </div>
             <div class="kt-portlet__body">
                 <button (click)="test2()">Test Color</button>
-                <app-bar-stacked-chart [dataParent]="forChildChart2" class="bar-chart--2" #testColor2></app-bar-stacked-chart>
+                <app-bar-stacked-chart [dataParent]="forChildChart2" class="bar-chart--2"
+                                       #testColor2></app-bar-stacked-chart>
             </div>
         </div>
     </div>

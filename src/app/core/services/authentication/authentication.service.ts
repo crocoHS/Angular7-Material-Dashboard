@@ -7,7 +7,7 @@ import { ApiService } from '../api.service';
 
 @Injectable()
 export class AuthenticationService {
-    private url = this.apiService.getUrl() + '/auth';
+    private url = this.apiService.getUrl() + 'auth';
 
     constructor( private http: HttpClient,
                  private store: Store<AppState>,

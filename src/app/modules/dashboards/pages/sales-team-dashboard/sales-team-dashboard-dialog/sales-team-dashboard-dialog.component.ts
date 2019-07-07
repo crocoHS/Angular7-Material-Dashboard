@@ -1,10 +1,13 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { coverage, Coverage, Dummy } from '../dataDummy';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { DashboardSalesTeamService } from '../../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
+import { CityCoverage } from '../../../../../shared/models/city-coverage.model';
+import { SalesTeam } from '../../../../../shared/models/sales-team.model';
 
 @Component( {
     selector: 'app-sales-team-dashboard-dialog',
@@ -23,10 +26,10 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
     ]
 } )
 export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
-    public allCoverage: Coverage[];
+    public allCoverage: CityCoverage[];
     private curCoverage;
-    private dummyData: Dummy;
-    coverageChecked = new FormControl( '' );
+    private dummyData: SalesTeam;
+    coverageChecked = new FormControl( false );
     /////////////////////
     testGroup = new FormGroup( {
         name: new FormControl( '', Validators.required ),
@@ -44,8 +47,9 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
     //////////////////////////
     constructor(
         public dialogRef: MatDialogRef<SalesTeamDashboardDialogComponent>,
-        @Inject( MAT_DIALOG_DATA ) public data,
-        private spinner: NgxSpinnerService
+        @Inject( MAT_DIALOG_DATA ) public data: SalesTeam,
+        private spinner: NgxSpinnerService,
+        private http: DashboardSalesTeamService
     ) {
         this.testGroup.valueChanges.pipe( untilDestroyed( this ) )
             .subscribe( value => {
@@ -60,7 +64,7 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
         if ( event.checked ) {
             elRef.disable = true;
             elRef.placeholder = '';
-            return this.testGroup.patchValue( { coverage: this.allCoverage } );
+            return this.testGroup.patchValue( { coverage: [ { id: 0, city: 'All City Added' } ] } );
         }
         elRef.disable = false;
         elRef.placeholder = 'Add City';
@@ -94,14 +98,14 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
 
     ///////////////////////
 
-    setAllValue( value: Dummy ) {
+    setAllValue( value: SalesTeam ) {
         this.testGroup.setValue( {
             name: value.name,
-            email: value.email,
-            phone: value.phone,
-            address: value.address,
-            picName: value.picName,
-            password: value.password,
+            email: value.pic.email,
+            phone: value.pic.phone,
+            address: value.pic.address,
+            picName: value.pic.name,
+            password: value.pic.password,
             coverage: value.coverage
         } );
         this.coverageChecked.setValue( false );
@@ -109,13 +113,15 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         if ( this.data ) {
-            console.log('cok');
             this.dummyData = this.data;
             this.curCoverage = this.dummyData.coverage;
             this.setAllValue( this.dummyData );
+            console.log( 'initial value', this.dummyData );
         }
         // TODO: COVERAGE SUBSCRIBE KE API
-        this.allCoverage = coverage;
+        this.http.getAllCoverages().subscribe( value => {
+            this.allCoverage = value;
+        } );
     }
 
     ngOnDestroy(): void {
@@ -125,20 +131,40 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
         this.dialogRef.close();
     }
 
-    // TODO: SET TIMEOUT HARUS DIHILANGKAN KARENA SEMENTARA
+    /*
+    TODO:   - SET TIMEOUT HARUS DIHILANGKAN KARENA SEMENTARA
+            - Ada bug bila all city di centang
+    */
     onSubmit( data: FormGroup ) {
+        // check if form group valid
         if ( data.valid ) {
+            // check if dummy data or initial data have value
+            // distinguish add new dialog or edit dialog
             if ( this.dummyData ) {
+                const adapterForm = {
+                    name: data.value.name,
+                    pic: {
+                        id: this.dummyData.id,
+                        email: data.value.email,
+                        phone: data.value.phone,
+                        address: data.value.address,
+                        name: data.value.picName,
+                        password: data.value.password,
+                    }
+                };
+                // check if coverage city checked
+                if ( this.coverageChecked.value ) {
+                    Object.assign( adapterForm, { coverage: this.allCoverage } );
+                }
                 this.spinner.show();
                 setTimeout( () => {
-                    this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
-                    console.log( 'cok' );
+                    this.dialogRef.close( this.dummyData.updateThis( adapterForm ) );
                     this.spinner.hide();
                 }, 2000 );
             } else {
                 this.spinner.show();
                 setTimeout( () => {
-                    this.dialogRef.close( data.value );
+                    // this.dialogRef.close( data.value );
                     console.log( 'cok2' );
                     this.spinner.hide();
                 }, 2000 );

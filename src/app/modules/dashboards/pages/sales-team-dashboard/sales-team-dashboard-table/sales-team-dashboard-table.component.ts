@@ -1,21 +1,22 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { coverage, Coverage, Dummy } from '../dataDummy';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+// import { coverage, Coverage, Dummy } from '../dataDummy';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { SalesTeamDashboardDialogComponent } from '../sales-team-dashboard-dialog/sales-team-dashboard-dialog.component';
+import { SalesTeam } from '../../../../../shared/models/sales-team.model';
 
 @Component( {
     selector: 'app-sales-team-dashboard-table',
     templateUrl: './sales-team-dashboard-table.component.html',
     styleUrls: [ './sales-team-dashboard-table.component.scss' ]
 } )
-export class SalesTeamDashboardTableComponent implements OnInit {
+export class SalesTeamDashboardTableComponent implements OnChanges {
     displayedColumns: string[] = [ 'id', 'name', 'coverage', 'pic', 'salesOfficer', 'leads', 'channels', 'status', 'action' ];
-    allCoverage: Coverage[];
+    // allCoverage: Coverage[];
     click = true;
-    @Input() dataFromParent: Dummy[];
-    dataSource = new MatTableDataSource<Dummy>( this.dataFromParent );
+    @Input() dataFromParent: SalesTeam[];
+    dataSource = new MatTableDataSource<SalesTeam>();
     @ViewChild( MatPaginator ) paginator: MatPaginator;
-    @ViewChild( MatTable ) table: MatTable<Dummy>;
+    @ViewChild( MatTable ) table: MatTable<SalesTeam>;
     @ViewChild( MatSort ) sort: MatSort;
 
     constructor( private dialog: MatDialog ) {
@@ -29,11 +30,11 @@ export class SalesTeamDashboardTableComponent implements OnInit {
         }
     }
 
-    mapping(arrAll: number[]): Coverage[] {
+    /*mapping(arrAll: number[]): Coverage[] {
         return arrAll.map(val => {
             return this.allCoverage.find(obj => obj.id === val);
         });
-    }
+    }*/
 
     editRow( dataFromElement: string ) {
         const dialogRef = this.dialog.open( SalesTeamDashboardDialogComponent, {
@@ -42,31 +43,39 @@ export class SalesTeamDashboardTableComponent implements OnInit {
         } );
         dialogRef.afterClosed().subscribe( result => {
             if ( result ) {
-                const object = this.dataSource.data.find(obj => obj.id === result.id);
-                Object.assign(this.dataSource.data, object);
+                const object = this.dataSource.data.find( obj => obj.id === result.id );
+                Object.assign( this.dataSource.data, object );
                 this.table.renderRows();
             }
         } );
     }
-    deleteRow(id) {
-        const object = this.dataSource.data.filter(obj => obj.id !== id);
+    // TODO: SUBSCRIBE BOS
+    deleteRow( id ) {
+        const object = this.dataSource.data.filter( obj => obj.id !== id );
         this.dataSource.data = object;
         this.table.renderRows();
     }
-    bangsat() {
+    changeStatus( i ) {
+        this.dataSource.data[ i ].status = !this.dataSource.data[ i ].status;
+    }
+
+    /*bangsat() {
         this.dataFromParent.forEach(arrAll => {
             const exist = arrAll.coverage.some( el => typeof el === 'object');
             if ( !exist ) {
                 return arrAll.coverage = this.mapping(arrAll.coverage);
             }
         });
-    }
-    ngOnInit() {
-        this.allCoverage = coverage;
-        this.bangsat();
-        this.dataSource.data = this.dataFromParent;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+    }*/
+    ngOnChanges( data: SimpleChanges ) {
+        // this.allCoverage = coverage;
+        // this.bangsat();
+        if ( data.dataFromParent.currentValue ) {
+            this.dataSource.data = this.dataFromParent;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            console.log( this.dataFromParent );
+        }
     }
 
 }

@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { salesTeams, ISalesTeam, Dummy } from '../dataDummy';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { SalesOfficerDialogComponent } from '../sales-officer-dialog/sales-officer-dialog.component';
 import { SalesOfficerMigrateDialogComponent } from '../sales-officer-migrate-dialog/sales-officer-migrate-dialog.component';
@@ -13,7 +12,7 @@ import { SalesOfficer } from '../../../../../shared/models/sales-officer.model';
 } )
 export class SalesOfficerTableComponent implements OnChanges {
     displayedColumns: string[] = [ 'id', 'name', 'leads', 'performance', 'salesTeam', 'status', 'action' ];
-    allCoverage: ISalesTeam[];
+    // allCoverage: ISalesTeam[];
     click = true;
     @Input() dataFromParent: SalesOfficer[];
     dataSource = new MatTableDataSource<SalesOfficer>();
@@ -101,8 +100,8 @@ export class SalesOfficerTableComponent implements OnChanges {
     }*/
 
     ngOnChanges(data: SimpleChanges) {
-        if ( data[ 'dataFromParent' ].currentValue) {
-            this.allCoverage = salesTeams;
+        if ( data.dataFromParent.currentValue) {
+            // this.allCoverage = salesTeams;
             this.dataSource.data = this.dataFromParent;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
