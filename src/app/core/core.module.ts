@@ -17,6 +17,7 @@ import { GlobalErrorHandler } from './error/global-error-handler';
 import { ApiService } from './services/api.service';
 import { DashboardSalesOfficerService } from './services/dashboard-sales-officer/dashboard-sales-officer.service';
 import { DashboardSalesTeamService } from './services/dashboard-sales-team/dashboard-sales-team.service';
+import { DashboardProjectService } from './services/dashboard-project/dashboard-project.service';
 
 @NgModule( {
     declarations: [],
@@ -36,6 +37,7 @@ import { DashboardSalesTeamService } from './services/dashboard-sales-team/dashb
         DashboardOverviewService,
         DashboardSalesOfficerService,
         DashboardSalesTeamService,
+        DashboardProjectService,
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
         {
             provide: HTTP_INTERCEPTORS,

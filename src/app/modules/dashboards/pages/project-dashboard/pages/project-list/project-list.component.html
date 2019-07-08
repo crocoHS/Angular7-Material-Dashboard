@@ -1,6 +1,6 @@
 <div class="row justify-content-md-center">
     <div class="col-xl-8 col-md-10">
-        <div *ngFor="let project of listOfProject" class="kt-portlet">
+        <div *ngFor="let project of listOfProject | async" class="kt-portlet">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">{{project.name}}</h3>
@@ -8,7 +8,7 @@
             </div>
             <div class="kt-portlet__body">
                 <div class="kt-portlet__content">
-                    {{project.description}}
+                    {{project.detail}}
                 </div>
             </div>
             <div class="kt-portlet__foot kt-portlet__foot--sm kt-align-right">

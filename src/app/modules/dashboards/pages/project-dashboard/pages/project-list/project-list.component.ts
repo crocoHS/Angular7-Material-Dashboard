@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
+import { Project } from '../../../../../../shared/models/project.model';
+import { Observable } from 'rxjs';
 
 @Component( {
     selector: 'app-project-list',
@@ -6,23 +9,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: [ './project-list.component.scss' ]
 } )
 export class ProjectListComponent implements OnInit {
-    public listOfProject: any[] = [
-        {
-            id: 11,
-            name: 'Project A',
-            description: 'Project for Bombard the World'
-        },
-        {
-            id: 12,
-            name: 'Project B',
-            description: 'Project for Destroy the World'
-        }
-    ];
-
-    constructor() {
+    public listOfProject: Observable<Project[]>;
+    constructor( private http: DashboardProjectService ) {
     }
 
     ngOnInit() {
+        this.listOfProject =  this.http.getProjectAll();
     }
 
 }
