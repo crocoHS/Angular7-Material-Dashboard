@@ -107,8 +107,8 @@ export class ProjectDetailComponent implements OnInit {
         this.dataForFilter = {
             campaign: this.setSelectArray( arrayData, 'campaign' ),
             channel: this.setSelectArray( arrayData, 'channel' ),
-            sales_officer: this.setSelectArray( arrayData, 'sales_officer' ),
-            sales_team: this.setSelectArray( arrayData, 'sales_team' ),
+            sales_officer: this.setSelectArray( arrayData, 'salesOfficer' ),
+            sales_team: this.setSelectArray( arrayData, 'salesTeam' ),
             status: this.setSelectArray( arrayData, 'status' ),
             category: this.setSelectArray( arrayData, 'category' )
         };

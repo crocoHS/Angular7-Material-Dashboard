@@ -8,7 +8,7 @@ import { CityCoverage } from '../../../shared/models/city-coverage.model';
 
 @Injectable()
 export class DashboardSalesTeamService {
-    private url = this.apiService.getUrl() + '/sales-team';
+    private url = this.apiService.getUrlmersacs() + 'sales-team';
 
     constructor( private apiService: ApiService, private http: HttpClient ) {
     }

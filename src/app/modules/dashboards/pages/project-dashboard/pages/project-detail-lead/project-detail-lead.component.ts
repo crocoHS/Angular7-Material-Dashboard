@@ -8,8 +8,8 @@ export interface ILead {
     telephone: number;
     category: string;
     status: string;
-    sales_team: string;
-    sales_officer: string;
+    salesTeam: string;
+    salesOfficer: string;
     campaign: string;
     channel: string;
 }

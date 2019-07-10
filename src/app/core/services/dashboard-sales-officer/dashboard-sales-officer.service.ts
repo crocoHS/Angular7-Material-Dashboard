@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DashboardSalesOfficerService {
-    private url = this.apiService.getUrl() + 'sales-officer';
+    private url = this.apiService.getUrlmersacs() + 'sales-officer';
 
     constructor( private apiService: ApiService, private http: HttpClient ) {
     }

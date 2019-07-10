@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ApiService {
     // For test only
     private url = 'http://localhost:6969/api/';
-    // private url = 'https://mersacs.com/api/';
+    private urlmersacs = 'https://mersacs.com/api/';
     private tenantId = 13;
 
     constructor() {
@@ -12,6 +12,9 @@ export class ApiService {
 
     getUrl() {
         return this.url;
+    }
+    getUrlmersacs() {
+        return this.urlmersacs;
     }
 
     getTenantId() {

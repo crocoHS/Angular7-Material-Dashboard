@@ -9,15 +9,16 @@ export class DashboardProjectService {
     // Kudune nggawe sing di comment
     // url = this.apiService.getUrl() + '/';
     url = 'https://api.dev.jala.ai/rest/projects';
-    tenantId = this.apiService.getTenantId();
+    tenantId = this.apiService.getTenantId().toString();
 
     constructor( private apiService: ApiService, private http: HttpClient ) {
     }
 
     getProjectAll() {
-        return this.http.get( this.url + `?tenant_id=${ this.tenantId }` ).pipe(
-            map( ( value: any[] ) => value.map( val => new Project( val ) ) )
-        );
+        return this.http.get( this.url, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                map( ( value: any[] ) => value.map( val => new Project( val ) ) )
+            );
     }
 
 }

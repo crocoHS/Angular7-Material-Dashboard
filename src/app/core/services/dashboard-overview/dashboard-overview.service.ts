@@ -4,7 +4,7 @@ import { ApiService } from '../api.service';
 
 @Injectable()
 export class DashboardOverviewService {
-    private url = this.apiService.getUrl() + '/dashboard/';
+    private url = this.apiService.getUrlmersacs() + 'dashboard/';
     constructor( private http: HttpClient, private apiService: ApiService) {
     }
     getDataLeads() {
