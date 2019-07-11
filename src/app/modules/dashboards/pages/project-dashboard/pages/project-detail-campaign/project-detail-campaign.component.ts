@@ -47,7 +47,7 @@ export class ProjectDetailCampaignComponent implements OnInit {
     displayedColumns: string[] = [ 'id', 'image', 'name', 'channels', 'leads', 'detail', 'status', 'action' ];
     dataSource = new MatTableDataSource<ICampaign>();
 
-    constructor(private dialog: MatDialog) {
+    constructor( private dialog: MatDialog ) {
     }
 
     editRow( dataFromElement: string ) {
@@ -66,12 +66,23 @@ export class ProjectDetailCampaignComponent implements OnInit {
             }
         } );
     }
+
+    addCampaign() {
+        const dialogRef = this.dialog.open( ProjectDetailCampaignDialogComponent, {
+            panelClass: 'project_campaign_dialog',
+        } );
+        dialogRef.afterClosed().subscribe( ( result: ICampaign ) => {
+            console.log(result);
+        } );
+    }
+
     applyFilter( filterValue: string ) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
         if ( this.dataSource.paginator ) {
             this.dataSource.paginator.firstPage();
         }
     }
+
     ngOnInit(): void {
         this.dataSource.data = dataDummyCampaign;
         this.dataSource.paginator = this.paginator;

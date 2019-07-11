@@ -22,22 +22,10 @@ export class ProjectDetailCampaignDialogComponent implements OnInit {
     }
 
     imageUpload( value ) {
-        // const file: File = value.files[0];
-        // const reader = new FileReader();
-        // IKI KARI AE
-        /*reader.addEventListener('load', (event: any) => {
-
-
-            this.imageService.uploadImage(this.selectedFile.file).subscribe(
-                (res) => {
-
-                },
-                (err) => {
-
-                })
-        });
-
-        reader.readAsDataURL(file);*/
+        const file: File = value.files[ 0 ];
+        const reader = new FileReader();
+        reader.readAsDataURL( file );
+        reader.onload = (ev) =>  val => console.log(val);
     }
 
     onNoClick(): void {
@@ -46,7 +34,7 @@ export class ProjectDetailCampaignDialogComponent implements OnInit {
 
     onSubmit( data: FormGroup ) {
         if ( data.valid ) {
-            this.dialogRef.close( Object.assign( this.dataTemporary, data.value ) );
+            // this.dialogRef.close( Object.assign( this.dataTemporary, data.value ) );
         }
     }
 
@@ -58,8 +46,10 @@ export class ProjectDetailCampaignDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataTemporary = this.data;
-        this.setValue( this.dataTemporary );
+        if ( this.data ) {
+            this.dataTemporary = this.data;
+            this.setValue( this.dataTemporary );
+        }
     }
 
 }

@@ -17,7 +17,7 @@
                             <mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>
             -->
         </mat-form-field>
-        <input type="file" #imageInput accept="image/*" (change)="imageUpload(imageInput)">
+        <input type="file" #imageInput accept="image/jpeg" (change)="imageUpload(imageInput)">
 
     </form>
 </mat-dialog-content>

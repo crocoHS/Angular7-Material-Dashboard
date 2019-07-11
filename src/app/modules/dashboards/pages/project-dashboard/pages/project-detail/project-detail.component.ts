@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -7,31 +7,20 @@ import { MatDialog } from '@angular/material';
 import { ProjectDetailUploadDialogComponent } from './project-detail-upload-dialog/project-detail-upload-dialog.component';
 import { ICampaign } from '../project-detail-campaign/project-detail-campaign.component';
 import { Project } from '../../../../../../shared/models/project.model';
-import { flatMap, mergeMap, tap } from 'rxjs/operators';
+import { flatMap, map, switchMap } from 'rxjs/operators';
 import { ProjectStoreService } from '../../../../../../core/store/project/project-store.service';
-import { noop, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component( {
     selector: 'app-project-detail',
     templateUrl: './project-detail.component.html',
     styleUrls: [ './project-detail.component.scss' ]
 } )
-export class ProjectDetailComponent implements OnInit {
-// Harusnya di throw di list
-    public project = [
-        {
-            id: 11,
-            name: 'Project A',
-            description: 'blasldasldas'
-        },
-        {
-            id: 12,
-            name: 'Project B',
-            description: 'blasldasldas'
-        }
-    ];
-    public projectInUsedData: Observable<Project>;
+export class ProjectDetailComponent implements OnInit, OnDestroy {
+    // Harusnya di throw di list
+    public projectInUsedData$: Observable<Project>;
     // All Data Store
     public dummyData$: any[];
     // Data for Child
@@ -92,7 +81,7 @@ export class ProjectDetailComponent implements OnInit {
     /////////////////////////////
     // Gawe filter
     removeFalsy( obj ) {
-        let newObj = {};
+        const newObj = {};
         Object.keys( obj ).forEach( ( prop ) => {
             if ( obj[ prop ] ) {
                 newObj[ prop ] = obj[ prop ];
@@ -138,12 +127,12 @@ export class ProjectDetailComponent implements OnInit {
 
     /// SEK SEK OJOK NGGAWE IKI SEK
     forChart( arrayObject ) {
-        let objectResult = {
+        const objectResult = {
             data: [],
             label: []
         };
         arrayObject.forEach( ( arr ) => {
-            let id = objectResult.label.includes( arr.channel );
+            const id = objectResult.label.includes( arr.channel );
             if ( !id ) {
                 return objectResult.label.push( arr.channel );
             }
@@ -170,13 +159,14 @@ export class ProjectDetailComponent implements OnInit {
         // Untuk mendapatkan detail project
         // Harusnya ambil dari API HTTP PROJECT
         // Dan akan dipass ke child berikutnya seperti detailnya untuk component setting
-        this.projectInUsedData = this.router.paramMap
+        this.projectInUsedData$ = this.router.paramMap
             .pipe(
-                mergeMap( ( params: ParamMap ) => {
-                    const id = Number( params.get( 'id' ) );
+                map( ( params: ParamMap ) => Number( params.get( 'id' ) ) ),
+                switchMap( id => {
                     return this.projectStore.getProjectById$( id );
                 } ),
                 flatMap( val => val ),
+                untilDestroyed( this )
             );
 
         this.httpClient.get( 'assets/data_palsu.json' )
@@ -193,7 +183,8 @@ export class ProjectDetailComponent implements OnInit {
                 }
             );
         // Ini untuk subscribe listen filter dan merubah data untuk chart dan tabel lead
-
     }
 
+    ngOnDestroy() {
+    }
 }

@@ -1,19 +1,22 @@
 <div>
-    <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-    </mat-form-field>
+    <div class="action__container">
+        <mat-form-field class="action__search">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+        <button class="btn btn-danger action__button" (click)="addChannel()">Add Channel</button>
+    </div>
 
     <div class="container__mobile">
         <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id" class="table__sticky" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header >Id</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
                 <td mat-cell *matCellDef="let element;" style="width: 5%"> {{element.id}} </td>
             </ng-container>
 
             <ng-container matColumnDef="image">
                 <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Picture</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <img [src]="element.image" >
+                    <img [src]="element.image">
                 </td>
             </ng-container>
 
@@ -32,7 +35,8 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-list role="list">
-                            <mat-list-item role="listitem" *ngFor="let listTeam of element.teams ">{{listTeam.name}}</mat-list-item>
+                            <mat-list-item role="listitem"
+                                           *ngFor="let listTeam of element.teams ">{{listTeam.name}}</mat-list-item>
                         </mat-list>
                     </mat-expansion-panel>
                 </td>
@@ -51,7 +55,7 @@
             <ng-container matColumnDef="trackingUrl">
                 <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Url</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <a [href]=element.trackingUrl >{{element.trackingUrl}}</a>
+                    <a [href]=element.trackingUrl>{{element.trackingUrl}}</a>
                 </td>
             </ng-container>
 
@@ -64,7 +68,7 @@
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action </th>
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action</th>
                 <td mat-cell class="table__mobile" style="width: 10%" *matCellDef="let element">
                     <button mat-icon-button title="Edit me"
                             (click)="editRow(element)">

@@ -47,7 +47,7 @@ export const dummyData: DummyData[] = [ {
         ]
     },
     {
-        name: 'Lead Categories',
+        name: 'LeadModel Categories',
         data: [
             {
                 name: 'New Leads',
@@ -76,7 +76,7 @@ export const dummyData: DummyData[] = [ {
         ]
     },
     {
-        name: 'Lead Status',
+        name: 'LeadModel Status',
         data: [
             {
                 name: 'New Leads',

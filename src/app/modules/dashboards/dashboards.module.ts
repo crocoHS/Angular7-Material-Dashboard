@@ -36,6 +36,7 @@ import { SalesOfficerMigrateDialogComponent } from './pages/sales-officer-dashbo
 import { ProfileDashboardComponent } from './pages/profile-dashboard/profile-dashboard.component';
 import { ProjectDetailUploadDialogComponent } from './pages/project-dashboard/pages/project-detail/project-detail-upload-dialog/project-detail-upload-dialog.component';
 import { UserSettingPaymentComponent } from './pages/user-setting-dashboard/user-setting-payment/user-setting-payment.component';
+import { ProjectDetailAddChannelDialogComponent } from './pages/project-dashboard/pages/project-detail-channel/project-detail-add-channel-dialog/project-detail-add-channel-dialog.component';
 
 @NgModule( {
     declarations: [
@@ -70,6 +71,7 @@ import { UserSettingPaymentComponent } from './pages/user-setting-dashboard/user
         ProfileDashboardComponent,
         ProjectDetailUploadDialogComponent,
         UserSettingPaymentComponent,
+        ProjectDetailAddChannelDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -88,7 +90,8 @@ import { UserSettingPaymentComponent } from './pages/user-setting-dashboard/user
         ProjectSettingProductDialogComponent,
         UserSettingChangeDialogComponent,
         UserSettingAddDialogComponent,
-        ProjectDetailUploadDialogComponent
+        ProjectDetailUploadDialogComponent,
+        ProjectDetailAddChannelDialogComponent
     ]
 } )
 export class DashboardsModule {

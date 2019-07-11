@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { dataDummyChannel, IChannel } from './dummyChannel';
 import { ProjectDetailChannelDialogComponent } from './project-detail-channel-dialog/project-detail-channel-dialog.component';
+import { Observable } from 'rxjs';
+import { Project } from '../../../../../../shared/models/project.model';
+import { ProjectDetailAddChannelDialogComponent } from './project-detail-add-channel-dialog/project-detail-add-channel-dialog.component';
 
 @Component( {
     selector: 'app-project-detail-channel',
@@ -9,8 +12,11 @@ import { ProjectDetailChannelDialogComponent } from './project-detail-channel-di
     styleUrls: [ './project-detail-channel.component.scss' ]
 } )
 export class ProjectDetailChannelComponent implements OnInit {
-// Nanti ini dipakai bersama OnChanges
+    // Nanti ini dipakai bersama OnChanges
     // @Input() dataFromParent: ICampaign[];
+
+    @Input() dataProject: Project;
+
     @ViewChild( MatPaginator ) paginator: MatPaginator;
     @ViewChild( MatTable ) table: MatTable<IChannel>;
     @ViewChild( MatSort ) sort: MatSort;
@@ -18,8 +24,9 @@ export class ProjectDetailChannelComponent implements OnInit {
     displayedColumns: string[] = [ 'id', 'image', 'name', 'teams', 'leads', 'click', 'trackingUrl', 'status', 'action' ];
     dataSource = new MatTableDataSource<IChannel>();
 
-    constructor(private dialog: MatDialog) {
+    constructor( private dialog: MatDialog ) {
     }
+
     editRow( dataFromElement: string ) {
         const dialogRef = this.dialog.open( ProjectDetailChannelDialogComponent, {
             panelClass: 'project_channel_dialog',
@@ -36,11 +43,23 @@ export class ProjectDetailChannelComponent implements OnInit {
             }
         } );
     }
+
     applyFilter( filterValue: string ) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
         if ( this.dataSource.paginator ) {
             this.dataSource.paginator.firstPage();
         }
+    }
+
+    addChannel() {
+        const dialogRef = this.dialog.open( ProjectDetailAddChannelDialogComponent, {
+            panelClass: 'project_channel_dialog',
+            data: this.dataProject
+        } );
+        dialogRef.afterClosed()
+            .subscribe( ( result ) => {
+                console.log( result );
+            } );
     }
 
     ngOnInit() {

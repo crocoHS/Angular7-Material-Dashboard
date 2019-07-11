@@ -23,7 +23,7 @@ export class DashboardSalesTeamService {
     }
 
     getAllCoverages(): Observable<CityCoverage[]> {
-        const url = this.apiService.getUrl() + '/coverage';
+        const url = this.apiService.getUrlmersacs() + 'coverage';
         return this.http.get( url )
             .pipe(
                 map( ( value: any[] ) => {

@@ -8,8 +8,8 @@ import { ProjectStoreService } from '../../store/project/project-store.service';
 @Injectable()
 export class DashboardProjectService {
     // Kudune nggawe sing di comment
-    // url = this.apiService.getUrl() + '/';
-    url = 'https://api.dev.jala.ai/rest/projects';
+    url = this.apiService.getUrl() + 'projects';
+    urlMedia = this.apiService.getUrl() + 'channels/medias';
     tenantId = this.apiService.getTenantId().toString();
 
     constructor( private apiService: ApiService, private http: HttpClient, private store: ProjectStoreService ) {
@@ -31,4 +31,13 @@ export class DashboardProjectService {
             );
     }
 
+    //////////////// CAMPAIGN //////////////////////////
+    getCampaignAll( id ) {
+        return this.http.get( this.url + `/${ id }/campaigns`, { params: { tenant_id: this.tenantId } } );
+    }
+
+    //////////////// MEDIA CHANNEL //////////////////////////
+    getMediaAll() {
+        return this.http.get( this.urlMedia );
+    }
 }

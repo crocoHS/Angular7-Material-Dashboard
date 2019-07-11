@@ -1,7 +1,10 @@
 <div>
-    <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-    </mat-form-field>
+    <div class="action__container">
+        <mat-form-field class="action__search">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+        <button class="btn btn-danger action__button" (click)="addCampaign()">Add Campaign</button>
+    </div>
     <div class="container__mobile">
         <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id" class="table__sticky" sticky>

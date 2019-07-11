@@ -20,7 +20,7 @@ export class SalesTeamDashboardComponent implements OnInit {
     public dataForChildChart = {
         data: [
             { data: [ 65, 0 ], label: 'Hot' },
-            { data: [ 28, 50 ], label: 'New Lead' },
+            { data: [ 28, 50 ], label: 'New LeadModel' },
             { data: [ 28, 0, 0, 70 ], label: 'Cold' },
             { data: [ 28, 0, 60 ], label: 'Closed' }
         ],
