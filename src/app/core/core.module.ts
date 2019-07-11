@@ -18,6 +18,7 @@ import { ApiService } from './services/api.service';
 import { DashboardSalesOfficerService } from './services/dashboard-sales-officer/dashboard-sales-officer.service';
 import { DashboardSalesTeamService } from './services/dashboard-sales-team/dashboard-sales-team.service';
 import { DashboardProjectService } from './services/dashboard-project/dashboard-project.service';
+import { ProjectStoreService } from './store/project/project-store.service';
 
 @NgModule( {
     declarations: [],
@@ -38,6 +39,7 @@ import { DashboardProjectService } from './services/dashboard-project/dashboard-
         DashboardSalesOfficerService,
         DashboardSalesTeamService,
         DashboardProjectService,
+        ProjectStoreService,
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
         {
             provide: HTTP_INTERCEPTORS,

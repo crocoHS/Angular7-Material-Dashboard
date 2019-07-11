@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ILead } from '../project-detail-lead/project-detail-lead.component';
 import { MatDialog } from '@angular/material';
 import { ProjectDetailUploadDialogComponent } from './project-detail-upload-dialog/project-detail-upload-dialog.component';
 import { ICampaign } from '../project-detail-campaign/project-detail-campaign.component';
+import { Project } from '../../../../../../shared/models/project.model';
+import { flatMap, mergeMap, tap } from 'rxjs/operators';
+import { ProjectStoreService } from '../../../../../../core/store/project/project-store.service';
+import { noop, Observable } from 'rxjs';
+import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
 
 @Component( {
     selector: 'app-project-detail',
@@ -26,7 +31,7 @@ export class ProjectDetailComponent implements OnInit {
             description: 'blasldasldas'
         }
     ];
-    public projectInUsedData;
+    public projectInUsedData: Observable<Project>;
     // All Data Store
     public dummyData$: any[];
     // Data for Child
@@ -51,8 +56,11 @@ export class ProjectDetailComponent implements OnInit {
 
     constructor(
         private router: ActivatedRoute,
-        private http: HttpClient,
-        private dialog: MatDialog
+        private route: Router,
+        private httpClient: HttpClient,
+        private http: DashboardProjectService,
+        private dialog: MatDialog,
+        private projectStore: ProjectStoreService
     ) {
         this.filterGroup.valueChanges
             .subscribe( result => {
@@ -68,6 +76,7 @@ export class ProjectDetailComponent implements OnInit {
                 this.dataForLeadsComp = res;
                 this.dataForChart = this.forChart( res );
             } );
+        //////////////////////////
     }
 
     // Upload Dialog ////////////
@@ -161,16 +170,16 @@ export class ProjectDetailComponent implements OnInit {
         // Untuk mendapatkan detail project
         // Harusnya ambil dari API HTTP PROJECT
         // Dan akan dipass ke child berikutnya seperti detailnya untuk component setting
-        this.router.paramMap
-            .subscribe( ( params: ParamMap ) => {
-                const getId = Number( params.get( 'id' ) );
-                this.project.forEach( arr => {
-                    if ( arr.id === getId ) {
-                        this.projectInUsedData = arr;
-                    }
-                } );
-            } );
-        this.http.get( 'assets/data_palsu.json' )
+        this.projectInUsedData = this.router.paramMap
+            .pipe(
+                mergeMap( ( params: ParamMap ) => {
+                    const id = Number( params.get( 'id' ) );
+                    return this.projectStore.getProjectById$( id );
+                } ),
+                flatMap( val => val ),
+            );
+
+        this.httpClient.get( 'assets/data_palsu.json' )
             .subscribe( ( result: any[] ) => {
                     this.dummyData$ = result;
                     this.dataForChart = this.forChart( result );

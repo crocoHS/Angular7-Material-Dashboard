@@ -1,19 +1,22 @@
 <div class="kt-portlet">
-    <div class="kt-portlet__head">
+    <div class="kt-portlet__head" *ngIf="projectInUsedData | async as project">
         <div class="kt-portlet__head-label">
-            <h3 class="kt-portlet__head-title">{{ projectInUsedData.name }}</h3>
+            <h3 class="kt-portlet__head-title">{{ project.name }}</h3>
         </div>
         <div class="kt-portlet__head-toolbar">
             <div class="kt-portlet__head-actions">
                 <div class="btn-group btn-group-sm">
                     <button (click)="uploadDialog()" class="btn btn-warning btn-bold">
-                        <mat-icon>cloud_download</mat-icon>Export
+                        <mat-icon>cloud_download</mat-icon>
+                        Export
                     </button>
                     <button (click)="uploadDialog()" class="btn btn-brand btn-bold">
-                        <mat-icon>cloud_upload</mat-icon>Import
+                        <mat-icon>cloud_upload</mat-icon>
+                        Import
                     </button>
-                    <a [routerLink]="['../../setting/',projectInUsedData.id]" class="btn btn-danger btn-bold">
-                        <mat-icon>settings</mat-icon>Setting
+                    <a [routerLink]="['../../setting/',project.id]" class="btn btn-danger btn-bold">
+                        <mat-icon>settings</mat-icon>
+                        Setting
                     </a>
                 </div>
             </div>
@@ -59,7 +62,7 @@
                             <mat-form-field>
                                 <mat-label>Campaign</mat-label>
                                 <mat-select formControlName="campaign">
-                                    <mat-option >None</mat-option>
+                                    <mat-option>None</mat-option>
                                     <mat-option *ngFor="let data of dataForFilter.campaign" [value]="data">
                                         {{data}}
                                     </mat-option>
@@ -68,7 +71,7 @@
                             <mat-form-field>
                                 <mat-label>Channel</mat-label>
                                 <mat-select formControlName="channel">
-                                    <mat-option >None</mat-option>
+                                    <mat-option>None</mat-option>
                                     <mat-option *ngFor="let data of dataForFilter.channel" [value]="data">
                                         {{data}}
                                     </mat-option>
@@ -77,7 +80,7 @@
                             <mat-form-field>
                                 <mat-label>Sales Officer</mat-label>
                                 <mat-select formControlName="sales_officer">
-                                    <mat-option >None</mat-option>
+                                    <mat-option>None</mat-option>
                                     <mat-option *ngFor="let data of dataForFilter.sales_officer" [value]="data">
                                         {{data}}
                                     </mat-option>
@@ -86,7 +89,7 @@
                             <mat-form-field>
                                 <mat-label>Sales Team</mat-label>
                                 <mat-select formControlName="sales_team">
-                                    <mat-option >None</mat-option>
+                                    <mat-option>None</mat-option>
                                     <mat-option *ngFor="let data of dataForFilter.sales_team" [value]="data">
                                         {{data}}
                                     </mat-option>
@@ -95,7 +98,7 @@
                             <mat-form-field>
                                 <mat-label>Status</mat-label>
                                 <mat-select formControlName="status">
-                                    <mat-option >None</mat-option>
+                                    <mat-option>None</mat-option>
                                     <mat-option *ngFor="let data of dataForFilter.status" [value]="data">
                                         {{data}}
                                     </mat-option>
@@ -104,7 +107,7 @@
                             <mat-form-field>
                                 <mat-label>Category</mat-label>
                                 <mat-select formControlName="category">
-                                    <mat-option >None</mat-option>
+                                    <mat-option>None</mat-option>
                                     <mat-option *ngFor="let data of dataForFilter.category" [value]="data">
                                         {{data}}
                                     </mat-option>
