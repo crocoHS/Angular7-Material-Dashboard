@@ -62,8 +62,7 @@
               <mat-form-field class="example-full-width" appearance="outline" >
                   <mat-label>Name</mat-label>
                   <input matInput placeholder="Name" 
-                    value="" 
-                    (keydown)="onKeyDown($event)"
+                    value=""
                     formControlName="name"
                     id="name"
                     type="text"
@@ -73,8 +72,7 @@
                 <mat-form-field class="example-full-width" appearance="outline" >
                     <mat-label>Address</mat-label>
                     <input matInput placeholder="Address" 
-                      value="" 
-                      (keydown)="onKeyDown($event)"
+                      value=""
                       formControlName="address"
                       id="address"
                       type="text"
@@ -84,8 +82,7 @@
               <mat-form-field class="example-full-width" appearance="outline" >
                 <mat-label>Phone Number</mat-label>
                 <input matInput placeholder="number" 
-                  value="" 
-                  (keydown)="onKeyDown($event)"
+                  value=""
                   formControlName="number"
                   id="number"
                   type="text"
@@ -95,8 +92,7 @@
               <mat-form-field class="example-full-width" appearance="outline" >
                   <mat-label>PIC</mat-label>
                   <input matInput placeholder="PIC" 
-                    value="" 
-                    (keydown)="onKeyDown($event)"
+                    value=""
                     formControlName="pic"
                     id="pic"
                     type="text"
@@ -106,8 +102,7 @@
               <mat-form-field class="example-full-width" appearance="outline" >
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Email" 
-                  value="" 
-                  (keydown)="onKeyDown($event)"
+                  value=""
                   formControlName="email"
                   id="email"
                   type="text"
@@ -119,8 +114,7 @@
               <mat-form-field class="example-full-width" appearance="outline" >
                   <mat-label>Password</mat-label>
                   <input matInput placeholder="Password" 
-                    value="" 
-                    (keydown)="onKeyDown($event)"
+                    value=""
                     formControlName="password"
                     id="password"
                     type="text"
@@ -130,8 +124,8 @@
                 </mat-form-field>
 
                 <mat-dialog-actions style="margin: 20px;" >
-                    <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
-                    <button type="submit" (click)="onSubmit(testGroup)" mat-flat-button color="primary" style="margin-left: 10px;">Save Changes</button>
+                    <button type="submit"  mat-stroked-button>Cancel</button>
+                    <button type="submit"  mat-flat-button color="primary" style="margin-left: 10px;">Save Changes</button>
                 </mat-dialog-actions>
             </form>
     </div>

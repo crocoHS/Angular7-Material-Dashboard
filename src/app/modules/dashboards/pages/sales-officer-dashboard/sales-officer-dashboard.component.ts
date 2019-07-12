@@ -24,7 +24,7 @@ export class SalesOfficerDashboardComponent implements OnInit {
         ],
         label: [ 'Sales Officer 1', 'Sales Officer 2', 'Sales Officer 3', 'Sales Officer 4', 'Sales Officer 5' ]
     };
-    private dataForTable;
+    public dataForTable;
 
     constructor( private dialog: MatDialog, private http: DashboardSalesOfficerService ) {
         this.dataForTable = this.http.getAllSalesOfficers()
