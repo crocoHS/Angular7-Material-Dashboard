@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material';
 import { ProjectDetailUploadDialogComponent } from './project-detail-upload-dialog/project-detail-upload-dialog.component';
 import { ICampaign } from '../project-detail-campaign/project-detail-campaign.component';
 import { Project } from '../../../../../../shared/models/project.model';
-import { flatMap, map, switchMap } from 'rxjs/operators';
+import { catchError, flatMap, map, switchMap } from 'rxjs/operators';
 import { ProjectStoreService } from '../../../../../../core/store/project/project-store.service';
 import { Observable } from 'rxjs';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
@@ -20,7 +20,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 } )
 export class ProjectDetailComponent implements OnInit, OnDestroy {
     // Harusnya di throw di list
-    public projectInUsedData$: Observable<Project>;
+    public projectInUsedData$: Observable<boolean | Project>;
     // All Data Store
     public dummyData$: any[];
     // Data for Child
@@ -161,12 +161,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         // Dan akan dipass ke child berikutnya seperti detailnya untuk component setting
         this.projectInUsedData$ = this.router.paramMap
             .pipe(
+                untilDestroyed( this ),
                 map( ( params: ParamMap ) => Number( params.get( 'id' ) ) ),
                 switchMap( id => {
                     return this.projectStore.getProjectById$( id );
                 } ),
                 flatMap( val => val ),
-                untilDestroyed( this )
+                catchError( ( err ) => this.route.navigateByUrl( '/dashboard/project' ) )
             );
 
         this.httpClient.get( 'assets/data_palsu.json' )

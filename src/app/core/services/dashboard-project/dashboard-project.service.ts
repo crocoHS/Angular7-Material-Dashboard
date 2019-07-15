@@ -7,7 +7,7 @@ import { ProjectStoreService } from '../../store/project/project-store.service';
 
 @Injectable()
 export class DashboardProjectService {
-    // Kudune nggawe sing di comment
+    // Kudune nggawe sing di comment //
     url = this.apiService.getUrl() + 'projects';
     urlMedia = this.apiService.getUrl() + 'channels/medias';
     tenantId = this.apiService.getTenantId().toString();

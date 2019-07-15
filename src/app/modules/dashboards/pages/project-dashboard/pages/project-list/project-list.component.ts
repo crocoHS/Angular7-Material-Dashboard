@@ -10,11 +10,12 @@ import { Observable } from 'rxjs';
 } )
 export class ProjectListComponent implements OnInit {
     public listOfProject: Observable<Project[]>;
+
     constructor( private http: DashboardProjectService ) {
     }
 
     ngOnInit() {
-        this.listOfProject =  this.http.getProjectAll();
+        this.listOfProject = this.http.getProjectAll();
     }
 
 }

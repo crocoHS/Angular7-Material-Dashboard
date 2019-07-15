@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { Project } from '../../../shared/models/project.model';
 import { defaultIfEmpty, map } from 'rxjs/operators';
 
@@ -20,7 +20,13 @@ export class ProjectStoreService {
 
     getProjectById$( id ) {
         return this.project$.pipe(
-            map( value => value.filter( val => val.id === id ) )
+            map( value => {
+                if ( value.length !== 0) {
+                    return value.filter( val => val.id === id );
+                } else {
+                    throwError('error bos');
+                }
+            } )
         );
     }
 }
