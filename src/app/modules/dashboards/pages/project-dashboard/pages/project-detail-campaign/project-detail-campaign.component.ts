@@ -1,21 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { ProjectDetailCampaignDialogComponent } from './project-detail-campaign-dialog/project-detail-campaign-dialog.component';
+import { Project } from '../../../../../../shared/models/project.model';
+import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
+import { Campaign } from '../../../../../../shared/models/campaign.model';
 
-export interface ICampaign {
-    id: number;
-    image: string;
-    name: string;
-    channels: number;
-    leads: number;
-    detail: string;
-    status: boolean;
-}
-
-const dataDummyCampaign: ICampaign[] = [
+/*const dataDummyCampaign: ICampaign[] = [
     {
         id: 21,
-        image: 'kosongansek.img',
+        picture: 'kosongansek.img',
         name: 'Black Campaign',
         channels: 3,
         leads: 423,
@@ -24,14 +17,14 @@ const dataDummyCampaign: ICampaign[] = [
     },
     {
         id: 22,
-        image: 'kosongansek.img',
+        picture: 'kosongansek.img',
         name: 'White Campaign',
         channels: 2,
         leads: 523,
         detail: 'Sek Gak Paham Pindo',
         status: true
     }
-];
+];*/
 
 @Component( {
     selector: 'app-project-detail-campaign',
@@ -39,23 +32,26 @@ const dataDummyCampaign: ICampaign[] = [
     styleUrls: [ './project-detail-campaign.component.scss' ]
 } )
 export class ProjectDetailCampaignComponent implements OnInit {
-    // Nanti ini dipakai bersama OnChanges
-    // @Input() dataFromParent: ICampaign[];
+    // Data tentang project dari parent
+    @Input() dataFromParent: Project;
     @ViewChild( MatPaginator ) paginator: MatPaginator;
-    @ViewChild( MatTable ) table: MatTable<ICampaign>;
+    @ViewChild( MatTable ) table: MatTable<Campaign>;
     @ViewChild( MatSort ) sort: MatSort;
-    displayedColumns: string[] = [ 'id', 'image', 'name', 'channels', 'leads', 'detail', 'status', 'action' ];
-    dataSource = new MatTableDataSource<ICampaign>();
+    displayedColumns: string[] = [ 'id', 'picture', 'name', 'channels', 'leads', 'detail', 'status', 'action' ];
+    dataSource = new MatTableDataSource<Campaign>();
 
-    constructor( private dialog: MatDialog ) {
+    constructor(
+        private dialog: MatDialog,
+        private http: DashboardProjectService
+    ) {
     }
 
-    editRow( dataFromElement: string ) {
+    editRow( dataFromElement: Campaign ) {
         const dialogRef = this.dialog.open( ProjectDetailCampaignDialogComponent, {
             panelClass: 'project_campaign_dialog',
             data: dataFromElement
         } );
-        dialogRef.afterClosed().subscribe( ( result: ICampaign ) => {
+        dialogRef.afterClosed().subscribe( ( result: Campaign ) => {
             if ( result ) {
                 this.dataSource.data.forEach( arr => {
                     if ( arr.id === result.id ) {
@@ -70,9 +66,10 @@ export class ProjectDetailCampaignComponent implements OnInit {
     addCampaign() {
         const dialogRef = this.dialog.open( ProjectDetailCampaignDialogComponent, {
             panelClass: 'project_campaign_dialog',
+            data: this.dataFromParent
         } );
-        dialogRef.afterClosed().subscribe( ( result: ICampaign ) => {
-            console.log(result);
+        dialogRef.afterClosed().subscribe( ( result: Campaign ) => {
+            console.log( result );
         } );
     }
 
@@ -84,9 +81,17 @@ export class ProjectDetailCampaignComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.dataSource.data = dataDummyCampaign;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.http.getAllCampaigns( this.dataFromParent.id )
+            .subscribe( val => {
+                console.log( val );
+                this.dataSource.data = val;
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            } );
+
+        // this.dataSource.data = dataDummyCampaign;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
     }
 
     // Engkok nggawe iki harus'e

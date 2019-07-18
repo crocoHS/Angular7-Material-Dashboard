@@ -76,11 +76,11 @@ export class ProjectDetailAddChannelDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.allCampaign$ = this.http.getCampaignAll( this.data.id );
+        this.allCampaign$ = this.http.getAllCampaigns( this.data.id );
         this.allSalesTeam$ = this.http2.getAllSalesTeam()
             .pipe(
                 map( value => value.map( val => val.getNameAndId() ) )
             );
-        this.http.getMediaAll().subscribe( val => this.allMedia = val );
+        this.http.getAllMedias().subscribe( val => this.allMedia = val );
     }
 }

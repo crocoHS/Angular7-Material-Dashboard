@@ -5,9 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { ILead } from '../project-detail-lead/project-detail-lead.component';
 import { MatDialog } from '@angular/material';
 import { ProjectDetailUploadDialogComponent } from './project-detail-upload-dialog/project-detail-upload-dialog.component';
-import { ICampaign } from '../project-detail-campaign/project-detail-campaign.component';
 import { Project } from '../../../../../../shared/models/project.model';
-import { catchError, flatMap, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { ProjectStoreService } from '../../../../../../core/store/project/project-store.service';
 import { Observable } from 'rxjs';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
@@ -20,7 +19,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 } )
 export class ProjectDetailComponent implements OnInit, OnDestroy {
     // Harusnya di throw di list
-    public projectInUsedData$: Observable<boolean | Project>;
+    public projectInUsedData$: Observable<Project>;
     // All Data Store
     public dummyData$: any[];
     // Data for Child
@@ -66,6 +65,19 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
                 this.dataForChart = this.forChart( res );
             } );
         //////////////////////////
+        this.projectInUsedData$ = this.router.paramMap
+            .pipe(
+                untilDestroyed( this ),
+                map( ( params: ParamMap ) => Number( params.get( 'id' ) ) ),
+                switchMap( id => {
+                    return this.projectStore.getProjectById$( id );
+                } ),
+                tap( val => {
+                    if ( !val ) {
+                        this.route.navigateByUrl('/dashboard/project/list');
+                    }
+                } )
+            );
     }
 
     // Upload Dialog ////////////
@@ -73,7 +85,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         const dialogRef = this.dialog.open( ProjectDetailUploadDialogComponent, {
             panelClass: 'project_detail_upload_dialog',
         } );
-        dialogRef.afterClosed().subscribe( ( result: ICampaign ) => {
+        dialogRef.afterClosed().subscribe( ( result ) => {
 
         } );
     }
@@ -159,16 +171,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         // Untuk mendapatkan detail project
         // Harusnya ambil dari API HTTP PROJECT
         // Dan akan dipass ke child berikutnya seperti detailnya untuk component setting
-        this.projectInUsedData$ = this.router.paramMap
-            .pipe(
-                untilDestroyed( this ),
-                map( ( params: ParamMap ) => Number( params.get( 'id' ) ) ),
-                switchMap( id => {
-                    return this.projectStore.getProjectById$( id );
-                } ),
-                flatMap( val => val ),
-                catchError( ( err ) => this.route.navigateByUrl( '/dashboard/project' ) )
-            );
 
         this.httpClient.get( 'assets/data_palsu.json' )
             .subscribe( ( result: any[] ) => {

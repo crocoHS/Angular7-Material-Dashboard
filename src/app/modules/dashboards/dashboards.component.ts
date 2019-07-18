@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { animate, group, keyframes, query, style, transition, trigger } from '@angular/animations';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 
 @Component( {
     selector: 'app-dashboard',
@@ -62,7 +63,28 @@ import { RouterOutlet } from '@angular/router';
 } )
 export class DashboardComponent {
 
-    constructor() {
+    constructor( private router: Router, private activatedRoute: ActivatedRoute ) {
+        // Digawe opo enggak sak karep. Ruwet tapi ketok e
+        /*router.events
+            .pipe(
+                filter( val => val instanceof NavigationEnd ),
+                map( ( val: NavigationEnd ) => {
+                    let child = this.activatedRoute.firstChild;
+                    while ( child ) {
+                        if ( child.firstChild ) {
+                            child = child.firstChild;
+                        } else if ( child.snapshot.data && child.snapshot.data[ 'breadcrumb' ] ) {
+                            return { url: val.urlAfterRedirects, data: child.snapshot.data[ 'breadcrumb' ] };
+                        } else {
+                            return { url: val.urlAfterRedirects, data: null };
+                        }
+                    }
+                    return { url: val.urlAfterRedirects, data: null };
+                } )
+            )
+            .subscribe( val => {
+                console.log( val );
+            } );*/
     }
 
     prepareRoute( outlet: RouterOutlet ) {

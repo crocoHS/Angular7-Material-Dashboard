@@ -19,11 +19,11 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline" style="width: 100%">
                         <mat-label>Detail Description</mat-label>
-                        <textarea matInput placeholder="Detail Description" formControlName="detail" value="{{dataProject.detail}}"></textarea>
+                        <textarea matInput placeholder="Detail Description" formControlName="detail"></textarea>
                     </mat-form-field>
                     <div class="radio-button-group">
                         <label id="radio-group-label">Status:</label>
-                        <mat-radio-group formControlName="statusActive"
+                        <mat-radio-group formControlName="isActive"
                                          aria-labelledby="radio-group-label">
                             <mat-radio-button [value]="true">Active</mat-radio-button>
                             <mat-radio-button [value]="false">Inactive</mat-radio-button>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <app-project-setting-product-table #settingProduct [dataFromParent]="dataSourceProduct"></app-project-setting-product-table>
+                <app-project-setting-product-table #settingProduct [dataFromParent]="dataSourceProduct$ | async"></app-project-setting-product-table>
             </div>
         </div>
         <div class="kt-portlet">
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="kt-portlet__body" >
-                <app-project-setting-status-table #settingStatus [dataFromParent]="dataSourceStatus"></app-project-setting-status-table>
+                <app-project-setting-status-table *ngIf="dataSourceStatus" #settingStatus [dataFromParent]="dataSourceStatus" (updateStatus)="updateStatus($event)"></app-project-setting-status-table>
             </div>
         </div>
     </div>

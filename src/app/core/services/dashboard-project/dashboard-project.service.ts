@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { Project } from '../../../shared/models/project.model';
 import { ProjectStoreService } from '../../store/project/project-store.service';
+import { Observable } from 'rxjs';
+import { Campaign, ICampaign } from '../../../shared/models/campaign.model';
+import { IStatus, Status } from '../../../shared/models/status.model';
+import { IProduct, Product } from '../../../shared/models/product.model';
 
 @Injectable()
 export class DashboardProjectService {
@@ -15,7 +19,7 @@ export class DashboardProjectService {
     constructor( private apiService: ApiService, private http: HttpClient, private store: ProjectStoreService ) {
     }
 
-    getProjectAll() {
+    getAllProjects() {
         return this.http.get( this.url, { params: { tenant_id: this.tenantId } } )
             .pipe(
                 map( ( value: any[] ) => value.map( val => new Project( val ) ) ),
@@ -32,12 +36,66 @@ export class DashboardProjectService {
     }
 
     //////////////// CAMPAIGN //////////////////////////
-    getCampaignAll( id ) {
-        return this.http.get( this.url + `/${ id }/campaigns`, { params: { tenant_id: this.tenantId } } );
+    getAllCampaigns( id ) {
+        return this.http.get( this.url + `/${ id }/campaigns`, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                map( ( value: any[] ) => value.map( val => new Campaign( val ) ) )
+            );
+    }
+
+    updateCampaign( idProject, idCampaign, body ) {
+        return this.http.put( this.url + `/${ idProject }/campaigns/${ idCampaign }`, body, {
+            params: { tenant_id: this.tenantId },
+            headers: { 'Content-Type': 'application/json' }
+        } );
+    }
+
+    createCampaign( idProject, body ) {
+        return this.http.post( this.url + `/${ idProject }/campaigns`, body, {
+            params: { tenant_id: this.tenantId }
+        } );
     }
 
     //////////////// MEDIA CHANNEL //////////////////////////
-    getMediaAll() {
+    getAllMedias() {
         return this.http.get( this.urlMedia );
     }
+
+    //////////////// STATUS PROJECT //////////////////////////
+    getAllStatus( idProject ): Observable<Status[]> {
+        return this.http.get( this.url + `/${ idProject }/statuses`, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                map( ( value: any[] ) => value.map( val => new Status( val ) ) )
+            );
+    }
+
+    updateStatus( idProject, idStatus, body: Partial<IStatus> ) {
+        return this.http.put( this.url + `/${ idProject }/statuses/${ idStatus }`, body, {
+            params: { tenant_id: this.tenantId },
+            headers: { 'Content-Type': 'application/json' }
+        } );
+    }
+
+    //////////////// PRODUCT PROJECT //////////////////////////
+    getAllProducts( idProject ) {
+        return this.http.get( this.url + `/${ idProject }/products`, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                map( ( value: any[] ) => value.map( val => new Product( val ) ) )
+            );
+    }
+
+    updateProduct( idProject, idProduct, body: Partial<IStatus> ) {
+        return this.http.put( this.url + `/${ idProject }/products/${ idProduct }`, body, {
+            params: { tenant_id: this.tenantId },
+            headers: { 'Content-Type': 'application/json' }
+        } );
+    }
+
+    createProduct( idProject, body: Partial<IProduct> ) {
+        return this.http.post( this.url + `/${ idProject }/products`, [ body ], {
+            params: { tenant_id: this.tenantId },
+            headers: { 'Content-Type': 'application/json' }
+        } );
+    }
+
 }

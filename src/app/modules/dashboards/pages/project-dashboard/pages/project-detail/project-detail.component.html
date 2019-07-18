@@ -138,7 +138,7 @@
             </mat-tab>
             <mat-tab label="Campaign">
                 <ng-template matTabContent>
-                    <app-project-detail-campaign></app-project-detail-campaign>
+                    <app-project-detail-campaign [dataFromParent]="projectInUsedData$ | async"></app-project-detail-campaign>
                 </ng-template>
             </mat-tab>
             <mat-tab label="Channel">

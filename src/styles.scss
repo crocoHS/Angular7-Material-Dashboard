@@ -71,7 +71,6 @@ $md-second-theme: (
 );
 
 
-
 $custom-typography: mat-typography-config(
     $font-family: 'Poppins, Roboto'
 );
@@ -79,8 +78,8 @@ $custom-typography: mat-typography-config(
 @include mat-core($custom-typography);
 
 $main-app-primary: mat-palette($md-main-theme);
-$main-app-accent:  mat-palette($md-second-theme);
-$main-app-warn:    mat-palette($mat-pink);
+$main-app-accent: mat-palette($md-second-theme);
+$main-app-warn: mat-palette($mat-pink);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $main-app-theme: mat-light-theme($main-app-primary, $main-app-accent, $main-app-warn);
@@ -88,10 +87,15 @@ $main-app-theme: mat-light-theme($main-app-primary, $main-app-accent, $main-app-
 @include angular-material-theme($main-app-theme);
 @include sat-datepicker-theme($main-app-theme);
 
-body{
+body {
     background-color: #f9f9fc;
     overflow-x: hidden;
 }
+// Gawe ngilangi glitch scrollbar
+html {
+    margin-left: calc(100vw - 100%);
+}
+
 .cdk-global-scrollblock {
     position: initial;
     width: initial;

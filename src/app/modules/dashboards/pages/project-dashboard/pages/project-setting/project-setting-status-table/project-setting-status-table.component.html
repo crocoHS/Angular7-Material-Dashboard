@@ -9,20 +9,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let product of dataStore; index as i">
-            <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
+        <tr *ngFor="let status of dataStore; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ status.name }}</td>
             <td>
                 <div class="input-group">
                     <input type="number"
                            aria-describedby="basic-addon1"
                            aria-label="Username"
                            class="form-control"
-                           #input min="0" (change)="editStatusPoint(i , input)" [disabled]="!product.status" [value]="product.point">
+                           #input min="0" (change)="editStatusPoint(status.id , input)" [disabled]="!status.status" [value]="status.point">
                 </div>
             </td>
             <td>
-                <button mat-flat-button (click)="editStatusActive(product)" [color]="product.status ? 'primary' : 'warn'">{{ product.status ? 'Active' : 'Inactive'}}</button>
+                <button mat-flat-button (click)="editStatusActive(status)" [color]="status.status ? 'primary' : 'warn'">{{ status.status ? 'Active' : 'Inactive'}}</button>
             </td>
         </tr>
         </tbody>

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { Project } from '../../../shared/models/project.model';
-import { defaultIfEmpty, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectStoreService {
+
+    constructor() {
+    }
 
     private readonly PROJECT = new BehaviorSubject<Project[]>( [] );
 
@@ -21,11 +24,7 @@ export class ProjectStoreService {
     getProjectById$( id ) {
         return this.project$.pipe(
             map( value => {
-                if ( value.length !== 0) {
-                    return value.filter( val => val.id === id );
-                } else {
-                    throwError('error bos');
-                }
+                return value.find( val => val.id === id );
             } )
         );
     }

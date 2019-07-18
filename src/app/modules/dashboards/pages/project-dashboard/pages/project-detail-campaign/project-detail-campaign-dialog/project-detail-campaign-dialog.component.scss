@@ -1,5 +1,37 @@
-.example-form{
-    padding: 5%;
-    display: flex;
-    flex-direction: column;
+.form {
+    &__container {
+        padding: 5%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__image {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        &--image {
+            border-radius: 5px;
+            width: 200px;
+            height: 200px;
+            background-color: var(--gray);
+            background-position: center;
+            background-size: cover;
+            margin-right: 20px;
+        }
+
+        & input {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .form {
+        &__image {
+            flex-direction: column;
+            &--image {
+                margin-right: 0;
+            }
+        }
+    }
 }

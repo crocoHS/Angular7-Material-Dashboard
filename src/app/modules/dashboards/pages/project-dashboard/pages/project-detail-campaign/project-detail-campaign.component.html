@@ -21,10 +21,10 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="image">
+            <ng-container matColumnDef="picture">
                 <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Picture</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <img [src]="element.image" >
+                    <div class="table__image" [ngStyle]="{'background-image': 'url(' + element.picture + ')'}"></div>
                 </td>
             </ng-container>
 
@@ -53,7 +53,7 @@
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action </th>
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action</th>
                 <td mat-cell class="table__mobile" style="width: 10%" *matCellDef="let element">
                     <button mat-icon-button title="Edit me"
                             (click)="editRow(element)">

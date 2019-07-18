@@ -15,6 +15,17 @@ table {
     background-color: #f7f7f7;
 }
 
+.table {
+    &__image {
+        width: 200px;
+        height: 200px;
+        border-radius: 3px;
+        margin: 5px auto;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
 .action {
     &__container {
         display: flex;
