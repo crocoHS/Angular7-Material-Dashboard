@@ -4,6 +4,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardProductService } from '../../../../../../core/services/dashboard-project/dashboard-product.service';
+import { Product, ProductTagGroup } from '../../../../../../shared/models/product.model';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component( {
     selector: 'app-project-setting-products',
@@ -21,8 +23,8 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     } );
     // FORM GROUP Product TAGS / CATEGORY
     public formGroup2 = this.fb.group( {
-        category: [ '' ],
-        subCategory: [ '' ],
+        category: [],
+        subCategory: [],
         infos: this.fb.group( {
             tags: [],
             info: []
@@ -33,21 +35,65 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     public productImage: any[];
     // for Carousel
     public carouselImage = 0;
+    // for Product
+    public product: Product;
+    // for Category
+    public tag: ProductTagGroup;
     // for Sub Category
-    public tagMulti: any[] = [];
-    readonly separatorKeysCodes: number[] = [ ENTER, COMMA ];
+    public tagMulti: ProductTagGroup;
     // for Category Tag with Info
-    public infos: any[] = [];
+    public infos: ProductTagGroup;
 
     /////////////////////////////
     constructor( private fb: FormBuilder,
                  private router: ActivatedRoute,
                  private http: DashboardProductService ) {
         const params = this.router.snapshot.params;
-        this.http.getProductTagGroup( params[ 'prodId' ] )
-            .subscribe( val => console.log( val ) );
+        this.http.getProductById( params.prodId )
+            .pipe(
+                map( value => this.product = value ),
+                switchMap( value => {
+                    return this.http.getProductTagGroup( value.id );
+                } ),
+                map( value => this.setFormAndTags( this.product, value ) )
+            )
+            .subscribe( val => {
+                console.log( this.product, 'Ini Produk' );
+                console.log( this.tag, 'Ini Tag' );
+                console.log( this.tagMulti, 'Ini tagMulti' );
+                console.log( this.infos, 'Ini infos' );
+            } );
     }
 
+    ///////////////////////////
+    // for Set All Form ///////
+    setFormAndTags( product: Product, tags: ProductTagGroup[] ) {
+        this.formGroup.setValue( {
+            name: product.name,
+            description: product.detail,
+            price: product.price,
+            minPrice: product.minBookingPrice
+        } );
+
+        if ( tags ) {
+            tags.forEach( value => {
+                if ( value.type === 'singleTag' ) {
+                    this.tag = value;
+                    if ( value.tag.length ) {
+                        this.formGroup2.patchValue( {
+                            category: value.tag[ 0 ].tag
+                        } );
+                    }
+                } else if ( value.type === 'multipleTag' ) {
+                    this.tagMulti = value;
+                } else if ( value.type === 'multipleTagWithInfo' ) {
+                    this.infos = value;
+                }
+            } );
+        }
+    }
+
+    ///////////////////////////
     // for Image Upload /////
     addImage( files ) {
         // const file: File = inputRef.files[0];
@@ -57,7 +103,6 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     }
 
     /////////////////////////
-
     // for Price Form
     changeMinPrice() {
         const price = this.formGroup.get( 'price' ).value;
@@ -73,7 +118,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     }
 
     // For Sub Category ///////////////
-    addSubCategory( event: MatChipInputEvent ): void {
+    /*addSubCategory( event: MatChipInputEvent ): void {
         const input = event.input;
         const value = event.value;
         // Add our fruit
@@ -84,14 +129,14 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
         if ( input ) {
             input.value = '';
         }
-    }
+    }*/
 
-    removeSubCategory( tags ): void {
+    /*removeSubCategory( tags ): void {
         const index = this.tagMulti.indexOf( tags );
         if ( index >= 0 ) {
             this.tagMulti.splice( index, 1 );
         }
-    }
+    }*/
 
     ///////////////////////////////////
     // for Category Tag with Info
