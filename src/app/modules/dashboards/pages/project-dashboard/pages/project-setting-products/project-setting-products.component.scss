@@ -1,49 +1,138 @@
-
 ////// FIX Number type mombol prefix e ////////
-:host ::ng-deep .mat-form-field-infix{
+:host ::ng-deep .mat-form-field-infix {
     top: -0.25em;
 }
+
 :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
     margin-top: 0;
 }
+
 :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix, :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix {
     top: -0.25em;
 }
+
 /////////////////////////////////////////////////
 
-.form__group{
+.form__group {
     display: flex;
     flex-direction: column;
+
+    &--subCategory {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &--input {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        & > mat-form-field {
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+
+        & > button {
+            &::ng-deep {
+                box-shadow: none;
+            }
+
+            margin-top: 7px;
+        }
+
+        &--double {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            & > mat-form-field {
+                width: 48%;
+            }
+
+            & > button {
+                width: 100%;
+                margin-top: 7px;
+            }
+        }
+    }
+
+    //// FOR SUB CATEGORY TABLE ////
+    &--table {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--item {
+        padding: 5px 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid #ebedf2;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &--text {
+        color: #6c7293;
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 3rem;
+        padding: 1rem 1rem 0;
+    }
+
+    &--action {
+        max-width: 80px;
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    ////////////////////////////////
 }
-.form__divider{
+
+.form__divider {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    & mat-form-field{
+
+    & mat-form-field {
         width: 48%;
     }
-    &--stock{
+
+    &--stock {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        & mat-form-field{
+
+        & mat-form-field {
             width: 48%;
         }
     }
 }
-.form__divider--three{
+
+.form__divider--three {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    & mat-form-field{
+
+    & mat-form-field {
         width: 45%;
     }
+
     & button {
         height: 100%;
     }
 }
-.image{
-    &__container{
+
+.image {
+    &__container {
         width: 100%;
         padding: 10px;
         display: flex;
@@ -51,7 +140,7 @@
         justify-content: center;
     }
 
-    &__item{
+    &__item {
         width: 6vw;
         height: 6vw;
         margin: 10px;
@@ -59,42 +148,48 @@
         overflow: hidden;
         box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.1);
         cursor: pointer;
-        & img{
+
+        & img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         ///////////////////////
-        &--upload{
+        &--upload {
             background-color: var(--gray);
             position: relative;
+
             & input {
                 opacity: 0;
                 visibility: hidden;
             }
 
         }
-        &--svg{
+
+        &--svg {
             width: 50%;
             height: 50%;
-            fill: rgba(255,255,255,.5);
+            fill: rgba(255, 255, 255, .5);
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
         }
+
         /////////////////////////
     }
 
-    &__carousel{
+    &__carousel {
         width: 100%;
-        height: calc(100vw/3);
+        height: calc(100vw / 3);
         max-height: 500px;
         position: relative;
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.1);
-        & img{
+
+        & img {
             position: absolute;
             top: 0;
             left: 0;
@@ -105,14 +200,15 @@
             visibility: hidden;
             transition: all .7s ease;
         }
-        &--active{
+
+        &--active {
             opacity: 1 !important;
             visibility: visible !important;
         }
     }
 }
 
-.footer--action{
+.footer--action {
     display: flex;
     justify-content: flex-end;
 }

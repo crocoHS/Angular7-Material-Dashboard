@@ -9,7 +9,8 @@
             <div class="col-md-7">
                 <div class="image__carousel">
                     <ng-template [ngIf]="productImage.length === 0" [ngIfElse]="showImage">
-                        <img src="https://www.lauriloewenberg.com/wp-content/uploads/2019/04/No_Image_Available.jpg" class="image__carousel--active" alt="no image placeholder">
+                        <img src="https://www.lauriloewenberg.com/wp-content/uploads/2019/04/No_Image_Available.jpg"
+                             class="image__carousel--active" alt="no image placeholder">
                     </ng-template>
                     <ng-template #showImage>
                         <img *ngFor="let img of productImage; let i = index" [src]="img" alt="image {{i}}"
@@ -73,13 +74,13 @@
                                         <mat-hint>Must not exceeded from Price</mat-hint>
                                     </mat-form-field>
                                 </div>
-                                <div class="form__divider--stock">
+                                <!--<div class="form__divider&#45;&#45;stock">
                                     <mat-form-field appearance="outline">
                                         <mat-label>Stock</mat-label>
                                         <input type="number" matInput placeholder="Stock" min="0"
                                                formControlName="stock">
                                     </mat-form-field>
-                                </div>
+                                </div>-->
                             </form>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                             <h3 class="kt-section__title">Product Category</h3>
@@ -90,30 +91,59 @@
                                            formControlName="category">
                                     <mat-hint>Category of Product. Ex: Apartment, Ruko</mat-hint>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
-                                    <mat-chip-list #chipList>
-                                        <mat-chip *ngFor="let tags of tagMulti" [selectable]="false"
-                                                  [removable]="true" (removed)="removeSubCategory(tags)">
-                                            {{tags.name}}
-                                            <mat-icon matChipRemove>cancel</mat-icon>
-                                        </mat-chip>
-                                        <input placeholder="Add Sub Category"
-                                               formControlName="subCategory"
-                                               [matChipInputFor]="chipList"
-                                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                               [matChipInputAddOnBlur]="true"
-                                               (matChipInputTokenEnd)="addSubCategory($event)">
-                                    </mat-chip-list>
-                                    <mat-hint>Sub Category of Product. Ex: Location, Sales Team</mat-hint>
-                                </mat-form-field>
+                                <!-- <mat-form-field appearance="outline">
+                                     <mat-chip-list #chipList>
+                                         <mat-chip *ngFor="let tags of tagMulti" [selectable]="false"
+                                                   [removable]="true" (removed)="removeSubCategory(tags)">
+                                             {{tags.name}}
+                                             <mat-icon matChipRemove>cancel</mat-icon>
+                                         </mat-chip>
+                                         <input placeholder="Add Sub Category"
+                                                formControlName="subCategory"
+                                                [matChipInputFor]="chipList"
+                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                [matChipInputAddOnBlur]="true"
+                                                (matChipInputTokenEnd)="addSubCategory($event)">
+                                     </mat-chip-list>
+                                     <mat-hint>Sub Category of Product. Ex: Location, Sales Team</mat-hint>
+                                 </mat-form-field>-->
+                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                                <h3 class="kt-section__title">Product Sub Category</h3>
+                                <div class="form__group--subCategory">
+                                    <div class="form__group--input">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sub Category</mat-label>
+                                            <input matInput placeholder="Sub Category"
+                                                   formControlName="category">
+                                            <mat-hint>Sub Category of Product</mat-hint>
+                                        </mat-form-field>
+                                        <button mat-mini-fab color="primary">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="form__group--table">
+                                        <div class="form__group--item">
+                                            <span class="form__group--text">Jancok</span>
+                                            <div class="form__group--action">
+                                                <button mat-icon-button color="primary">
+                                                    <mat-icon>create</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="warn">
+                                                    <mat-icon>clear</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                                 <h3 class="kt-section__title">Product Info</h3>
-                                <div class="form__divider--three" formArrayName="infos" *ngFor="let item of infosFormGroup.controls; let i=index">
+                                <!--<div class="form__divider&#45;&#45;three" formArrayName="infos"
+                                     *ngFor="let item of infosFormGroup.controls; let i=index">
                                     <ng-container [formGroupName]="i">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Info Name</mat-label>
                                             <input matInput placeholder="Info Name"
-                                            formControlName="name">
+                                                   formControlName="name">
                                             <mat-hint>Ex: Bedroom</mat-hint>
                                         </mat-form-field>
                                         <mat-form-field appearance="outline">
@@ -126,7 +156,39 @@
                                         </button>
                                     </ng-container>
                                 </div>
-                                <button class="btn btn-primary" (click)="addInfo()">Add Info</button>
+                                <button class="btn btn-primary" (click)="addInfo()">Add Info</button>-->
+                                <div class="form__group--subCategory">
+                                    <div class="form__group--input--double" formGroupName="infos">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Info Name</mat-label>
+                                            <input matInput placeholder="Sub Category"
+                                                   formControlName="tags">
+                                            <mat-hint>Ex: Bedroom</mat-hint>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Info Value</mat-label>
+                                            <input matInput placeholder="Sub Category"
+                                                   formControlName="info">
+                                        </mat-form-field>
+                                        <button class="btn btn-primary">
+                                            Add Info
+                                        </button>
+                                    </div>
+                                    <div class="form__group--table">
+                                        <div class="form__group--item">
+                                            <span class="form__group--text">Jancok</span>
+                                            <span class="form__group--text">Jancok</span>
+                                            <div class="form__group--action">
+                                                <button mat-icon-button color="primary">
+                                                    <mat-icon>create</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="warn">
+                                                    <mat-icon>clear</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
