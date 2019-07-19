@@ -19,6 +19,7 @@ import { DashboardSalesOfficerService } from './services/dashboard-sales-officer
 import { DashboardSalesTeamService } from './services/dashboard-sales-team/dashboard-sales-team.service';
 import { DashboardProjectService } from './services/dashboard-project/dashboard-project.service';
 import { ProjectStoreService } from './store/project/project-store.service';
+import { DashboardProductService } from './services/dashboard-project/dashboard-product.service';
 
 @NgModule( {
     declarations: [],
@@ -39,6 +40,7 @@ import { ProjectStoreService } from './store/project/project-store.service';
         DashboardSalesOfficerService,
         DashboardSalesTeamService,
         DashboardProjectService,
+        DashboardProductService,
         ProjectStoreService,
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
         {
