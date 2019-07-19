@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { DashboardProductService } from '../../../../../../core/services/dashboard-project/dashboard-product.service';
 
 @Component( {
     selector: 'app-project-setting-products',
@@ -36,16 +37,20 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     public infos: any[] = [];
 
     /////////////////////////////
-    constructor( private fb: FormBuilder, private router: ActivatedRoute ) {
-        console.log( this.router.snapshot.params );
+    constructor( private fb: FormBuilder,
+                 private router: ActivatedRoute,
+                 private http: DashboardProductService ) {
+        const params = this.router.snapshot.params;
+        this.http.getProductTagGroup( params[ 'prodId' ] )
+            .subscribe( val => console.log( val ) );
     }
 
     // for Image Upload /////
-    addImage(files) {
+    addImage( files ) {
         // const file: File = inputRef.files[0];
         const reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload = (ev) => this.productImage.push(reader.result);
+        reader.readAsDataURL( files[ 0 ] );
+        reader.onload = ( ev ) => this.productImage.push( reader.result );
     }
 
     /////////////////////////
