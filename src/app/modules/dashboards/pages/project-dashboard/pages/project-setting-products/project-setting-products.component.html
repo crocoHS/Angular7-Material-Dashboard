@@ -101,7 +101,7 @@
                                                    formControlName="subCategory">
                                             <mat-hint>Sub Category of Product</mat-hint>
                                         </mat-form-field>
-                                        <button mat-mini-fab color="primary">
+                                        <button mat-mini-fab color="primary" (click)="addTags('subCategory')">
                                             <mat-icon>add</mat-icon>
                                         </button>
                                     </div>
@@ -109,7 +109,8 @@
                                         <div class="form__group--item" *ngFor="let tags of tagMulti.tag">
                                             <span class="form__group--text">{{tags.tag}}</span>
                                             <div class="form__group--action">
-                                                <button mat-icon-button color="warn">
+                                                <button mat-icon-button color="warn"
+                                                        (click)="deleteTags(tags.id, 'subCategory')">
                                                     <mat-icon>clear</mat-icon>
                                                 </button>
                                             </div>
@@ -123,7 +124,7 @@
                                         <mat-form-field appearance="outline">
                                             <mat-label>Info Name</mat-label>
                                             <input matInput placeholder="Sub Category"
-                                                   formControlName="tags">
+                                                   formControlName="tag">
                                             <mat-hint>Ex: Bedroom</mat-hint>
                                         </mat-form-field>
                                         <mat-form-field appearance="outline">
@@ -131,7 +132,7 @@
                                             <input matInput placeholder="Sub Category"
                                                    formControlName="info">
                                         </mat-form-field>
-                                        <button class="btn btn-primary">
+                                        <button class="btn btn-primary" (click)="addTags('infos')">
                                             Add Info
                                         </button>
                                     </div>
@@ -140,7 +141,8 @@
                                             <span class="form__group--text">{{tags.tag}}</span>
                                             <span class="form__group--text">{{tags.info}}</span>
                                             <div class="form__group--action">
-                                                <button mat-icon-button color="warn">
+                                                <button mat-icon-button color="warn"
+                                                        (click)="deleteTags(tags.id, 'infos')">
                                                     <mat-icon>clear</mat-icon>
                                                 </button>
                                             </div>
@@ -157,7 +159,8 @@
     <div class="kt-portlet__foot">
         <div class="footer--action">
             <button type="submit" class="btn btn-success" (click)="submitAllForm()">Submit</button>
-            <button type="submit" class="btn btn-secondary" style="margin-left: 5px;">Cancel</button>
+            <button type="submit" class="btn btn-secondary" style="margin-left: 5px;" (click)="onCancel()">Cancel
+            </button>
         </div>
     </div>
 </div>

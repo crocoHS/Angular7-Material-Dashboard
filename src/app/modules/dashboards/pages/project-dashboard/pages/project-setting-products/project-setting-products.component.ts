@@ -2,10 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardProductService } from '../../../../../../core/services/dashboard-project/dashboard-product.service';
-import { Product, ProductTagGroup } from '../../../../../../shared/models/product.model';
-import { map, switchMap } from 'rxjs/operators';
+import { IProduct, Product, ProductTag, ProductTagGroup } from '../../../../../../shared/models/product.model';
+import { concatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin, Observable, pipe } from 'rxjs';
 
 @Component( {
     selector: 'app-project-setting-products',
@@ -24,10 +26,10 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     // FORM GROUP Product TAGS / CATEGORY
     public formGroup2 = this.fb.group( {
         category: [],
-        subCategory: [],
+        subCategory: [ '', Validators.required ],
         infos: this.fb.group( {
-            tags: [],
-            info: []
+            tag: [ '', Validators.required ],
+            info: [ '', Validators.required ]
         } )
     } );
 
@@ -47,7 +49,9 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     /////////////////////////////
     constructor( private fb: FormBuilder,
                  private router: ActivatedRoute,
-                 private http: DashboardProductService ) {
+                 private route: Router,
+                 private http: DashboardProductService,
+                 private spinner: NgxSpinnerService ) {
         const params = this.router.snapshot.params;
         this.http.getProductById( params.prodId )
             .pipe(
@@ -117,49 +121,77 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
         this.carouselImage = index;
     }
 
-    // For Sub Category ///////////////
-    /*addSubCategory( event: MatChipInputEvent ): void {
-        const input = event.input;
-        const value = event.value;
-        // Add our fruit
-        if ( ( value || '' ).trim() ) {
-            this.tagMulti.push( { name: value.trim() } );
+    ///////////////////////////
+    // for Create Tag Product/////
+    addTags( controlName: 'subCategory' | 'infos' ) {
+        if ( this.formGroup2.get( controlName ).valid ) {
+            const body: any = {
+                tagGroup: {
+                    id: null
+                },
+                info: null,
+                tag: null
+            };
+            if ( controlName === 'subCategory' ) {
+                body.tag = this.formGroup2.get( controlName ).value;
+                body.tagGroup.id = 2;
+            } else if ( controlName === 'infos' ) {
+                Object.assign( body, this.formGroup2.get( controlName ).value );
+                body.tagGroup.id = 3;
+            }
+            this.spinner.show();
+            this.http.createProductTag( this.product.id, body )
+                .pipe(
+                    tap( value => value.forEach( val => {
+                        if ( val.tagGroupId === 2 ) {
+                            this.tagMulti.tag.push( val );
+                        } else if ( val.tagGroupId === 3 ) {
+                            this.infos.tag.push( val );
+                        }
+                        this.formGroup2.get( controlName ).reset();
+                        this.spinner.hide();
+                    } ) )
+                )
+                .subscribe();
         }
-        // Reset the input value
-        if ( input ) {
-            input.value = '';
-        }
-    }*/
-
-    /*removeSubCategory( tags ): void {
-        const index = this.tagMulti.indexOf( tags );
-        if ( index >= 0 ) {
-            this.tagMulti.splice( index, 1 );
-        }
-    }*/
-
-    ///////////////////////////////////
-    // for Category Tag with Info
-    get infosFormGroup() {
-        return this.formGroup2.get( 'infos' ) as FormArray;
     }
 
-    addInfo() {
-        this.infosFormGroup.push( this.fb.group( {
-            name: [ null, Validators.required ],
-            value: [ null, Validators.required ],
-        } ) );
-        console.log( this.infosFormGroup.value );
-    }
-
-    deleteInfo( index ) {
-        this.infosFormGroup.removeAt( index );
+    deleteTags( idTag: number, controlName: 'subCategory' | 'infos' ) {
+        this.spinner.show();
+        this.http.deleteProductTag( this.product.id, idTag )
+            .subscribe( value => {
+                if ( controlName === 'subCategory' ) {
+                    this.tagMulti.tag = this.tagMulti.tag.filter( val => val.id !== value );
+                } else if ( controlName === 'infos' ) {
+                    this.infos.tag = this.infos.tag.filter( val => val.id !== value );
+                }
+                this.spinner.hide();
+            } );
     }
 
     /////////////////////////////////////////////////
     // Submit All Form
     submitAllForm() {
-        console.log( this.formGroup.value, this.formGroup2.value );
+        if ( this.formGroup.valid && this.formGroup2.get( 'category' ).valid ) {
+            const valueFormGroup1 = this.formGroup.value;
+            const valueCategory = this.formGroup2.get( 'category' ).value;
+            console.log( valueCategory );
+            const body: Partial<IProduct> = {
+                name: valueFormGroup1.name,
+                detail: valueFormGroup1.description,
+                price: valueFormGroup1.price,
+                minBookingPrice: valueFormGroup1.minPrice
+            };
+            this.http.updateProductById( this.product.initialApi.project.id, this.product.id, body )
+                .pipe(
+                    switchMap( () => this.http.updateProductTag( this.product.id, this.tag.tag[ 0 ].id, { tag: valueCategory } ) ),
+                )
+                .subscribe( val => this.route.navigateByUrl( `dashboard/project/setting/${ this.product.initialApi.project.id }` ) );
+        }
+    }
+
+    onCancel() {
+        this.route.navigateByUrl( `dashboard/project/setting/${ this.product.initialApi.project.id }` );
     }
 
     ngOnInit() {

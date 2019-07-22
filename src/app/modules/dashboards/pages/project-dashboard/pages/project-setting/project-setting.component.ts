@@ -5,7 +5,7 @@ import { ProjectSettingProductTableComponent } from './project-setting-product-t
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Project } from '../../../../../../shared/models/project.model';
+import { IProject, Project } from '../../../../../../shared/models/project.model';
 import { ProjectStoreService } from '../../../../../../core/store/project/project-store.service';
 import { IStatus, Status } from '../../../../../../shared/models/status.model';
 import { Observable } from 'rxjs';
@@ -40,16 +40,18 @@ export class ProjectSettingComponent implements OnInit, OnDestroy {
                 map( ( params: ParamMap ) => Number( params.get( 'id' ) ) ),
                 switchMap( id => {
                     return this.projectStore.getProjectById$( id );
+                } ),
+                tap( val => {
+                    if ( !val ) {
+                        this.router.navigateByUrl( '/dashboard/project/list' );
+                    } else {
+                        console.log(val);
+                        this.setProjectForm( val );
+                        this.dataProject = val;
+                    }
                 } )
             )
-            .subscribe( val => {
-                if ( !val ) {
-                    this.router.navigateByUrl( '/dashboard/project/list' );
-                } else {
-                    this.setProjectForm( val );
-                    this.dataProject = val;
-                }
-            } );
+            .subscribe();
     }
 
     public projectForm = this.fb.group( {
@@ -81,7 +83,7 @@ export class ProjectSettingComponent implements OnInit, OnDestroy {
                 res => {
                     const newStatus = new Status( res );
                     const index = this.dataSourceStatus.findIndex( val => val.id === newStatus.id );
-                    this.dataSourceStatus[index] = newStatus;
+                    this.dataSourceStatus[ index ] = newStatus;
                 }, err => {
                     this.dataSourceStatus = backupIfError;
                 } );
@@ -90,13 +92,22 @@ export class ProjectSettingComponent implements OnInit, OnDestroy {
     // Ke post SERVICE dan redirect ke project detail
     onSave() {
         if ( this.projectForm.valid ) {
-            Object.assign( this.dataProject, this.projectForm.value );
-            this.router.navigateByUrl( '/dashboard/project/list' );
+            const formProjectValue = this.projectForm.value;
+            const body: Partial<IProject> = {
+                name: formProjectValue.name,
+                detail: formProjectValue.detail,
+                isActive: formProjectValue.isActive
+            };
+            console.log( formProjectValue );
+            this.http.updateProject( this.dataProject.id, body )
+                .subscribe( () => {
+                    this.router.navigateByUrl( '/dashboard/project/list' );
+                } );
         }
     }
 
     ngOnInit() {
-        this.http.getAllStatus( this.dataProject.id ).subscribe(val => this.dataSourceStatus = val);
+        this.http.getAllStatus( this.dataProject.id ).subscribe( val => this.dataSourceStatus = val );
         this.dataSourceProduct$ = this.http.getAllProducts( this.dataProject.id );
     }
 

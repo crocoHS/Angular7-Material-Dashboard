@@ -100,6 +100,7 @@ export class ProductTag {
     public tag: string;
     public hidden: boolean;
     public info: string;
+    public tagGroupId: number;
 
     constructor( payload: IProductTag ) {
         this.initialApi = payload;
@@ -107,6 +108,7 @@ export class ProductTag {
         this.tag = payload.tag;
         this.hidden = payload.hidden;
         this.info = payload.info;
+        this.tagGroupId = payload.tagGroup.id;
     }
 }
 

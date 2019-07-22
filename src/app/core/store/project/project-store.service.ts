@@ -24,7 +24,19 @@ export class ProjectStoreService {
     getProjectById$( id ) {
         return this.project$.pipe(
             map( value => {
+                console.log(value, 'iki tekan store');
                 return value.find( val => val.id === id );
+            } )
+        );
+    }
+
+    updateProjectById$( id, body: Project ) {
+        return this.project$.pipe(
+            map( value => {
+                const arr = value;
+                const index = value.findIndex( val => val.id === id );
+                arr[index] = body;
+                this.project = arr;
             } )
         );
     }
