@@ -25,6 +25,7 @@ export class ProjectDetailAddChannelDialogComponent implements OnInit {
     public allCampaign$;
     public allSalesTeam$;
     public allMedia;
+    public imageFile: File;
 
     constructor(
         public dialogRef: MatDialogRef<ProjectDetailAddChannelDialogComponent>,
@@ -63,6 +64,8 @@ export class ProjectDetailAddChannelDialogComponent implements OnInit {
         /*const reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = (ev) => this.productImage.push(reader.result);*/
+        this.imageFile = files;
+        console.log( files );
     }
 
     onNoClick(): void {
@@ -71,7 +74,8 @@ export class ProjectDetailAddChannelDialogComponent implements OnInit {
 
     onSubmit( data: FormGroup ) {
         if ( data.valid ) {
-            this.dialogRef.close();
+            // this.dialogRef.close();
+            console.log( this.imageFile, data.value );
         }
     }
 

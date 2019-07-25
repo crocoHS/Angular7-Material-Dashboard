@@ -37,6 +37,7 @@ import { ProfileDashboardComponent } from './pages/profile-dashboard/profile-das
 import { ProjectDetailUploadDialogComponent } from './pages/project-dashboard/pages/project-detail/project-detail-upload-dialog/project-detail-upload-dialog.component';
 import { UserSettingPaymentComponent } from './pages/user-setting-dashboard/user-setting-payment/user-setting-payment.component';
 import { ProjectDetailAddChannelDialogComponent } from './pages/project-dashboard/pages/project-detail-channel/project-detail-add-channel-dialog/project-detail-add-channel-dialog.component';
+import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 
 @NgModule( {
     declarations: [
@@ -72,6 +73,7 @@ import { ProjectDetailAddChannelDialogComponent } from './pages/project-dashboar
         ProjectDetailUploadDialogComponent,
         UserSettingPaymentComponent,
         ProjectDetailAddChannelDialogComponent,
+        ImageUploadComponent,
     ],
     imports: [
         CommonModule,

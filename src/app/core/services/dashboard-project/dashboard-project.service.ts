@@ -18,7 +18,6 @@ export class DashboardProjectService {
 
     constructor( private apiService: ApiService, private http: HttpClient, private store: ProjectStoreService ) {
     }
-
     //////////////// PROJECT //////////////////////////
     getAllProjects() {
         return this.http.get( this.url, { params: { tenant_id: this.tenantId } } )

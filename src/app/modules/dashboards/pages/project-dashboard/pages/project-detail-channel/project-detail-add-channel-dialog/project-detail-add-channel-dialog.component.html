@@ -36,15 +36,18 @@
             <input matInput placeholder="Landing Page Url"
                    formControlName="landPage">
             <mat-hint>include http:// or https://</mat-hint>
-            <mat-error *ngIf="formChannel.get('landPage').hasError('containHttp')">Please Include http:// or https://</mat-error>
+            <mat-error *ngIf="formChannel.get('landPage').hasError('containHttp')">Please Include http:// or https://
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-label>Landing Page URL</mat-label>
+            <mat-label>Redirect Page Url</mat-label>
             <input matInput placeholder="Redirect Page Url"
                    formControlName="redirectPage">
             <mat-hint>include http:// or https://</mat-hint>
-            <mat-error *ngIf="formChannel.get('redirectPage').hasError('containHttp')">Please Include http:// or https://</mat-error>
+            <mat-error *ngIf="formChannel.get('redirectPage').hasError('containHttp')">Please Include http:// or
+                https://
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -53,7 +56,7 @@
                       formControlName="detail"></textarea>
         </mat-form-field>
 
-        <input #upload type="file" accept="image/jpeg" (change)="addImage(upload.files)">
+        <app-image-upload (getImage)="addImage($event)"></app-image-upload>
 
     </form>
 </mat-dialog-content>

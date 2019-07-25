@@ -5,27 +5,6 @@ import { Project } from '../../../../../../shared/models/project.model';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
 import { Campaign } from '../../../../../../shared/models/campaign.model';
 
-/*const dataDummyCampaign: ICampaign[] = [
-    {
-        id: 21,
-        picture: 'kosongansek.img',
-        name: 'Black Campaign',
-        channels: 3,
-        leads: 423,
-        detail: 'Sek Gak Paham',
-        status: true
-    },
-    {
-        id: 22,
-        picture: 'kosongansek.img',
-        name: 'White Campaign',
-        channels: 2,
-        leads: 523,
-        detail: 'Sek Gak Paham Pindo',
-        status: true
-    }
-];*/
-
 @Component( {
     selector: 'app-project-detail-campaign',
     templateUrl: './project-detail-campaign.component.html',
@@ -88,10 +67,6 @@ export class ProjectDetailCampaignComponent implements OnInit {
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
             } );
-
-        // this.dataSource.data = dataDummyCampaign;
-        // this.dataSource.paginator = this.paginator;
-        // this.dataSource.sort = this.sort;
     }
 
     // Engkok nggawe iki harus'e

@@ -34,7 +34,9 @@ export class ProjectSettingProductTableComponent implements OnChanges {
         } );
         // Nantinya post ke Backend dan result nya tambah id nya
         dialogRef.afterClosed().subscribe( ( result: Product ) => {
-            this.dataStore.push(result);
+            if ( result ) {
+                this.dataStore.push( result );
+            }
         } );
     }
 
@@ -49,7 +51,7 @@ export class ProjectSettingProductTableComponent implements OnChanges {
             .subscribe(
                 res => {
                     this.spinner.hide();
-                    this.dataStore[index] = new Product(res);
+                    this.dataStore[ index ] = new Product( res );
                 }, err => {
                     this.dataStore[ index ].status = !data.status;
                     this.spinner.hide();

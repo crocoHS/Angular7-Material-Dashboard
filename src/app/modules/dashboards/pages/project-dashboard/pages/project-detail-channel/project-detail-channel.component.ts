@@ -2,7 +2,6 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { dataDummyChannel, IChannel } from './dummyChannel';
 import { ProjectDetailChannelDialogComponent } from './project-detail-channel-dialog/project-detail-channel-dialog.component';
-import { Observable } from 'rxjs';
 import { Project } from '../../../../../../shared/models/project.model';
 import { ProjectDetailAddChannelDialogComponent } from './project-detail-add-channel-dialog/project-detail-add-channel-dialog.component';
 
