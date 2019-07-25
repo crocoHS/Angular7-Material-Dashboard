@@ -1,133 +1,131 @@
 <div class="row">
-    <div class="col-md-6">
-   
+    <div class="col-md-12 col-xl-6">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-xl-6">
+                <div class="kt-mb-20" style="height: 150px;">
+                    <app-widgets color="#FF6B6B" icon="paper" text="Total Leads" title="1480"></app-widgets>
+                </div>
+            </div>
 
-<div class="row">
-<div class="col-md-6">
-        
-    <div class="kt-mb-20" style="height: 150px;">
-        <app-widgets color="#FF6B6B" icon="paper" text="Total Leads" title="1480"></app-widgets>
-    </div>
-
-    
-  </div>
-
-  <div class="col-md-6">
-    <div class="kt-mb-20" style="height: 150px;">
-        <app-widgets color="#4ECDC4" icon="laptop" text="New Leads This Week" title="+280"></app-widgets>
-    </div>
-  </div>
+            <div class="col-sm-12 col-md-6 col-xl-6">
+                <div class="kt-mb-20" style="height: 150px;">
+                    <app-widgets color="#4ECDC4" icon="laptop" text="New Leads This Week" title="+280"></app-widgets>
+                </div>
+            </div>
 
 
-  <div class="col-md-6">
-      <div class="kt-mb-20" style="height: 150px;">
-          <app-widgets color="#FFE66D" icon="presentation" text="Sales Performance" title="280"></app-widgets>
-      </div>
-    </div>
+            <div class="col-sm-12 col-md-6 col-xl-6">
+                <div class="kt-mb-20" style="height: 150px;">
+                    <app-widgets color="#FFE66D" icon="presentation" text="Sales Performance" title="280"></app-widgets>
+                </div>
+            </div>
 
-    <div class="col-md-6">
-        <div class="kt-mb-20" style="height: 150px;">
-            <app-widgets color="#1A535C" icon="user" text="Total Project" title="10"></app-widgets>
+            <div class="col-sm-12 col-md-6 col-xl-6">
+                <div class="kt-mb-20" style="height: 150px;">
+                    <app-widgets color="#1A535C" icon="user" text="Total Project" title="10"></app-widgets>
+                </div>
+            </div>
         </div>
-      </div>
-
-</div>
-
-      
-   
     </div>
+    <div class="col-sm-12 col-md-8 col-xl-6">
+        <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">INFO PROFILE</h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <form [formGroup]="form" (ngSubmit)="savechanges()" class="example-form" style="margin: 20px;">
+                    <div *ngIf="form.errors" class="alert alert-danger">
+                        The email or address is invalid
+                    </div>
 
-<div class="col-6 ">
-    <div class="kt-portlet kt-portlet--height-fluid">
-        <div class="kt-portlet__head">
-            <div class="kt-portlet__head-label">
-                <h3 class="kt-portlet__head-title">INFO PROFILE</h3>
-            </div>  
+
+                    <input
+                        value=""
+                        formControlName="file"
+                        id="file"
+                        #upload type="file" accept="image/*"
+                        class="form-control">
+
+                    <br>
+
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Name"
+                               value=""
+                               formControlName="name"
+                               id="name"
+                               type="text"
+                               class="form-control">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput placeholder="Address"
+                               value=""
+                               formControlName="address"
+                               id="address"
+                               type="text"
+                               class="form-control">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput placeholder="number"
+                               value=""
+                               formControlName="number"
+                               id="number"
+                               type="text"
+                               class="form-control">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>PIC</mat-label>
+                        <input matInput placeholder="PIC"
+                               value=""
+                               formControlName="pic"
+                               id="pic"
+                               type="text"
+                               class="form-control">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Email"
+                               value=""
+                               formControlName="email"
+                               id="email"
+                               type="text"
+                               class="form-control">
+                        <div *ngIf="email.touched && email.invalid" class="alert alert-danger"></div>
+                        <div *ngIf="email.errors.minlength">Email should be
+                            minimum {{email.errors.minlength.requiredLength}} characters
+                        </div>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput placeholder="Password"
+                               value=""
+                               formControlName="password"
+                               id="password"
+                               type="text"
+                               class="form-control">
+                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger"></div>
+                        <div *ngIf="password.errors.minlength">Password should be
+                            minimum {{password.errors.minlength.requiredLength}} characters
+                        </div>
+                    </mat-form-field>
+
+                    <mat-dialog-actions style="margin: 20px;">
+                        <button type="submit" mat-stroked-button>Cancel</button>
+                        <button type="submit" mat-flat-button color="primary" style="margin-left: 10px;">Save Changes
+                        </button>
+                    </mat-dialog-actions>
+                </form>
+            </div>
         </div>
-            <form [formGroup] = "form" (ngSubmit)="savechanges()" class="example-form" style="margin: 20px;" >
-              <div *ngIf="form.errors" class="alert alert-danger">
-                The email or address is invalid  
-              </div>
-              
-             
-                <input 
-                  value=""
-                  formControlName="file"
-                  id="file"
-                  #upload type="file" accept="image/*"
-                  class="form-control">
-             
-                <br>
 
-              <mat-form-field class="example-full-width" appearance="outline" >
-                  <mat-label>Name</mat-label>
-                  <input matInput placeholder="Name" 
-                    value=""
-                    formControlName="name"
-                    id="name"
-                    type="text"
-                    class="form-control">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width" appearance="outline" >
-                    <mat-label>Address</mat-label>
-                    <input matInput placeholder="Address" 
-                      value=""
-                      formControlName="address"
-                      id="address"
-                      type="text"
-                      class="form-control">
-                  </mat-form-field>
-
-              <mat-form-field class="example-full-width" appearance="outline" >
-                <mat-label>Phone Number</mat-label>
-                <input matInput placeholder="number" 
-                  value=""
-                  formControlName="number"
-                  id="number"
-                  type="text"
-                  class="form-control">
-              </mat-form-field>
-
-              <mat-form-field class="example-full-width" appearance="outline" >
-                  <mat-label>PIC</mat-label>
-                  <input matInput placeholder="PIC" 
-                    value=""
-                    formControlName="pic"
-                    id="pic"
-                    type="text"
-                    class="form-control">
-                </mat-form-field>
-              
-              <mat-form-field class="example-full-width" appearance="outline" >
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Email" 
-                  value=""
-                  formControlName="email"
-                  id="email"
-                  type="text"
-                  class="form-control">
-                  <div *ngIf="email.touched && email.invalid" class="alert alert-danger"></div>
-                  <div *ngIf="email.errors.minlength">Email should be minimum {{email.errors.minlength.requiredLength}} characters</div>
-              </mat-form-field>
-
-              <mat-form-field class="example-full-width" appearance="outline" >
-                  <mat-label>Password</mat-label>
-                  <input matInput placeholder="Password" 
-                    value=""
-                    formControlName="password"
-                    id="password"
-                    type="text"
-                    class="form-control">
-                    <div *ngIf="password.touched && password.invalid" class="alert alert-danger"></div>
-                    <div *ngIf="password.errors.minlength">Password should be minimum {{password.errors.minlength.requiredLength}} characters</div>
-                </mat-form-field>
-
-                <mat-dialog-actions style="margin: 20px;" >
-                    <button type="submit"  mat-stroked-button>Cancel</button>
-                    <button type="submit"  mat-flat-button color="primary" style="margin-left: 10px;">Save Changes</button>
-                </mat-dialog-actions>
-            </form>
     </div>
 </div>
-

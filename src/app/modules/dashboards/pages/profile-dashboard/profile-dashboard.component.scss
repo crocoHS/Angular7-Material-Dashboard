@@ -3,85 +3,96 @@
     min-height: 400px;
     height: auto;
     width: 100%;
-  }
-  mat-icon{
+}
+
+mat-icon {
     height: auto;
     text-align: left;
     font-size: initial;
     vertical-align: middle;
-  }
-  @media screen and (max-width: 768px) {
-    .bar-chart{
+}
+
+@media screen and (max-width: 768px) {
+    .bar-chart {
         overflow-x: scroll;
         overflow-y: hidden;
         width: 200px;
-      
+
     }
-  }
-  
-  ::ng-deep{
+}
+
+::ng-deep {
     .sales_officer_dialog {
         width: 600px;
         min-height: 500px;
     }
-    @media screen and (max-width: 768px){
+
+    @media screen and (max-width: 768px) {
         .sales_officer_dialog {
             width: 90vw;
             max-height: 90vh;
             min-height: 700px;
-        
+
         }
     }
-  }
-  
-  .coverage__field{
+}
+
+.coverage__field {
     display: flex;
     position: relative;
     margin: 10px;
     padding-bottom: 1.5rem;
-    & tag-input{
+
+    & tag-input {
         width: 70%;
     }
-    & .mat-checkbox{
+
+    & .mat-checkbox {
         width: 30%;
         align-self: center;
     }
-  }
-  .example-form{
+}
+
+.example-form {
     display: flex;
     flex-direction: column;
     min-width: 150px;
     max-width: 500px;
     width: 100%;
-  }
-  #coverage__custom{
+}
+
+#coverage__custom {
     position: absolute;
     bottom: 5px;
     left: 5px;
     font-size: .8rem;
-  }
-  
-  mat-dialog-actions button {
+}
+
+mat-dialog-actions button {
     margin-right: 5px;
-  
-    &:last-child{
+
+    &:last-child {
         margin-right: 0;
     }
-  }
-  
-  .example-full-width {
+}
+
+.example-full-width {
     width: 100%;
-  }
-  
-  .product__action {
+}
+
+.product__action {
     display: flex;
     justify-content: flex-end;
-  }
-  .product__action button{
+}
+
+.product__action button {
     margin-left: 10px;
-    &:last-child{
+
+    &:last-child {
         margin-left: 0;
     }
-  }
-  
-  
+}
+
+.example-form {
+    width: 100%;
+}
