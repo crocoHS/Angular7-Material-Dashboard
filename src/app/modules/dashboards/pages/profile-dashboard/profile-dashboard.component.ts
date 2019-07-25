@@ -11,19 +11,14 @@ export class ProfileDashboardComponent {
     form = new FormGroup( {
         email: new FormControl( '', [
             Validators.required,
-            Validators.minLength( 3 )
+            Validators.email
         ] ),
-        file: new FormControl( '', Validators.required ),
         name: new FormControl( '', Validators.required ),
         address: new FormControl( '', Validators.required ),
         number: new FormControl( '', Validators.required ),
         pic: new FormControl( '', Validators.required ),
-        password: new FormControl( '', Validators.required ),
+        password: new FormControl( '', [Validators.required, Validators.min(8)] ),
     } );
-
-    get file() {
-        return this.form.value;
-    }
 
     get email() {
         return this.form.get( 'email' );

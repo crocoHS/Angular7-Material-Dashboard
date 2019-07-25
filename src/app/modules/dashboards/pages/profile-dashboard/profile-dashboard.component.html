@@ -27,101 +27,72 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-8 col-xl-6">
-        <div class="kt-portlet kt-portlet--height-fluid">
+    <div class="col-sm-12 col-md-8 col-xl-6 centered-custom">
+        <div class="kt-portlet">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">INFO PROFILE</h3>
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <form [formGroup]="form" (ngSubmit)="savechanges()" class="example-form" style="margin: 20px;">
-                    <div *ngIf="form.errors" class="alert alert-danger">
-                        The email or address is invalid
-                    </div>
+                <form [formGroup]="form" (ngSubmit)="savechanges()" class="example-form">
 
-
-                    <input
-                        value=""
-                        formControlName="file"
-                        id="file"
-                        #upload type="file" accept="image/*"
-                        class="form-control">
-
-                    <br>
-
-                    <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>Name</mat-label>
                         <input matInput placeholder="Name"
-                               value=""
                                formControlName="name"
-                               id="name"
-                               type="text"
-                               class="form-control">
+                               type="text">
+                        <mat-error *ngIf="email.hasError('required')">Name Required</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>Address</mat-label>
-                        <input matInput placeholder="Address"
-                               value=""
+                        <textarea matInput placeholder="Address"
                                formControlName="address"
-                               id="address"
-                               type="text"
-                               class="form-control">
+                                  type="text">
+                        </textarea>
+                        <mat-error *ngIf="email.hasError('required')">Address Required</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>Phone Number</mat-label>
                         <input matInput placeholder="number"
-                               value=""
                                formControlName="number"
-                               id="number"
-                               type="text"
-                               class="form-control">
+                               type="text">
+                        <mat-error *ngIf="email.hasError('required')">Phone Number Required</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>PIC</mat-label>
                         <input matInput placeholder="PIC"
-                               value=""
                                formControlName="pic"
-                               id="pic"
-                               type="text"
-                               class="form-control">
+                               type="text">
+                        <mat-error *ngIf="email.hasError('required')">PIC Required</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
                         <input matInput placeholder="Email"
-                               value=""
                                formControlName="email"
-                               id="email"
-                               type="text"
-                               class="form-control">
-                        <div *ngIf="email.touched && email.invalid" class="alert alert-danger"></div>
-                        <div *ngIf="email.errors.minlength">Email should be
-                            minimum {{email.errors.minlength.requiredLength}} characters
-                        </div>
+                               type="text">
+                        <mat-error *ngIf="email.hasError('email')">Email Not Valid</mat-error>
+                        <mat-error *ngIf="email.hasError('required')">Email required</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
                         <input matInput placeholder="Password"
-                               value=""
                                formControlName="password"
-                               id="password"
-                               type="text"
-                               class="form-control">
-                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger"></div>
-                        <div *ngIf="password.errors.minlength">Password should be
-                            minimum {{password.errors.minlength.requiredLength}} characters
-                        </div>
+                               type="text">
+                        <mat-error *ngIf="email.hasError('required')">Password Required</mat-error>
+                        <mat-error *ngIf="email.hasError('min')">Must must exceed 8 character</mat-error>
                     </mat-form-field>
+
+                    <app-image-upload class="centered-custom" [imageUrl]="'https://sdasdasda.com'"></app-image-upload>
 
                     <mat-dialog-actions style="margin: 20px;">
                         <button type="submit" mat-stroked-button>Cancel</button>
-                        <button type="submit" mat-flat-button color="primary" style="margin-left: 10px;">Save Changes
-                        </button>
+                        <button type="submit" mat-flat-button color="primary" style="margin-left: 10px;">Save Changes</button>
                     </mat-dialog-actions>
                 </form>
             </div>

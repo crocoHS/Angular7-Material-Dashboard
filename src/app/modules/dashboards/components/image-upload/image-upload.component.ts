@@ -17,12 +17,14 @@ export class ImageUploadComponent implements OnInit, OnChanges {
 
     uploadImage( files ) {
         const file: File = files[ 0 ];
-        this.imageFile = file;
-        this.getImage.emit( this.imageFile );
-        this.isNewImage = false;
-        const reader = new FileReader();
-        reader.readAsDataURL( file );
-        reader.onload = ( ev ) => this.imageUrl = reader.result;
+        if ( file ) {
+            this.imageFile = file;
+            this.getImage.emit( this.imageFile );
+            this.isNewImage = false;
+            const reader = new FileReader();
+            reader.readAsDataURL( file );
+            reader.onload = ( ev ) => this.imageUrl = reader.result;
+        }
     }
 
     ngOnInit() {

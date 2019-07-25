@@ -8,11 +8,11 @@
             display: none;
         }
 
-        & button {
-            margin-left: 20px;
-            height: 30px;
-            align-self: center;
-        }
+    }
+    &__button {
+        margin-left: 20px;
+        padding: 10px 15px;
+        align-self: center;
     }
 
     &__preview {
@@ -26,6 +26,17 @@
             object-fit: cover;
             width: 100%;
             height: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 400px){
+    .image {
+        &__container {
+            flex-direction: column;
+        }
+        &__button {
+            margin: 20px auto;
         }
     }
 }

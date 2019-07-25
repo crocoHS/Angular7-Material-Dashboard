@@ -4,6 +4,6 @@
              (error)="img.src = 'https://jala-testing.s3-ap-southeast-1.amazonaws.com/tenant/60db6180-ad80-11e9-b4b6-6578a1b671ed.jpg'">
     </div>
     <input type="file" accept=".png, .jpg, .jpeg" #upload (change)="uploadImage(upload.files)">
-    <button class="btn btn-brand btn-sm" *ngIf="isNewImage" (click)="upload.click()">Add Image</button>
-    <button class="btn btn-warning  btn-sm" *ngIf="!isNewImage" (click)="upload.click()">Change Image</button>
+    <button class="btn btn-brand image__button" *ngIf="isNewImage" (click)="upload.click()">Add Image</button>
+    <button class="btn btn-warning image__button" *ngIf="!isNewImage" (click)="upload.click()">Change Image</button>
 </div>

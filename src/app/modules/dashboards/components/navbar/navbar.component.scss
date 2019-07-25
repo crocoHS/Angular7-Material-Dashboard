@@ -35,6 +35,15 @@
     position: fixed;
     transition: 1s;
     animation: fade 1s ease;
+
+    & .nav-item {
+        &:hover {
+            background-color: rgba(108, 114, 147, 0.3);
+        }
+    }
+    & .active {
+        background-color: rgba(108, 114, 147, 0.3);
+    }
 }
 
 .navbar-nav {
@@ -152,7 +161,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    flex-grow: 1;
+    margin-left: auto;
     justify-content: flex-end;
 
     &:hover {
@@ -244,5 +253,8 @@
         left: unset;
         right: 0;
 
+    }
+    .active {
+        background-color: rgba(108, 114, 147, 0.3);
     }
 }
