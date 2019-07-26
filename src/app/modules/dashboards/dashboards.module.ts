@@ -38,6 +38,8 @@ import { ProjectDetailUploadDialogComponent } from './pages/project-dashboard/pa
 import { UserSettingPaymentComponent } from './pages/user-setting-dashboard/user-setting-payment/user-setting-payment.component';
 import { ProjectDetailAddChannelDialogComponent } from './pages/project-dashboard/pages/project-detail-channel/project-detail-add-channel-dialog/project-detail-add-channel-dialog.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import { UserSettingPaymentDialogComponent } from './pages/user-setting-dashboard/user-setting-payment-dialog/user-setting-payment-dialog.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 
 @NgModule( {
     declarations: [
@@ -72,8 +74,10 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
         ProfileDashboardComponent,
         ProjectDetailUploadDialogComponent,
         UserSettingPaymentComponent,
+        UserSettingPaymentDialogComponent,
         ProjectDetailAddChannelDialogComponent,
         ImageUploadComponent,
+        DialogDeleteComponent,
     ],
     imports: [
         CommonModule,
@@ -92,8 +96,9 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
         ProjectSettingProductDialogComponent,
         UserSettingChangeDialogComponent,
         UserSettingAddDialogComponent,
+        UserSettingPaymentDialogComponent,
         ProjectDetailUploadDialogComponent,
-        ProjectDetailAddChannelDialogComponent
+        ProjectDetailAddChannelDialogComponent,
     ]
 } )
 export class DashboardsModule {

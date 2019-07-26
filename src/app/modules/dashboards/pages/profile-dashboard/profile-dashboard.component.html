@@ -42,7 +42,7 @@
                         <input matInput placeholder="Name"
                                formControlName="name"
                                type="text">
-                        <mat-error *ngIf="email.hasError('required')">Name Required</mat-error>
+                        <mat-error *ngIf="name.hasError('required')">Name Required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
@@ -51,7 +51,7 @@
                                formControlName="address"
                                   type="text">
                         </textarea>
-                        <mat-error *ngIf="email.hasError('required')">Address Required</mat-error>
+                        <mat-error *ngIf="address.hasError('required')">Address Required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
@@ -59,7 +59,7 @@
                         <input matInput placeholder="number"
                                formControlName="number"
                                type="text">
-                        <mat-error *ngIf="email.hasError('required')">Phone Number Required</mat-error>
+                        <mat-error *ngIf="number.hasError('required')">Phone Number Required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
@@ -67,7 +67,7 @@
                         <input matInput placeholder="PIC"
                                formControlName="pic"
                                type="text">
-                        <mat-error *ngIf="email.hasError('required')">PIC Required</mat-error>
+                        <mat-error *ngIf="pic.hasError('required')">PIC Required</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">

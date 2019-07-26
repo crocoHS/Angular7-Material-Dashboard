@@ -17,8 +17,24 @@ export class ProfileDashboardComponent {
         address: new FormControl( '', Validators.required ),
         number: new FormControl( '', Validators.required ),
         pic: new FormControl( '', Validators.required ),
-        password: new FormControl( '', [Validators.required, Validators.min(8)] ),
+        password: new FormControl( '', [ Validators.required, Validators.min( 8 ) ] ),
     } );
+
+    get name() {
+        return this.form.get( 'name' );
+    }
+
+    get address() {
+        return this.form.get( 'address' );
+    }
+
+    get number() {
+        return this.form.get( 'number' );
+    }
+
+    get pic() {
+        return this.form.get( 'pic' );
+    }
 
     get email() {
         return this.form.get( 'email' );

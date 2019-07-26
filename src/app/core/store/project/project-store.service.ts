@@ -24,7 +24,6 @@ export class ProjectStoreService {
     getProjectById$( id ) {
         return this.project$.pipe(
             map( value => {
-                console.log(value, 'iki tekan store');
                 return value.find( val => val.id === id );
             } )
         );

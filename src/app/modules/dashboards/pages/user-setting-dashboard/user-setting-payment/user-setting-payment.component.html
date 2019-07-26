@@ -1,3 +1,77 @@
-<p>
-  user-setting-payment works!
-</p>
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Payment Methods
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-actions">
+                <button type="button" class="btn btn-danger btn-sm btn-bold" (click)="addPayment()">Add User</button>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <div>
+            <mat-form-field appearance="legacy">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            </mat-form-field>
+            <div class="container__mobile">
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="no" class="table__sticky" sticky>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+                        <td mat-cell *matCellDef="let element; let i = index" >
+                            {{i + 1}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile">Type</th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile" >
+                            {{element.type}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="qrcode">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Qr Code </th>
+                        <td mat-cell *matCellDef="let element"  class="table__mobile">
+<!--                            Image-->
+                            <div class="table__image">
+                                <img [src]="element.qrCode" alt="Qr Code">
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="createdAt">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Created At </th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile">
+                            {{ element.createdAt | date}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="updatedAt">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Update At </th>
+                        <td mat-cell *matCellDef="let element" class="table__mobile">
+                            {{element.updatedAt | date}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="table__mobile"> Action </th>
+                        <td mat-cell style="width: 10%" *matCellDef="let element" class="table__mobile">
+                            <button mat-icon-button title="Delete" color="warn"
+                                    (click)="deletePayment(element)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>
