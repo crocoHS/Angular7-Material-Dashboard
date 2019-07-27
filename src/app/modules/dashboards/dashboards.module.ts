@@ -99,6 +99,7 @@ import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.
         UserSettingPaymentDialogComponent,
         ProjectDetailUploadDialogComponent,
         ProjectDetailAddChannelDialogComponent,
+        DialogDeleteComponent,
     ]
 } )
 export class DashboardsModule {

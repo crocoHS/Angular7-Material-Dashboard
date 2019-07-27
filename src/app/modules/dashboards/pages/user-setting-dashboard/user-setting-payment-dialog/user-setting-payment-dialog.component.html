@@ -1,3 +1,20 @@
-<p>
-  user-setting-payment-dialog works!
-</p>
+<h3 mat-dialog-title>Form Add Payment</h3>
+<mat-dialog-content>
+    <form class="form">
+        <mat-form-field appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select value="1" #select>
+                <mat-option value="1">Ovo</mat-option>
+                <mat-option value="2">GoPay</mat-option>
+                <mat-option value="3">DANA</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <app-image-upload (getImage)="getQrImage($event)"></app-image-upload>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button type="submit" (click)="onNoClick()" mat-stroked-button>No</button>
+    <button type="submit" (click)="onSubmit(select.value)" mat-flat-button color="warn" style="margin-left: 10px;">
+        Yes
+    </button>
+</mat-dialog-actions>

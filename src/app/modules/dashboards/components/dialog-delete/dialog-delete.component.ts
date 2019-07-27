@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormControl } from '@angular/forms';
 
-@Component({
-  selector: 'app-dialog-delete',
-  templateUrl: './dialog-delete.component.html',
-  styleUrls: ['./dialog-delete.component.scss']
-})
+@Component( {
+    selector: 'app-dialog-delete',
+    templateUrl: './dialog-delete.component.html',
+    styleUrls: [ './dialog-delete.component.scss' ]
+} )
 export class DialogDeleteComponent implements OnInit {
 
-  constructor() { }
+    constructor(
+        public dialogRef: MatDialogRef<DialogDeleteComponent>,
+        @Inject( MAT_DIALOG_DATA ) public data,
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    onSubmit() {
+        this.dialogRef.close( true );
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close( false );
+    }
+
+    ngOnInit() {
+    }
 
 }

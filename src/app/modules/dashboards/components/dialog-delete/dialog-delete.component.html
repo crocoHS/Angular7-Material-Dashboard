@@ -1,3 +1,10 @@
-<p>
-  dialog-delete works!
-</p>
+<h3 mat-dialog-title>{{data.title}}</h3>
+<mat-dialog-content>
+    <p>{{data.body}}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button (click)="onNoClick()" mat-stroked-button>No</button>
+    <button (click)="onSubmit()" mat-flat-button color="warn" style="margin-left: 10px;">
+        Yes
+    </button>
+</mat-dialog-actions>

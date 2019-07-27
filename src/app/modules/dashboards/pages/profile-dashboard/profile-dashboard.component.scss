@@ -5,15 +5,25 @@
     height: auto;
 }
 
-.centered-custom{
+.centered-custom {
     margin: 0 auto;
 }
 
-mat-dialog-actions button {
-    margin-right: 5px;
+.form {
+    &__actions {
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        & button {
+            margin-right: 5px;
 
-    &:last-child {
-        margin-right: 0;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
+
 }
 
