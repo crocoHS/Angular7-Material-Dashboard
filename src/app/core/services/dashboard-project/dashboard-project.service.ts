@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Campaign, ICampaign } from '../../../shared/models/campaign.model';
 import { IStatus, Status } from '../../../shared/models/status.model';
 import { IProduct, Product } from '../../../shared/models/product.model';
+import { Channel, IChannel } from '../../../shared/models/channel.model';
 
 @Injectable()
 export class DashboardProjectService {
@@ -18,6 +19,7 @@ export class DashboardProjectService {
 
     constructor( private apiService: ApiService, private http: HttpClient, private store: ProjectStoreService ) {
     }
+
     //////////////// PROJECT //////////////////////////
     getAllProjects() {
         return this.http.get( this.url, { params: { tenant_id: this.tenantId } } )
@@ -113,4 +115,11 @@ export class DashboardProjectService {
         } );
     }
 
+    //////////////// CHANNEL //////////////////////////
+    getAllChannel( idProject ) {
+        return this.http.get( this.url + `/${ idProject }/channels`, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                map( ( value: IChannel[] ) => value.map( val => new Channel( val ) ) )
+            );
+    }
 }

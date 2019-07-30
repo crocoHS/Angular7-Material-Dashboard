@@ -1,63 +1,90 @@
 table {
     width: 100%;
 }
-.mat-elevation-z8{
+
+.mat-elevation-z8 {
     display: flex;
     flex-direction: column;
 }
-.mat-form-field{
-    width: 30%;
-    margin: 0 auto;
-}
-.mat-row:hover{
+
+.mat-row:hover {
     background-color: rgba(63, 81, 181, .1) !important;
 }
-.mat-row:nth-child(odd){
+
+.mat-row:nth-child(odd) {
     background-color: #f7f7f7;
 }
 
-.cold-bg{
-    background-color: rgba(0,63,92,0.6);
+.cold-bg {
+    background-color: rgba(0, 63, 92, 0.6);
     padding: 10px;
     border-radius: 3px;
     color: #f7f7f7;
     text-align: center;
 }
-.unqualified-bg{
-    background-color:  rgba(102,81,145,0.6);
+
+.unqualified-bg {
+    background-color: rgba(102, 81, 145, 0.6);
     padding: 10px;
     border-radius: 3px;
     color: #f7f7f7;
     text-align: center;
 }
-.closed-bg{
-    background-color: rgba(160,81,149,0.6);
+
+.closed-bg {
+    background-color: rgba(160, 81, 149, 0.6);
     padding: 10px;
     border-radius: 3px;
     color: #f7f7f7;
     text-align: center;
 }
+
 .hot-bg {
-    background-color: rgba(212,80,135,0.6);
+    background-color: rgba(212, 80, 135, 0.6);
     padding: 10px;
     border-radius: 3px;
     color: #f7f7f7;
     text-align: center;
 }
-.warm-bg{
-    background-color: rgba(255,124,67,0.6);
+
+.warm-bg {
+    background-color: rgba(255, 124, 67, 0.6);
     padding: 10px;
     border-radius: 3px;
     color: #f7f7f7;
     text-align: center;
 }
+
 .new-leads-bg {
-    background-color: rgba(255,166,0,0.6);
+    background-color: rgba(255, 166, 0, 0.6);
     padding: 10px;
     border-radius: 3px;
     color: #f7f7f7;
     text-align: center;
 }
+
+.action {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px 20px;
+    }
+
+    &__search {
+        width: 40%;
+        max-width: 300px;
+        align-self: flex-start;
+    }
+
+    &__button {
+        height: 40px;
+    }
+
+}
+
 // gawe responsive table
 ::ng-deep {
     @media screen and (max-width: 1200px) {
@@ -78,6 +105,27 @@ table {
         }
         .new-leads-bg {
             display: block;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .action {
+            &__container {
+                flex-direction: column-reverse;
+                padding: 20px 0;
+            }
+
+            &__search {
+                align-self: center;
+                width: 80%;
+                max-width: 500px;
+            }
+
+            &__button {
+                align-self: flex-end;
+                height: 40px;
+            }
+
         }
     }
 }

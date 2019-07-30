@@ -1,6 +1,6 @@
 <div class="row justify-content-md-center">
-    <div class="col-xl-8 col-md-10">
-        <div *ngFor="let project of listOfProject | async" class="kt-portlet">
+    <div class="col-xl-6 col-md-6 col-sm-12" *ngFor="let project of listOfProject | async">
+        <div class="kt-portlet">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">{{project.name}}</h3>
@@ -19,6 +19,8 @@
                 <!-- <a routerLink="" class="btn btn-font-light btn-outline-hover-light">View This</a> -->
             </div>
         </div>
+    </div>
+    <div class="col-xl-12">
         <button type="button" class="btn btn-danger btn-lg" [routerLink]="['../new-project']">
             <mat-icon style="vertical-align: text-bottom;">add</mat-icon>
             Add New Project
