@@ -1,3 +1,5 @@
+import { ISalesTeam } from './sales-team.model';
+
 export class Channel {
     public initialApi: IChannel;
     public id: number;
@@ -10,7 +12,7 @@ export class Channel {
     public campaignId: number;
     public mediaId: number;
     public channelOptions: IChannelOptionsEntity[];
-    public teams: ITeamsEntity[];
+    public teams: ISalesTeam[];
 
     constructor( payload: IChannel ) {
         this.initialApi = payload;
@@ -44,7 +46,7 @@ export interface IChannel {
     campaign: OptionOrChannelOrCampaignOrMedia;
     media: OptionOrChannelOrCampaignOrMedia;
     channelOptions?: ( IChannelOptionsEntity )[] | null;
-    teams?: ( ITeamsEntity )[] | null;
+    teams?: ( ISalesTeam )[] | null;
 }
 
 export interface OptionOrChannelOrCampaignOrMedia {

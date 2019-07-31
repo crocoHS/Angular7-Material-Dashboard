@@ -7,7 +7,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { DashboardSalesTeamService } from '../../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
 import { CityCoverage } from '../../../../../shared/models/city-coverage.model';
-import { SalesTeam } from '../../../../../shared/models/sales-team.model';
+import { SalesTeamMersaCS } from '../../../../../shared/models/sales-team.model';
 
 @Component( {
     selector: 'app-sales-team-dashboard-dialog',
@@ -28,7 +28,7 @@ import { SalesTeam } from '../../../../../shared/models/sales-team.model';
 export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
     public allCoverage: CityCoverage[];
     private curCoverage;
-    private dummyData: SalesTeam;
+    private dummyData: SalesTeamMersaCS;
     coverageChecked = new FormControl( false );
     /////////////////////
     testGroup = new FormGroup( {
@@ -47,7 +47,7 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
     //////////////////////////
     constructor(
         public dialogRef: MatDialogRef<SalesTeamDashboardDialogComponent>,
-        @Inject( MAT_DIALOG_DATA ) public data: SalesTeam,
+        @Inject( MAT_DIALOG_DATA ) public data: SalesTeamMersaCS,
         private spinner: NgxSpinnerService,
         private http: DashboardSalesTeamService
     ) {
@@ -98,7 +98,7 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
 
     ///////////////////////
 
-    setAllValue( value: SalesTeam ) {
+    setAllValue( value: SalesTeamMersaCS ) {
         this.testGroup.setValue( {
             name: value.name,
             email: value.pic.email,
@@ -119,7 +119,7 @@ export class SalesTeamDashboardDialogComponent implements OnInit, OnDestroy {
             console.log( 'initial value', this.dummyData );
         }
         // TODO: COVERAGE SUBSCRIBE KE API
-        this.http.getAllCoverages().subscribe( value => {
+        this.http.getAllCoveragesMersaCS().subscribe( value => {
             this.allCoverage = value;
         } );
     }

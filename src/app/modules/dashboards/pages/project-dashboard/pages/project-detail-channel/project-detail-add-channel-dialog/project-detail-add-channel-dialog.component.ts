@@ -81,7 +81,7 @@ export class ProjectDetailAddChannelDialogComponent implements OnInit {
 
     ngOnInit() {
         this.allCampaign$ = this.http.getAllCampaigns( this.data.id );
-        this.allSalesTeam$ = this.http2.getAllSalesTeam()
+        this.allSalesTeam$ = this.http2.getAllSalesTeamMersaCS()
             .pipe(
                 map( value => value.map( val => val.getNameAndId() ) )
             );

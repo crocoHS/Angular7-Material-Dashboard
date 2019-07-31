@@ -7,7 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { DashboardSalesTeamService } from '../../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
 import { ISalesOfficer, SalesOfficer } from '../../../../../shared/models/sales-officer.model';
-import { SalesTeam } from '../../../../../shared/models/sales-team.model';
+import { SalesTeamMersaCS } from '../../../../../shared/models/sales-team.model';
 import { map } from 'rxjs/operators';
 
 @Component( {
@@ -118,9 +118,9 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
             this.curSalesTeam = this.dummyData.salesTeam;
             this.setAllValue( this.dummyData );
         }
-        this.http.getAllSalesTeam()
+        this.http.getAllSalesTeamMersaCS()
             .pipe(
-                map( ( value: SalesTeam[] ) => {
+                map( ( value: SalesTeamMersaCS[] ) => {
                     return value.map( val => val.getNameAndId() );
                 } )
             )

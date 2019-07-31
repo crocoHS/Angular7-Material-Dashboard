@@ -5,7 +5,6 @@ import { DashboardProjectService } from '../../../../../../../core/services/dash
 import { Campaign, ICampaign } from '../../../../../../../shared/models/campaign.model';
 import { Observable } from 'rxjs';
 import { Project } from '../../../../../../../shared/models/project.model';
-import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { flatMap, map } from 'rxjs/operators';
 
@@ -19,7 +18,7 @@ export class ProjectDetailCampaignDialogComponent implements OnInit {
         name: new FormControl( '', [ Validators.required, Validators.min( 6 ) ] ),
         detail: new FormControl( '', Validators.required )
     } );
-    imageUrl: string | ArrayBuffer = 'https://www.lauriloewenberg.com/wp-content/uploads/2019/04/No_Image_Available.jpg';
+    imageUrl: string | ArrayBuffer;
     imageData: File;
     constructor(
         public dialogRef: MatDialogRef<ProjectDetailCampaignDialogComponent>,
@@ -30,11 +29,12 @@ export class ProjectDetailCampaignDialogComponent implements OnInit {
     }
 
     imageUpload( value ) {
-        const file: File = value.files[ 0 ];
+        /*const file: File = value.files[ 0 ];
         this.imageData = file;
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = (ev) => this.imageUrl = reader.result;
+        reader.onload = (ev) => this.imageUrl = reader.result;*/
+        this.imageData = value;
     }
 
     onNoClick(): void {

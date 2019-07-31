@@ -3,46 +3,40 @@
     <form class="example-form"
           [formGroup]="testGroup">
 
-        <div class="coverage__field">
-            <tag-input formControlName="salesTeam"
-                       [identifyBy]="'id'" [displayBy]="'name'"
-                       theme='minimal' #salesTeam
-                       placeholder="Add City"
-                       [disable]=false
-                       [onlyFromAutocomplete]="true">
-                <tag-input-dropdown
-                    [autocompleteItems]="allTeams"
-                    [keepOpen]="false"
-                    [showDropdownIfEmpty]="true"
-                    [dynamicUpdate]="true"
-                    [identifyBy]="'id'" [displayBy]="'name'">
-                </tag-input-dropdown>
-            </tag-input>
-            <mat-checkbox (change)='change($event, salesTeam)' [formControl]="salesTeamChecked">All City</mat-checkbox>
-        </div>
+        <app-option-dropdown-v2 *ngIf="teamsForCheckbox" [dataParent]="teamsForCheckbox" [title]="'Sales Team'"
+                                #dropDown style="margin-bottom: 10px;">
+        </app-option-dropdown-v2>
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput placeholder="name" formControlName="name">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Your URL</mat-label>
-            <input matInput placeholder="email"
-                   formControlName="trackingUrl">
-            <!--				<mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>-->
+        <mat-form-field appearance="outline">
+            <mat-label>Landing Page Url</mat-label>
+            <input matInput placeholder="Landing Page Url"
+                   formControlName="landingPageUrl">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <mat-form-field appearance="outline">
+            <mat-label>Redirect Page Url</mat-label>
+            <input matInput placeholder="Redirect Page Url"
+                   formControlName="redirectPageUrl">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
             <mat-label>Detail</mat-label>
             <textarea matInput placeholder="Detail"
                       formControlName="detail"></textarea>
         </mat-form-field>
 
+        <app-image-upload (getImage)="changeImage($event)" [imageUrl]="imageUrl"></app-image-upload>
 
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
-    <button type="submit" (click)="onSubmit(testGroup)" mat-flat-button color="primary" style="margin-left: 10px;">Submit</button>
+    <button type="submit" (click)="onSubmit(testGroup)" mat-flat-button color="primary" style="margin-left: 10px;">
+        Submit
+    </button>
 </mat-dialog-actions>

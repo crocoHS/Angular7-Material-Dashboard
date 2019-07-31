@@ -1,6 +1,6 @@
 import { CityCoverage } from './city-coverage.model';
 
-export interface ISalesTeam {
+export interface ISalesTeamMersaCS {
     id: string;
     name: string;
     coverage: [ {
@@ -22,7 +22,7 @@ export interface ISalesTeam {
     performance: number;
 }
 
-export class SalesTeam {
+export class SalesTeamMersaCS {
     id: string;
     name: string;
     coverage: string[];
@@ -63,7 +63,7 @@ export class SalesTeam {
         };
     }
 
-    updateThis( payload: Partial<SalesTeam> ) {
+    updateThis( payload: Partial<SalesTeamMersaCS> ) {
         Object.assign( this, payload );
         return this;
     }
@@ -98,7 +98,75 @@ export class Pic {
     }
 
     updatePic( payload: Partial<Pic> ) {
-        Object.assign(this, payload);
+        Object.assign( this, payload );
         return this;
+    }
+}
+
+export interface ISalesTeam {
+    id: number;
+    name: string;
+    description: string;
+    address: string;
+    email: string;
+    phoneNumber: string;
+    isActive: boolean;
+    isGlobalCoverege: boolean;
+    modifiedBy: number;
+    modifiedAt: string;
+    createdBy: number;
+    createdAt: string;
+    tenantId: number;
+    members?: ( MembersEntity )[] | null;
+}
+
+export interface MembersEntity {
+    id: number;
+    role: string;
+    isActive: boolean;
+    modifiedBy: number;
+    modifiedAt: string;
+    createdBy: number;
+    createdAt: string;
+    tenantId: number;
+    team: {
+        id: number;
+    };
+    user: {
+        id: number;
+        name: string;
+        email: string;
+        role: string;
+        status: string;
+        address?: null;
+        modifiedBy: number;
+        modifiedAt: string;
+        createdBy: number;
+        createdAt: string;
+        tenantId: number;
+    };
+}
+
+export class SalesTeam {
+    public initialApi: ISalesTeam;
+    public id: number;
+    public name: string;
+    public description: string;
+    public address: string;
+    public email: string;
+    public phoneNumber: string;
+    public isActive: boolean;
+
+    ////// Ketoke butuh member ambek user
+
+    constructor( payload: ISalesTeam ) {
+        this.initialApi = payload;
+        this.id = payload.id;
+        this.name = payload.name;
+        this.description = payload.description;
+        this.address = payload.address;
+        this.email = payload.email;
+        this.phoneNumber = payload.phoneNumber;
+        this.isActive = payload.isActive;
     }
 }

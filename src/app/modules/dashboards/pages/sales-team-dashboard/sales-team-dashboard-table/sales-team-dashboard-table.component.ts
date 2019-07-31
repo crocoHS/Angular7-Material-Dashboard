@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@
 // import { coverage, Coverage, Dummy } from '../dataDummy';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { SalesTeamDashboardDialogComponent } from '../sales-team-dashboard-dialog/sales-team-dashboard-dialog.component';
-import { SalesTeam } from '../../../../../shared/models/sales-team.model';
+import { SalesTeamMersaCS } from '../../../../../shared/models/sales-team.model';
 
 @Component( {
     selector: 'app-sales-team-dashboard-table',
@@ -13,10 +13,10 @@ export class SalesTeamDashboardTableComponent implements OnChanges {
     displayedColumns: string[] = [ 'id', 'name', 'coverage', 'pic', 'salesOfficer', 'leads', 'channels', 'status', 'action' ];
     // allCoverage: Coverage[];
     click = true;
-    @Input() dataFromParent: SalesTeam[];
-    dataSource = new MatTableDataSource<SalesTeam>();
+    @Input() dataFromParent: SalesTeamMersaCS[];
+    dataSource = new MatTableDataSource<SalesTeamMersaCS>();
     @ViewChild( MatPaginator ) paginator: MatPaginator;
-    @ViewChild( MatTable ) table: MatTable<SalesTeam>;
+    @ViewChild( MatTable ) table: MatTable<SalesTeamMersaCS>;
     @ViewChild( MatSort ) sort: MatSort;
 
     constructor( private dialog: MatDialog ) {

@@ -4,7 +4,7 @@ import { Dummy } from '../sales-officer-dashboard/dataDummy';
 import { SalesTeamDashboardDialogComponent } from './sales-team-dashboard-dialog/sales-team-dashboard-dialog.component';
 import { MatDialog } from '@angular/material';
 import { DashboardSalesTeamService } from '../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
-import { SalesTeam } from '../../../../shared/models/sales-team.model';
+import { SalesTeamMersaCS } from '../../../../shared/models/sales-team.model';
 import { Observable } from 'rxjs';
 
 @Component( {
@@ -26,7 +26,7 @@ export class SalesTeamDashboardComponent implements OnInit {
         ],
         label: [ 'Team Bandung', 'Team Jakarta', 'Team Surabaya', 'Team Jayapura' ]
     };
-    public dataForTable: Observable<SalesTeam[]> = this.http.getAllSalesTeam();
+    public dataForTable: Observable<SalesTeamMersaCS[]> = this.http.getAllSalesTeamMersaCS();
 
     constructor( private dialog: MatDialog, private http: DashboardSalesTeamService ) {
     }

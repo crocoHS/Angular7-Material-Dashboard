@@ -20,6 +20,7 @@ import { DashboardSalesTeamService } from './services/dashboard-sales-team/dashb
 import { DashboardProjectService } from './services/dashboard-project/dashboard-project.service';
 import { ProjectStoreService } from './store/project/project-store.service';
 import { DashboardProductService } from './services/dashboard-project/dashboard-product.service';
+import { ApiUploadService } from './services/api-upload.service';
 
 @NgModule( {
     declarations: [],
@@ -34,6 +35,7 @@ import { DashboardProductService } from './services/dashboard-project/dashboard-
     ],
     providers: [
         ApiService,
+        ApiUploadService,
         AuthenticationService,
         AuthGuardService,
         DashboardOverviewService,

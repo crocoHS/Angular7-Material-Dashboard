@@ -6,6 +6,8 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { BarStackedChartComponent } from './components/bar-stacked-chart/bar-stacked-chart.component';
 import { OptionDropdownComponent } from './components/option-dropdown/option-dropdown.component';
+import { OptionDropdownV2Component } from './components/option-dropdown-v2/option-dropdown-v2.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule( {
     declarations: [
@@ -14,6 +16,7 @@ import { OptionDropdownComponent } from './components/option-dropdown/option-dro
         BarChartComponent,
         BarStackedChartComponent,
         OptionDropdownComponent,
+        OptionDropdownV2Component,
     ],
     exports: [
         WidgetsComponent,
@@ -21,10 +24,12 @@ import { OptionDropdownComponent } from './components/option-dropdown/option-dro
         BarChartComponent,
         BarStackedChartComponent,
         OptionDropdownComponent,
+        OptionDropdownV2Component,
     ],
     imports: [
         CommonModule,
-        AppMaterialModule
+        AppMaterialModule,
+        ReactiveFormsModule
     ]
 } )
 export class SharedModule {

@@ -22,9 +22,12 @@
             </ng-container>
 
             <ng-container matColumnDef="picture">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Picture</th>
+                <th mat-header-cell class="table__mobile table__header--center" *matHeaderCellDef mat-sort-header>Picture</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <div class="table__image" [ngStyle]="{'background-image': 'url(' + element.picture + ')'}"></div>
+                    <div class="table__image">
+                        <img #img [src]="element.picture " alt="Image Campaign"
+                             (error)="img.src = 'https://jala-testing.s3-ap-southeast-1.amazonaws.com/tenant/60db6180-ad80-11e9-b4b6-6578a1b671ed.jpg'">
+                    </div>
                 </td>
             </ng-container>
 
@@ -46,14 +49,14 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Status</th>
+                <th mat-header-cell class="table__mobile table__header--center" *matHeaderCellDef mat-sort-header>Status</th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
                     <button mat-stroked-button color="primary">{{element.status}}</button>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell class="table__mobile" *matHeaderCellDef> Action</th>
+                <th mat-header-cell class="table__mobile table__header--center" *matHeaderCellDef mat-sort-header>Action</th>
                 <td mat-cell class="table__mobile" style="width: 10%" *matCellDef="let element">
                     <button mat-icon-button title="Edit me"
                             (click)="editRow(element)">
@@ -67,5 +70,5 @@
 
         </table>
     </div>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
 </div>

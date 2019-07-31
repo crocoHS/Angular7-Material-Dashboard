@@ -15,16 +15,7 @@
                             <mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>
             -->
         </mat-form-field>
-        <div class="form__image">
-            <div class="form__image--image"
-                 [ngStyle]="{'background-image' : 'url(' + imageUrl + ')'  }">
-            </div>
-            <input type="file" #imageInput accept="image/jpeg" (change)="imageUpload(imageInput)">
-            <button class="btn btn-brand"
-                    (click)="imageInput.click()">
-                Add Picture
-            </button>
-        </div>
+        <app-image-upload [imageUrl]="imageUrl" (getImage)="imageUpload($event)"></app-image-upload>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

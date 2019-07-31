@@ -31,8 +31,10 @@ export class ImageUploadComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges( changes: SimpleChanges ): void {
-        if ( changes.imageUrl ) {
+        if ( changes.imageUrl.currentValue ) {
             this.isNewImage = false;
+        } else {
+            this.imageUrl = 'https://jala-testing.s3-ap-southeast-1.amazonaws.com/tenant/60db6180-ad80-11e9-b4b6-6578a1b671ed.jpg';
         }
     }
 

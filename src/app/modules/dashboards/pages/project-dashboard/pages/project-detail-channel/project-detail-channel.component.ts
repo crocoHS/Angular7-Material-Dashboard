@@ -30,7 +30,7 @@ export class ProjectDetailChannelComponent implements OnInit {
     ) {
     }
 
-    editRow( dataFromElement: string ) {
+    editRow( dataFromElement: Channel ) {
         const dialogRef = this.dialog.open( ProjectDetailChannelDialogComponent, {
             panelClass: 'project_channel_dialog',
             data: dataFromElement
