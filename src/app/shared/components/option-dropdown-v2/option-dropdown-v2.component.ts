@@ -75,8 +75,13 @@ export class OptionDropdownV2Component implements OnInit {
         return this.dataStore;
     }
 
-    getAllDataTrue() {
-        console.log( this.dataStore.filter( val => val.value === true ) );
+    get getAllDataTrue(): any[] {
+        return this.dataStore.reduce( ( acc, cur ) => {
+            if ( cur.value === true ) {
+                acc.push( { id: cur.id, name: cur.name } );
+            }
+            return acc;
+        }, [] );
     }
 
     showDropdown() {

@@ -1,10 +1,10 @@
 <h3 mat-dialog-title>Channel Form</h3>
 <mat-dialog-content>
-    <form class="example-form"
-          [formGroup]="testGroup">
+    <div class="example-form"
+         [formGroup]="testGroup">
 
         <app-option-dropdown-v2 *ngIf="teamsForCheckbox" [dataParent]="teamsForCheckbox" [title]="'Sales Team'"
-                                #dropDown style="margin-bottom: 10px;">
+                                #dropdown style="margin-bottom: 10px;">
         </app-option-dropdown-v2>
 
         <mat-form-field appearance="outline">
@@ -12,17 +12,19 @@
             <input matInput placeholder="name" formControlName="name">
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Landing Page Url</mat-label>
-            <input matInput placeholder="Landing Page Url"
-                   formControlName="landingPageUrl">
-        </mat-form-field>
+        <div *ngIf="media">
+            <mat-form-field appearance="outline">
+                <mat-label>Landing Page Url</mat-label>
+                <input matInput placeholder="Landing Page Url"
+                       [formControl]="landingPageUrl">
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Redirect Page Url</mat-label>
-            <input matInput placeholder="Redirect Page Url"
-                   formControlName="redirectPageUrl">
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Redirect Page Url</mat-label>
+                <input matInput placeholder="Redirect Page Url"
+                       [formControl]="redirectPageUrl">
+            </mat-form-field>
+        </div>
 
         <mat-form-field appearance="outline">
             <mat-label>Detail</mat-label>
@@ -32,11 +34,11 @@
 
         <app-image-upload (getImage)="changeImage($event)" [imageUrl]="imageUrl"></app-image-upload>
 
-    </form>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
-    <button type="submit" (click)="onSubmit(testGroup)" mat-flat-button color="primary" style="margin-left: 10px;">
+    <button (click)="onNoClick()" mat-stroked-button>Cancel</button>
+    <button (click)="onSubmit(testGroup)" mat-flat-button color="primary" style="margin-left: 10px;">
         Submit
     </button>
 </mat-dialog-actions>

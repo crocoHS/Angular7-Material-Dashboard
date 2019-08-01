@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 import { Campaign, ICampaign } from '../../../shared/models/campaign.model';
 import { IStatus, Status } from '../../../shared/models/status.model';
 import { IProduct, Product } from '../../../shared/models/product.model';
-import { Channel, IChannel } from '../../../shared/models/channel.model';
+import { Channel, IChannel, IMedia, Media } from '../../../shared/models/channel.model';
 
 @Injectable()
 export class DashboardProjectService {
     // Kudune nggawe sing di comment //
-    url = this.apiService.getUrl() + 'projects';
-    urlMedia = this.apiService.getUrl() + 'channels/medias';
-    tenantId = this.apiService.getTenantId().toString();
+    private url = this.apiService.getUrl() + 'projects';
+    private urlMedia = this.apiService.getUrl() + 'channels/medias';
+    private tenantId = this.apiService.getTenantId().toString();
 
     constructor( private apiService: ApiService, private http: HttpClient, private store: ProjectStoreService ) {
     }
@@ -76,6 +76,13 @@ export class DashboardProjectService {
     //////////////// MEDIA CHANNEL //////////////////////////
     getAllMedias() {
         return this.http.get( this.urlMedia );
+    }
+
+    getMediaById( idMedia ) {
+        return this.http.get( this.urlMedia + `/${ idMedia }` )
+            .pipe(
+                map( ( value: IMedia ) => new Media( value ) )
+            );
     }
 
     //////////////// STATUS PROJECT //////////////////////////

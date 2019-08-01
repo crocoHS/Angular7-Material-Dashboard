@@ -1,11 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { IChannel } from '../dummyChannel';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Channel } from '../../../../../../../shared/models/channel.model';
+import { Channel, IChannel, Media } from '../../../../../../../shared/models/channel.model';
 import { DashboardSalesTeamService } from '../../../../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
 import { SalesTeam } from '../../../../../../../shared/models/sales-team.model';
 import { map, tap } from 'rxjs/operators';
+import { OptionDropdownV2Component } from '../../../../../../../shared/components/option-dropdown-v2/option-dropdown-v2.component';
+import { ApiUploadService } from '../../../../../../../core/services/api-upload.service';
+import { DashboardProjectService } from '../../../../../../../core/services/dashboard-project/dashboard-project.service';
 
 @Component( {
     selector: 'app-project-detail-channel-dialog',
@@ -18,13 +20,11 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
         value: boolean,
         name: string
     }[];
-    private dummyData: IChannel;
+    @ViewChild( OptionDropdownV2Component ) dropdown: OptionDropdownV2Component;
 
     /////////////////////
-    testGroup = new FormGroup( {
+    public testGroup = new FormGroup( {
         name: new FormControl( '', Validators.required ),
-        landingPageUrl: new FormControl( '', Validators.required ),
-        redirectPageUrl: new FormControl( '', Validators.required ),
         detail: new FormControl( '', Validators.required ),
         salesTeam: new FormControl( '', Validators.required ),
     } );
@@ -33,36 +33,34 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<ProjectDetailChannelDialogComponent>,
         @Inject( MAT_DIALOG_DATA ) public data: Channel,
-        private http: DashboardSalesTeamService
+        private http: DashboardSalesTeamService,
+        private http2: ApiUploadService,
+        private http3: DashboardProjectService
     ) {
     }
+
+    //////////////// MEDIA //////////////////////////
+    public media: Media;
+    public landingPageUrl = new FormControl( '', Validators.required );
+    public redirectPageUrl = new FormControl( '', Validators.required );
 
     public imageUrl;
     // Jika imageFile null || undefined maka tidak upload
     public imageFile;
 
+    setMediaValue( value: Media ) {
+        this.landingPageUrl.setValue( value.options[ 0 ].value );
+        this.redirectPageUrl.setValue( value.options[ 1 ].value );
+    }
+
+
     changeImage( image: File ) {
         this.imageFile = image;
     }
 
-    /*change( event, elRef ) {
-        if ( event.checked ) {
-            elRef.disable = true;
-            elRef.placeholder = '';
-            return this.testGroup.patchValue( { coverage: this.curTeams } );
-        }
-        elRef.disable = false;
-        elRef.placeholder = 'Add Teams';
-        return this.testGroup.patchValue( { coverage: this.curTeams } );
-    }*/
-
-    ///////////////////////
-
     setAllValue( value: Channel ) {
         this.testGroup.setValue( {
             name: value.name,
-            landingPageUrl: value.channelOptions[ 0 ].value,
-            redirectPageUrl: value.channelOptions[ 1 ].value,
             detail: value.detail,
             salesTeam: value.teams,
         } );
@@ -70,7 +68,6 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
 
     ngOnInit() {
         this.imageUrl = this.data.picture;
-        // this.teamsForCheckbox = this.setTeams( this.data.teams, true );
         this.http.getAllSalesTeam()
             .subscribe( value => {
                 const allValue = value.map( val => {
@@ -86,12 +83,38 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
                 } );
                 console.log( this.teamsForCheckbox, 'from teamsCheckBox' );
             } );
-        console.log( this.data.id );
         this.setAllValue( this.data );
+        this.http3.getMediaById( this.data.mediaId )
+            .subscribe( val => {
+                this.media = val;
+                this.setMediaValue( this.media );
+                console.log( this.media );
+            } );
     }
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    getAllValue() {
+        const getTeam = this.dropdown.getAllDataTrue;
+        const body = {
+            name: this.testGroup.get( 'name' ).value,
+            detail: this.testGroup.get( 'detail' ).value,
+            channelTeams: getTeam.map( val => {
+                return { team: { id: val.id } };
+            } )
+        };
+        if ( this.media.type === 'online' ) {
+            const options = {
+                channelOptions: [
+                    { option: { id: this.media.options[ 0 ].id }, value: this.landingPageUrl.value },
+                    { option: { id: this.media.options[ 1 ].id }, value: this.redirectPageUrl.value }
+                ]
+            };
+            Object.assign( body, options );
+        }
+        return body;
     }
 
     /*
@@ -102,7 +125,11 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
     onSubmit( data: FormGroup ) {
         if ( data.valid ) {
             // this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
+            if ( this.imageFile ) {
+                this.http2.uploadImage( this.imageFile );
+            }
             console.log( data.value );
+            console.log( this.getAllValue() );
         }
     }
 }

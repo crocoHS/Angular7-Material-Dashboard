@@ -82,3 +82,37 @@ export interface ITeamsEntity {
     tenantId: number;
 }
 
+export interface IMedia {
+    id: number;
+    name: string;
+    type: 'online' | 'other' | 'offline';
+    options?: ( IOptionsEntity )[] | null;
+}
+
+export interface IOptionsEntity {
+    id: number;
+    name: string;
+    value: string;
+    detail: string;
+    type: string;
+    media: {
+        id: number;
+    };
+}
+
+export class Media {
+    public initialApi: IMedia;
+    public id: number;
+    public name: string;
+    public type: 'online' | 'other' | 'offline';
+    public options?: ( IOptionsEntity )[] | null;
+
+    constructor( payload: IMedia ) {
+        this.initialApi = payload;
+        this.id = payload.id;
+        this.name = payload.name;
+        this.type = payload.type;
+        this.options = payload.options;
+    }
+}
+
