@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
 interface IOptionDropdownV2 {
     id: number | string;
@@ -44,7 +44,17 @@ export class OptionDropdownV2Component implements OnInit {
     public dataStore: IOptionDropdownV2[];
     public backUpDataStore: IOptionDropdownV2[];
 
-    constructor() {
+    constructor( private elementRef: ElementRef, private cd: ChangeDetectorRef ) {
+    }
+
+    @HostListener( 'document:click', [ '$event' ] )
+    onClick( event ) {
+        if ( !this.elementRef.nativeElement.contains( event.target ) ) {
+            if ( this.isShowDropDown ) {
+                this.showDropdown();
+                this.cd.detectChanges();
+            }
+        }
     }
 
     filterOption( filterValue: string ) {

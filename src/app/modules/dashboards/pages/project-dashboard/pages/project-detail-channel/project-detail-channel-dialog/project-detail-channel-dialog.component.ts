@@ -1,13 +1,23 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Channel, IChannel, Media } from '../../../../../../../shared/models/channel.model';
+import { Channel } from '../../../../../../../shared/models/channel.model';
 import { DashboardSalesTeamService } from '../../../../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
-import { SalesTeam } from '../../../../../../../shared/models/sales-team.model';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { OptionDropdownV2Component } from '../../../../../../../shared/components/option-dropdown-v2/option-dropdown-v2.component';
 import { ApiUploadService } from '../../../../../../../core/services/api-upload.service';
 import { DashboardProjectService } from '../../../../../../../core/services/dashboard-project/dashboard-project.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+/////// VALIDATOR HTTP ///////////
+function containHttp( control: AbstractControl ): { [ key: string ]: boolean } | null {
+    if ( control.value !== undefined && typeof control.value !== 'object' ) {
+        if ( control.value.startsWith( 'https://' ) || control.value.startsWith( 'http://' ) ) {
+            return null;
+        }
+    }
+    return { 'containHttp': true };
+}
 
 @Component( {
     selector: 'app-project-detail-channel-dialog',
@@ -25,8 +35,7 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
     /////////////////////
     public testGroup = new FormGroup( {
         name: new FormControl( '', Validators.required ),
-        detail: new FormControl( '', Validators.required ),
-        salesTeam: new FormControl( '', Validators.required ),
+        detail: new FormControl( '', Validators.required )
     } );
 
     //////////////////////////
@@ -35,22 +44,24 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
         @Inject( MAT_DIALOG_DATA ) public data: Channel,
         private http: DashboardSalesTeamService,
         private http2: ApiUploadService,
-        private http3: DashboardProjectService
+        private http3: DashboardProjectService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
     //////////////// MEDIA //////////////////////////
-    public media: Media;
-    public landingPageUrl = new FormControl( '', Validators.required );
-    public redirectPageUrl = new FormControl( '', Validators.required );
+    public mediaType: 'online' | 'other' | 'offline';
+    public landingPageUrl = new FormControl( '', [Validators.required, containHttp] );
+    public redirectPageUrl = new FormControl( '', [Validators.required, containHttp] );
 
     public imageUrl;
     // Jika imageFile null || undefined maka tidak upload
     public imageFile;
 
-    setMediaValue( value: Media ) {
-        this.landingPageUrl.setValue( value.options[ 0 ].value );
-        this.redirectPageUrl.setValue( value.options[ 1 ].value );
+    setMediaValue( value: Channel ) {
+        this.landingPageUrl.setValue( value.channelOptions[ 0 ].value );
+        this.redirectPageUrl.setValue( value.channelOptions[ 1 ].value );
+        console.log( value );
     }
 
 
@@ -61,8 +72,7 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
     setAllValue( value: Channel ) {
         this.testGroup.setValue( {
             name: value.name,
-            detail: value.detail,
-            salesTeam: value.teams,
+            detail: value.detail
         } );
     }
 
@@ -73,7 +83,6 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
                 const allValue = value.map( val => {
                     return { id: val.id, value: false, name: val.name };
                 } );
-                console.log( allValue, 'false kudune' );
                 this.teamsForCheckbox = allValue.map( val => {
                     const index = this.data.teams.findIndex( val2 => val2.id === val.id );
                     if ( index !== -1 ) {
@@ -81,14 +90,21 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
                     }
                     return val;
                 } );
-                console.log( this.teamsForCheckbox, 'from teamsCheckBox' );
             } );
         this.setAllValue( this.data );
         this.http3.getMediaById( this.data.mediaId )
+            .pipe(
+                map( value => value.type )
+            )
             .subscribe( val => {
-                this.media = val;
-                this.setMediaValue( this.media );
-                console.log( this.media );
+                this.mediaType = val;
+                /// gak ngerti opo'o API iki selalu value option e kosong
+                /// maka dari itu setMediaValue dari this.data
+                /// INTI DARI FETCH INI ADALAH MENENTUKAN INI ONLINE ATAU TIDAK
+                if ( this.mediaType === 'online' ) {
+                    this.setMediaValue( this.data );
+                }
+                console.log( this.data, this.mediaType );
             } );
     }
 
@@ -101,19 +117,26 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
         const body = {
             name: this.testGroup.get( 'name' ).value,
             detail: this.testGroup.get( 'detail' ).value,
-            channelTeams: getTeam.map( val => {
-                return { team: { id: val.id } };
-            } )
+            picture: this.imageUrl
         };
-        if ( this.media.type === 'online' ) {
+        if ( getTeam ) {
+            const teams = {
+                channelTeams: getTeam.map( val => {
+                    return { team: { id: val.id } };
+                } )
+            };
+            Object.assign( body, teams );
+        }
+        if ( this.mediaType === 'online' ) {
             const options = {
                 channelOptions: [
-                    { option: { id: this.media.options[ 0 ].id }, value: this.landingPageUrl.value },
-                    { option: { id: this.media.options[ 1 ].id }, value: this.redirectPageUrl.value }
+                    { option: { id: this.data.channelOptions[ 0 ].option.id }, value: this.landingPageUrl.value },
+                    { option: { id: this.data.channelOptions[ 1 ].option.id }, value: this.redirectPageUrl.value }
                 ]
             };
             Object.assign( body, options );
         }
+        console.log(body);
         return body;
     }
 
@@ -124,12 +147,31 @@ export class ProjectDetailChannelDialogComponent implements OnInit {
     */
     onSubmit( data: FormGroup ) {
         if ( data.valid ) {
-            // this.dialogRef.close( Object.assign( this.dummyData, data.value ) );
+            this.spinner.show();
+            const body = this.getAllValue();
+            let observable$;
             if ( this.imageFile ) {
-                this.http2.uploadImage( this.imageFile );
+                observable$ = this.http2.uploadImage( this.imageFile )
+                    .pipe(
+                        switchMap( value => {
+                            body.picture = value.fullPath;
+                            return this.http3.updateChannel( this.data.campaignId, this.data.id, body );
+                        } )
+                    );
+            } else {
+                observable$ = this.http3.updateChannel( this.data.campaignId, this.data.id, body );
             }
-            console.log( data.value );
-            console.log( this.getAllValue() );
+            observable$.subscribe(
+                value => {
+                    this.spinner.hide();
+                    this.dialogRef.close( value );
+                },
+                ( err ) => {
+                    this.spinner.hide();
+                    console.log( err );
+                } );
+            console.log('tesstt valid');
         }
+        console.log('tesstt');
     }
 }

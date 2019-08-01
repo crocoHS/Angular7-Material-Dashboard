@@ -18,37 +18,36 @@
         <mat-form-field>
             <mat-label>Media</mat-label>
             <mat-select formControlName="media"
-                        (selectionChange)="disableUrl($event.value)">
+                        (selectionChange)="disableUrl($event.value)" #media>
                 <mat-option *ngFor="let media of allMedia" [value]="media">{{media.name}}</mat-option>
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Sales Team</mat-label>
-            <mat-select formControlName="salesTeam">
-                <mat-option *ngFor="let team of allSalesTeam$ | async"
-                            [value]="team">{{team.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <app-option-dropdown-v2 *ngIf="allSalesTeam$ | async as cok" [dataParent]="cok" [title]="'Sales Team'"
+                                style="margin-bottom: 10px;">
+        </app-option-dropdown-v2>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Landing Page URL</mat-label>
-            <input matInput placeholder="Landing Page Url"
-                   formControlName="landPage">
-            <mat-hint>include http:// or https://</mat-hint>
-            <mat-error *ngIf="formChannel.get('landPage').hasError('containHttp')">Please Include http:// or https://
-            </mat-error>
-        </mat-form-field>
+        <ng-container *ngIf="media.value?.type === 'online'">
+            <mat-form-field appearance="outline">
+                <mat-label>Landing Page URL</mat-label>
+                <input matInput placeholder="Landing Page Url"
+                       formControlName="landPage">
+                <mat-hint>include http:// or https://</mat-hint>
+                <mat-error *ngIf="formChannel.get('landPage').hasError('containHttp')">Please Include http:// or
+                    https://
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Redirect Page Url</mat-label>
-            <input matInput placeholder="Redirect Page Url"
-                   formControlName="redirectPage">
-            <mat-hint>include http:// or https://</mat-hint>
-            <mat-error *ngIf="formChannel.get('redirectPage').hasError('containHttp')">Please Include http:// or
-                https://
-            </mat-error>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Redirect Page Url</mat-label>
+                <input matInput placeholder="Redirect Page Url"
+                       formControlName="redirectPage">
+                <mat-hint>include http:// or https://</mat-hint>
+                <mat-error *ngIf="formChannel.get('redirectPage').hasError('containHttp')">Please Include http:// or
+                    https://
+                </mat-error>
+            </mat-form-field>
+        </ng-container>
 
         <mat-form-field appearance="outline">
             <mat-label>Detail</mat-label>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { HttpClient } from '@angular/common/http';
-import { debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { IProject, Project } from '../../../shared/models/project.model';
 import { ProjectStoreService } from '../../store/project/project-store.service';
 import { Observable } from 'rxjs';
@@ -14,6 +14,7 @@ import { Channel, IChannel, IMedia, Media } from '../../../shared/models/channel
 export class DashboardProjectService {
     // Kudune nggawe sing di comment //
     private url = this.apiService.getUrl() + 'projects';
+    private urlCampaign = this.apiService.getUrl() + 'campaigns';
     private urlMedia = this.apiService.getUrl() + 'channels/medias';
     private tenantId = this.apiService.getTenantId().toString();
 
@@ -75,7 +76,10 @@ export class DashboardProjectService {
 
     //////////////// MEDIA CHANNEL //////////////////////////
     getAllMedias() {
-        return this.http.get( this.urlMedia );
+        return this.http.get( this.urlMedia )
+            .pipe(
+                map( ( value: IMedia[] ) => value.map( val => new Media( val ) ) )
+            );
     }
 
     getMediaById( idMedia ) {
@@ -127,6 +131,27 @@ export class DashboardProjectService {
         return this.http.get( this.url + `/${ idProject }/channels`, { params: { tenant_id: this.tenantId } } )
             .pipe(
                 map( ( value: IChannel[] ) => value.map( val => new Channel( val ) ) )
+            );
+    }
+
+    getChannelById( idCampaign, idChannel ) {
+        return this.http.get( this.urlCampaign + `/${ idCampaign }/channels/${ idChannel }`, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                map( ( value: IChannel ) => new Channel( value ) )
+            );
+    }
+
+    updateChannel( idCampaign, idChannel, body ) {
+        return this.http.put( this.urlCampaign + `/${ idCampaign }/channels/${ idChannel }`, body, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                switchMap( value => this.getChannelById( idCampaign, idChannel ) ),
+            );
+    }
+
+    createChannel( idCampaign, body ) {
+        return this.http.post( this.urlCampaign + `/${ idCampaign }/channels`, [ body], { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                switchMap( value => this.getChannelById( idCampaign, value[ 0 ].id ) ),
             );
     }
 }

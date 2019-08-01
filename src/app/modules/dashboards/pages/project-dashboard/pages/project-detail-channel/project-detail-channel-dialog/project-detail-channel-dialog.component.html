@@ -4,7 +4,7 @@
          [formGroup]="testGroup">
 
         <app-option-dropdown-v2 *ngIf="teamsForCheckbox" [dataParent]="teamsForCheckbox" [title]="'Sales Team'"
-                                #dropdown style="margin-bottom: 10px;">
+                                style="margin-bottom: 10px;">
         </app-option-dropdown-v2>
 
         <mat-form-field appearance="outline">
@@ -12,19 +12,22 @@
             <input matInput placeholder="name" formControlName="name">
         </mat-form-field>
 
-        <div *ngIf="media">
+        <ng-container *ngIf="mediaType === 'online'">
             <mat-form-field appearance="outline">
                 <mat-label>Landing Page Url</mat-label>
                 <input matInput placeholder="Landing Page Url"
                        [formControl]="landingPageUrl">
+                <mat-error *ngIf="landingPageUrl.hasError('containHttp')">Please Include http:// or https://</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Redirect Page Url</mat-label>
                 <input matInput placeholder="Redirect Page Url"
                        [formControl]="redirectPageUrl">
+                <mat-error *ngIf="redirectPageUrl.hasError('containHttp')">Please Include http:// or https://
+                </mat-error>
             </mat-form-field>
-        </div>
+        </ng-container>
 
         <mat-form-field appearance="outline">
             <mat-label>Detail</mat-label>

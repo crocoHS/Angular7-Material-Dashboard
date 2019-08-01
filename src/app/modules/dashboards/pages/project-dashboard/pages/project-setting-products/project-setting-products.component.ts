@@ -1,13 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardProductService } from '../../../../../../core/services/dashboard-project/dashboard-product.service';
-import { IProduct, Product, ProductTag, ProductTagGroup } from '../../../../../../shared/models/product.model';
-import { concatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { IProduct, Product, ProductTagGroup } from '../../../../../../shared/models/product.model';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { forkJoin, Observable, pipe } from 'rxjs';
 
 @Component( {
     selector: 'app-project-setting-products',

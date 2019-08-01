@@ -12,7 +12,7 @@ export class ImageData {
     origFile: string;
     status: boolean;
     newFile: string;
-    fullPath: string | ArrayBuffer;
+    fullPath: string;
 
     constructor( public payload: IImageData ) {
         this.initialApi = payload;
