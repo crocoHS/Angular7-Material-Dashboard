@@ -33,16 +33,16 @@ export class DashboardProductService {
     }
 
     //////////////// PRODUCT IMAGE //////////////////////////
-    getProductImages( id ) {
-        return this.http.get( this.url + `${ id }/pictures`, { params: { tenant_id: this.tenantId } } )
+    getProductImages( productId ) {
+        return this.http.get( this.url + `${ productId }/pictures`, { params: { tenant_id: this.tenantId } } )
             .pipe(
                 map( ( value: IProductImage[] ) => value.map( val => new ProductImage( val ) ) )
             );
     }
 
     //////////////// PRODUCT TAG GROUP //////////////////////////
-    getProductTagGroup( id ) {
-        return this.http.get( this.url + `${ id }/tagGroups`, { params: { tenant_id: this.tenantId } } )
+    getProductTagGroup( productId ) {
+        return this.http.get( this.url + `${ productId }/tagGroups`, { params: { tenant_id: this.tenantId } } )
             .pipe(
                 map( ( value: IProductTagGroup[] ) => value.map( val => new ProductTagGroup( val ) ) )
             );
@@ -63,7 +63,7 @@ export class DashboardProductService {
     updateProductTag( idProduct, idTag, body: Partial<IProductTag> ) {
         return this.http.put( this.url + `${ idProduct }/tags/${ idTag }`, body, { params: { tenant_id: this.tenantId } } )
             .pipe(
-                map( ( value: IProductTag ) =>  new ProductTag( value )  )
+                map( ( value: IProductTag ) => new ProductTag( value ) )
             );
     }
 }

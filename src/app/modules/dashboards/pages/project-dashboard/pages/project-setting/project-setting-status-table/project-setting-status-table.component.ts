@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { Status } from '../../../../../../../shared/models/status.model';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, distinctUntilKeyChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component( {

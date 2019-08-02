@@ -7,18 +7,18 @@
     <div class="kt-portlet__body">
         <div class="row">
             <div class="col-md-7">
-                <div class="image__carousel">
-                    <ng-template [ngIf]="productImage.length === 0" [ngIfElse]="showImage">
+                <div class="image__carousel" *ngIf="productImageUrl as imageUrl">
+                    <ng-template [ngIf]="imageUrl.length === 0" [ngIfElse]="showImage">
                         <img src="https://www.lauriloewenberg.com/wp-content/uploads/2019/04/No_Image_Available.jpg"
                              class="image__carousel--active" alt="no image placeholder">
                     </ng-template>
                     <ng-template #showImage>
-                        <img *ngFor="let img of productImage; let i = index" [src]="img" alt="image {{i}}"
+                        <img *ngFor="let img of imageUrl; let i = index" [src]="img" alt="image {{i}}"
                              [ngClass]="{'image__carousel--active': carouselImage === i}">
                     </ng-template>
                 </div>
-                <div class="image__container">
-                    <div class="image__item" *ngFor="let img of productImage; let i = index">
+                <div class="image__container" *ngIf="productImageUrl as imageUrl">
+                    <div class="image__item" *ngFor="let img of imageUrl; let i = index">
                         <img alt="cok" [src]="img" (click)="changeImage(i)">
                     </div>
                     <div class="image__item image__item--upload" (click)="upload.click()">
@@ -34,7 +34,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <input #upload type="file" accept="image/*" (change)="addImage(upload.files)">
+                        <input #upload type="file" accept="image/*" (change)="addImage(upload)">
                     </div>
                 </div>
             </div>

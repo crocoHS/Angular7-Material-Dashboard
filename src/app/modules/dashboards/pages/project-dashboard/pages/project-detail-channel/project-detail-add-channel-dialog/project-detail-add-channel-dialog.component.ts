@@ -72,7 +72,7 @@ export class ProjectDetailAddChannelDialogComponent implements OnInit {
         // const file: File = inputRef.files[0];
         /*const reader = new FileReader();
         reader.readAsDataURL(files[0]);
-        reader.onload = (ev) => this.productImage.push(reader.result);*/
+        reader.onload = (ev) => this.productImageUrl.push(reader.result);*/
         this.imageFile = files;
     }
 

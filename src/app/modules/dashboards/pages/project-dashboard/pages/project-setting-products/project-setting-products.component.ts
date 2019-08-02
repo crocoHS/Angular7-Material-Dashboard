@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardProductService } from '../../../../../../core/services/dashboard-project/dashboard-product.service';
-import { IProduct, Product, ProductTagGroup } from '../../../../../../shared/models/product.model';
+import { IProduct, Product, ProductImage, ProductTagGroup } from '../../../../../../shared/models/product.model';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -30,8 +30,12 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
         } )
     } );
 
+    // Data Params {prodId, id}
+    public params;
     // Data Product Image
-    public productImage: any[];
+    public productImageUrl: string[];
+    public productImage: ProductImage[];
+    public newImageFile: File[] = [];
     // for Carousel
     public carouselImage = 0;
     // for Product
@@ -50,6 +54,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
                  private http: DashboardProductService,
                  private spinner: NgxSpinnerService ) {
         const params = this.router.snapshot.params;
+        this.params = params;
         this.http.getProductById( params.prodId )
             .pipe(
                 map( value => this.product = value ),
@@ -96,11 +101,12 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
 
     ///////////////////////////
     // for Image Upload /////
-    addImage( files ) {
-        // const file: File = inputRef.files[0];
+    addImage( inputRef ) {
+        const file: File = inputRef.files[ 0 ];
+        this.newImageFile.push( file );
         const reader = new FileReader();
-        reader.readAsDataURL( files[ 0 ] );
-        reader.onload = ( ev ) => this.productImage.push( reader.result );
+        reader.readAsDataURL( file );
+        reader.onload = ( ev ) => this.productImageUrl.push( reader.result as string );
     }
 
     /////////////////////////
@@ -116,6 +122,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     // for change Main Image Carousel
     changeImage( index: number ) {
         this.carouselImage = index;
+        console.log(this.carouselImage);
     }
 
     ///////////////////////////
@@ -192,11 +199,31 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        // TODO: SUBSCRIBE KE PRODUCT ,PRODUCT CATEGORY ,PRODUCT IMAGE
-        /*this.productImage =
-            [ 'https://dummyimage.com/600x400/000/fff.jpg', 'https://dummyimage.com/1024x600/000/fff.jpg',
-                'https://dummyimage.com/600x400/000/fff.jpg', 'https://dummyimage.com/1024x600/000/fff.jpg' ];*/
-        this.productImage = [];
+        /*
+        TODO:   - SUBSCRIBE KE PRODUCT ,PRODUCT CATEGORY ,PRODUCT IMAGE
+                - Scenario untuk image product:
+                    1) Fetch ImageProduct All
+                        1.a variable productImageUrl[] hanya untuk URL
+                        1.b variable productImage hanya untuk Class ProductImage[]
+                        1.c variable newImageFile hanya untuk menampung file dan digunakan untuk upload
+                    2) Ketika delete langsung delete method ae
+                    3) Ketika upload new Image di Batch saja:
+                        3.a get all newImageFile
+                        3.b UploadImageMultiple
+                        3.c Hasil ImageProduct di SwitchMap ke POST ImageProduct
+        */
+        this.http.getProductImages( this.params.prodId )
+            .pipe(
+                map( value => {
+                    this.productImage = value;
+                    return value.map( val => val.path );
+                } )
+            )
+            .subscribe( val => {
+                this.productImageUrl = val;
+                console.log( val );
+            } );
+        // this.productImageUrl = [];
     }
 
     ngOnDestroy(): void {
