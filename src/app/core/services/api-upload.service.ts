@@ -12,10 +12,19 @@ export class ApiUploadService {
 
     uploadImage( file: File ) {
         const formData = new FormData();
-        formData.append( 'pictures', file );
+        formData.append( file.name, file );
         return this.http.post( this.url, formData )
             .pipe(
                 map( ( value: IImageData[] ) => new ImageData( value[ 0 ] ) )
+            );
+    }
+
+    uploadMultipleImages( file: File[] ) {
+        const formData = new FormData();
+        file.forEach( val => formData.append( val.name, val ) );
+        return this.http.post( this.url, formData )
+            .pipe(
+                map( ( value: IImageData[] ) => value.map( val => new ImageData( val ) ) )
             );
     }
 }

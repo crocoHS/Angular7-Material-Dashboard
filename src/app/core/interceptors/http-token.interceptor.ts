@@ -5,7 +5,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     intercept( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
         const token = localStorage.getItem( 'token' );
         let headerModified;
-        if ( !req.url.startsWith( 'https://api.dev.jala.ai/rest' ) ) {
+        if ( !req.url.startsWith( 'https://api.dev.jala.ai/' ) ) {
             headerModified = req.clone( {
                 setHeaders: { Authorization: `Bearer ${ token }` },
             } );
