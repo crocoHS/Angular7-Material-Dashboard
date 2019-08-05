@@ -14,12 +14,14 @@
                     </ng-template>
                     <ng-template #showImage>
                         <img *ngFor="let img of imageUrl; let i = index" [src]="img" alt="image {{i}}"
-                             [ngClass]="{'image__carousel--active': carouselImage === i}">
+                             (error)="img.src = 'https://jala-testing.s3-ap-southeast-1.amazonaws.com/tenant/60db6180-ad80-11e9-b4b6-6578a1b671ed.jpg'"
+                             [ngClass]="{'image__carousel--active': carouselImage === i}" #img>
                     </ng-template>
                 </div>
                 <div class="image__container" *ngIf="productImageUrl as imageUrl">
                     <div class="image__item" *ngFor="let img of imageUrl; let i = index">
-                        <img alt="cok" [src]="img" (click)="changeImage(i)">
+                        <img #img2 alt="cok" [src]="img" (click)="changeImage(i)"
+                             (error)="img2.src = 'https://jala-testing.s3-ap-southeast-1.amazonaws.com/tenant/60db6180-ad80-11e9-b4b6-6578a1b671ed.jpg'">
                     </div>
                     <div class="image__item image__item--upload" (click)="upload.click()">
                         <div class="image__item--svg">

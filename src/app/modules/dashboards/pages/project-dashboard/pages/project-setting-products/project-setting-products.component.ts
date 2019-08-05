@@ -5,6 +5,7 @@ import { DashboardProductService } from '../../../../../../core/services/dashboa
 import { IProduct, Product, ProductImage, ProductTagGroup } from '../../../../../../shared/models/product.model';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ApiUploadService } from '../../../../../../core/services/api-upload.service';
 
 @Component( {
     selector: 'app-project-setting-products',
@@ -52,6 +53,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
                  private router: ActivatedRoute,
                  private route: Router,
                  private http: DashboardProductService,
+                 private http2: ApiUploadService,
                  private spinner: NgxSpinnerService ) {
         const params = this.router.snapshot.params;
         this.params = params;
@@ -175,6 +177,10 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
 
     /////////////////////////////////////////////////
     // Submit All Form
+    /*
+        TODO:   - Upload Image Multiple map ambil url dan title
+                - Switch Map Tinggal Post Product Picture
+    */
     submitAllForm() {
         if ( this.formGroup.valid && this.formGroup2.get( 'category' ).valid ) {
             const valueFormGroup1 = this.formGroup.value;
@@ -184,8 +190,15 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
                 name: valueFormGroup1.name,
                 detail: valueFormGroup1.description,
                 price: valueFormGroup1.price,
-                minBookingPrice: valueFormGroup1.minPrice
+                minBookingPrice: valueFormGroup1.minPrice,
+                pictures: []
             };
+            /*
+            this.http2.uploadMultipleImages(this.newImageFile)
+                .pipe(
+                    map(value => value.map(this.)),
+                    switchMap()
+                )*/
             this.http.updateProductById( this.product.initialApi.project.id, this.product.id, body )
                 .pipe(
                     switchMap( () => this.http.updateProductTag( this.product.id, this.tag.tag[ 0 ].id, { tag: valueCategory } ) ),

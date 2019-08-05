@@ -15,3 +15,4 @@ export class HttpTokenInterceptor implements HttpInterceptor {
         return next.handle( headerModified );
     }
 }
+
