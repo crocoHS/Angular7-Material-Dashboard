@@ -76,7 +76,7 @@ export const dummyData: DummyData[] = [ {
         ]
     },
     {
-        name: 'LeadModel Status',
+        name: 'LeadModel ILeadStatus',
         data: [
             {
                 name: 'New Leads',
