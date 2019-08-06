@@ -6,7 +6,8 @@ import { Campaign, ICampaign } from '../../../../../../../shared/models/campaign
 import { Observable } from 'rxjs';
 import { Project } from '../../../../../../../shared/models/project.model';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, switchMap } from 'rxjs/operators';
+import { ApiUploadService } from '../../../../../../../core/services/api-upload.service';
 
 @Component( {
     selector: 'app-project-detail-campaign-dialog',
@@ -20,10 +21,12 @@ export class ProjectDetailCampaignDialogComponent implements OnInit {
     } );
     imageUrl: string | ArrayBuffer;
     imageData: File;
+
     constructor(
         public dialogRef: MatDialogRef<ProjectDetailCampaignDialogComponent>,
         @Inject( MAT_DIALOG_DATA ) public data: Project | Campaign,
         private http: DashboardProjectService,
+        private http2: ApiUploadService,
         private spinner: NgxSpinnerService
     ) {
     }
@@ -47,15 +50,28 @@ export class ProjectDetailCampaignDialogComponent implements OnInit {
             let method: Observable<any>;
             // Jika ada data maka method PUT
             if ( this.data instanceof Campaign ) {
-                method = this.http.updateCampaign( this.data.initialApi.project.id, this.data.id, data.value )
-                    .pipe(
-                        map( value => new Campaign( value ) )
-                    );
+                const projectId = this.data.projectId;
+                if ( this.imageData ) {
+                    method = this.http2.uploadImage( this.imageData )
+                        .pipe(
+                            switchMap( ( value ) => {
+                                const body = data.value;
+                                Object.assign( body, { picture: value.fullPath } );
+                                return this.http.updateCampaign( projectId, this.data.id, body );
+                            } )
+                        );
+                } else {
+                    method = this.http.updateCampaign( projectId, this.data.id, data.value );
+                }
             } else { // Kudune Ditambahi ambek image upload engkok di merge. Dadi upload image disek terus baru sing iki
-                method = this.http.createCampaign( this.data.id, [ data.value ] )
+                method = this.http2.uploadImage( this.imageData )
                     .pipe(
-                        map( ( value: ICampaign[] ) => value.map( val => new Campaign( val ) ) ),
-                        flatMap( val => val )
+                        switchMap( ( val ) => {
+                            const body = data.value;
+                            Object.assign( body, { picture: val.fullPath } );
+                            return this.http.createCampaign( this.data.id, [ body ] );
+                        } ),
+                        map( ( value: ICampaign[] ) => new Campaign( value[ 0 ] ) )
                     );
             }
             method.subscribe(

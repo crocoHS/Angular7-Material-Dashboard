@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
-// import { dataDummyChannel, IChannel } from './dummyChannel';
 import { ProjectDetailChannelDialogComponent } from './project-detail-channel-dialog/project-detail-channel-dialog.component';
 import { Project } from '../../../../../../shared/models/project.model';
 import { ProjectDetailAddChannelDialogComponent } from './project-detail-add-channel-dialog/project-detail-add-channel-dialog.component';
 import { Channel, IChannel } from '../../../../../../shared/models/channel.model';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
+import { Campaign, ICampaign } from '../../../../../../shared/models/campaign.model';
 
 @Component( {
     selector: 'app-project-detail-channel',
@@ -30,6 +30,31 @@ export class ProjectDetailChannelComponent implements OnInit {
     ) {
     }
 
+    applyFilter( filterValue: string ) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+        if ( this.dataSource.paginator ) {
+            this.dataSource.paginator.firstPage();
+        }
+    }
+
+    changeStatus( data: Channel ) {
+        const body: Partial<IChannel> = { isActive: !data.isActive };
+        this.http.updateChannel( data.campaignId, data.id, body )
+            .subscribe(
+                value => {
+                    const index = this.dataSource.data.findIndex( val => val.id === value.id );
+                    this.dataSource.data[ index ].isActive = value.isActive;
+                    this.table.renderRows();
+                    /*
+                                        const newData = this.dataSource.data;
+                                        this.dataSource = new MatTableDataSource<Campaign>( newData );
+                                        this.dataSource.paginator = this.paginator;
+                                        this.dataSource.sort = this.sort;
+                    */
+                }
+            );
+    }
+
     editRow( dataFromElement: Channel ) {
         const dialogRef = this.dialog.open( ProjectDetailChannelDialogComponent, {
             panelClass: 'project_channel_dialog',
@@ -47,21 +72,15 @@ export class ProjectDetailChannelComponent implements OnInit {
         } );
     }
 
-    applyFilter( filterValue: string ) {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-        if ( this.dataSource.paginator ) {
-            this.dataSource.paginator.firstPage();
-        }
-    }
-
     addChannel() {
         const dialogRef = this.dialog.open( ProjectDetailAddChannelDialogComponent, {
             panelClass: 'project_channel_dialog',
             data: this.dataProject
         } );
         dialogRef.afterClosed()
-            .subscribe( ( result ) => {
-                console.log( result );
+            .subscribe( ( result: Channel ) => {
+                this.dataSource.data.push( result );
+                this.table.renderRows();
             } );
     }
 

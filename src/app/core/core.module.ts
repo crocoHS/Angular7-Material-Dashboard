@@ -21,9 +21,11 @@ import { DashboardProjectService } from './services/dashboard-project/dashboard-
 import { ProjectStoreService } from './store/project/project-store.service';
 import { DashboardProductService } from './services/dashboard-project/dashboard-product.service';
 import { ApiUploadService } from './services/api-upload.service';
+import { DebounceClickDirective } from './directives/debounce-click.directive';
+import { ImageLoaderDirective } from './directives/image-loader.directive';
 
 @NgModule( {
-    declarations: [],
+    declarations: [ DebounceClickDirective, ImageLoaderDirective ],
     imports: [
         CommonModule,
         HttpClientModule,
@@ -32,6 +34,9 @@ import { ApiUploadService } from './services/api-upload.service';
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreModule.forFeature( 'auth', fromAuth.reducer ),
         EffectsModule.forRoot( [ AuthEffects ] ),
+    ],
+    exports: [
+        DebounceClickDirective, ImageLoaderDirective
     ],
     providers: [
         ApiService,

@@ -40,6 +40,7 @@ import { ProjectDetailAddChannelDialogComponent } from './pages/project-dashboar
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { UserSettingPaymentDialogComponent } from './pages/user-setting-dashboard/user-setting-payment-dialog/user-setting-payment-dialog.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { CoreModule } from '../../core/core.module';
 
 @NgModule( {
     declarations: [
@@ -86,6 +87,7 @@ import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.
         SharedModule,
         ReactiveFormsModule,
         FormsModule,
+        CoreModule,
     ],
     entryComponents: [
         SalesTeamDashboardDialogComponent,

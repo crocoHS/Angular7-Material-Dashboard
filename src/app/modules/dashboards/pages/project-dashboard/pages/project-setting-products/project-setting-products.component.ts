@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardProductService } from '../../../../../../core/services/dashboard-project/dashboard-product.service';
-import { IProduct, Product, ProductImage, ProductTagGroup } from '../../../../../../shared/models/product.model';
+import { IProduct, IProductImage, Product, ProductImage, ProductTagGroup } from '../../../../../../shared/models/product.model';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiUploadService } from '../../../../../../core/services/api-upload.service';
+import { ImageData } from '../../../../../../shared/models/image-data.model';
 
 @Component( {
     selector: 'app-project-setting-products',
@@ -124,7 +125,7 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
     // for change Main Image Carousel
     changeImage( index: number ) {
         this.carouselImage = index;
-        console.log(this.carouselImage);
+        console.log( this.carouselImage );
     }
 
     ///////////////////////////
@@ -190,20 +191,25 @@ export class ProjectSettingProductsComponent implements OnInit, OnDestroy {
                 name: valueFormGroup1.name,
                 detail: valueFormGroup1.description,
                 price: valueFormGroup1.price,
-                minBookingPrice: valueFormGroup1.minPrice,
-                pictures: []
+                minBookingPrice: valueFormGroup1.minPrice
             };
-            /*
-            this.http2.uploadMultipleImages(this.newImageFile)
+            this.http2.uploadMultipleImages( this.newImageFile )
                 .pipe(
-                    map(value => value.map(this.)),
-                    switchMap()
-                )*/
-            this.http.updateProductById( this.product.initialApi.project.id, this.product.id, body )
-                .pipe(
+                    map( value => {
+                        return value.map( ( val ): Partial<IProductImage> => {
+                            return { path: val.fullPath, title: val.field };
+                        } );
+                    } ),
+                    switchMap( ( val: Partial<IProductImage[]> ) => this.http.createProductImage( this.product.id, val ) ),
+                    switchMap( () => this.http.updateProductById( this.product.initialApi.project.id, this.product.id, body ) ),
                     switchMap( () => this.http.updateProductTag( this.product.id, this.tag.tag[ 0 ].id, { tag: valueCategory } ) ),
                 )
                 .subscribe( val => this.route.navigateByUrl( `dashboard/project/setting/${ this.product.initialApi.project.id }` ) );
+            /*this.http.updateProductById( this.product.initialApi.project.id, this.product.id, body )
+                .pipe(
+                    switchMap( () => this.http.updateProductTag( this.product.id, this.tag.tag[ 0 ].id, { tag: valueCategory } ) ),
+                )
+                .subscribe( val => this.route.navigateByUrl( `dashboard/project/setting/${ this.product.initialApi.project.id }` ) );*/
         }
     }
 

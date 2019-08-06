@@ -10,7 +10,7 @@ export interface ICampaign {
     createdAt: Date;
     tenantId: number;
     project: {
-        id: string
+        id: number
     }
 }
 
@@ -23,6 +23,8 @@ export class Campaign {
     leads: number;
     detail: string;
     status: boolean;
+    projectId: number;
+    isActive: boolean;
 
     // project: Project;
     constructor( payload: ICampaign | any ) {
@@ -34,6 +36,8 @@ export class Campaign {
         this.leads = 0;
         this.detail = payload.detail;
         this.status = payload.isActive;
+        this.projectId = payload.project.id;
+        this.isActive = payload.isActive;
     }
 
     getAllCampaign() {

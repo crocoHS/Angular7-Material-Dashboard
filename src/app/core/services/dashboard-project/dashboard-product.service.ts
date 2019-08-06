@@ -40,6 +40,13 @@ export class DashboardProductService {
             );
     }
 
+    createProductImage( productId, body: Partial<IProductImage[]> ) {
+        return this.http.post( this.url + `${ productId }/pictures`, body, { params: { tenant_id: this.tenantId } } )
+            .pipe(
+                map( ( value: IProductImage[] ) => value.map( val => new ProductImage( val ) ) )
+            );
+    }
+
     //////////////// PRODUCT TAG GROUP //////////////////////////
     getProductTagGroup( productId ) {
         return this.http.get( this.url + `${ productId }/tagGroups`, { params: { tenant_id: this.tenantId } } )

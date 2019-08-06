@@ -47,10 +47,7 @@ export class DashboardProjectService {
     }
 
     createProject( body ) {
-        return this.http.post( this.url, [ body ], { params: { tenant_id: this.tenantId } } )
-            .pipe(
-                tap( val => console.log( val ) )
-            );
+        return this.http.post( this.url, [ body ], { params: { tenant_id: this.tenantId } } );
     }
 
     //////////////// CAMPAIGN //////////////////////////
@@ -63,9 +60,11 @@ export class DashboardProjectService {
 
     updateCampaign( idProject, idCampaign, body ) {
         return this.http.put( this.url + `/${ idProject }/campaigns/${ idCampaign }`, body, {
-            params: { tenant_id: this.tenantId },
-            headers: { 'Content-Type': 'application/json' }
-        } );
+            params: { tenant_id: this.tenantId }
+        } )
+            .pipe(
+                map( ( value: ICampaign ) => new Campaign( value ) )
+            );
     }
 
     createCampaign( idProject, body ) {
@@ -149,7 +148,7 @@ export class DashboardProjectService {
     }
 
     createChannel( idCampaign, body ) {
-        return this.http.post( this.urlCampaign + `/${ idCampaign }/channels`, [ body], { params: { tenant_id: this.tenantId } } )
+        return this.http.post( this.urlCampaign + `/${ idCampaign }/channels`, [ body ], { params: { tenant_id: this.tenantId } } )
             .pipe(
                 switchMap( value => this.getChannelById( idCampaign, value[ 0 ].id ) ),
             );

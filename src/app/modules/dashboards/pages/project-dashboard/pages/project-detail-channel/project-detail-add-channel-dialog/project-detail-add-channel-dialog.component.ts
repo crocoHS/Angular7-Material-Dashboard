@@ -8,9 +8,10 @@ import { DashboardSalesTeamService } from '../../../../../../../core/services/da
 import { ApiUploadService } from '../../../../../../../core/services/api-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { OptionDropdownV2Component } from '../../../../../../../shared/components/option-dropdown-v2/option-dropdown-v2.component';
-import { Media } from '../../../../../../../shared/models/channel.model';
+import { Channel, Media } from '../../../../../../../shared/models/channel.model';
 import { Observable } from 'rxjs';
 import { SalesTeam } from '../../../../../../../shared/models/sales-team.model';
+import { Campaign } from '../../../../../../../shared/models/campaign.model';
 
 /////// VALIDATOR HTTP ///////////
 function containHttp( control: AbstractControl ): { [ key: string ]: boolean } | null {
@@ -126,15 +127,16 @@ export class ProjectDetailAddChannelDialogComponent implements OnInit {
             } else {
                 observable$ = this.http.createChannel( data.value.campaign, body );
             }
-            observable$.subscribe(
-                value => {
-                    this.spinner.hide();
-                    this.dialogRef.close( value );
-                },
-                ( err ) => {
-                    this.spinner.hide();
-                    console.log( err );
-                } );
+            observable$
+                .subscribe(
+                    value => {
+                        this.spinner.hide();
+                        this.dialogRef.close( value );
+                    },
+                    ( err ) => {
+                        this.spinner.hide();
+                        console.log( err );
+                    } );
             console.log( body );
             // console.log( 'tesstt valid' );
             // console.log( this.imageFile, data.value );

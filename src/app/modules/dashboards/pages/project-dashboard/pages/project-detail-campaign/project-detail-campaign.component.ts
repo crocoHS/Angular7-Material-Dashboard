@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { ProjectDetailCampaignDialogComponent } from './project-detail-campaign-dialog/project-detail-campaign-dialog.component';
 import { Project } from '../../../../../../shared/models/project.model';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
-import { Campaign } from '../../../../../../shared/models/campaign.model';
+import { Campaign, ICampaign } from '../../../../../../shared/models/campaign.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component( {
     selector: 'app-project-detail-campaign',
@@ -21,8 +22,27 @@ export class ProjectDetailCampaignComponent implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private http: DashboardProjectService
+        private http: DashboardProjectService,
+        private cd: ChangeDetectorRef,
+        private spinner: NgxSpinnerService
     ) {
+    }
+    changeStatus( data: Campaign ) {
+        const body: Partial<ICampaign> = { isActive: !data.isActive };
+        this.http.updateCampaign( data.projectId, data.id, body )
+            .subscribe(
+                value => {
+                    const index = this.dataSource.data.findIndex( val => val.id === value.id );
+                    this.dataSource.data[ index ].isActive = value.isActive;
+                    this.table.renderRows();
+                    /*
+                                        const newData = this.dataSource.data;
+                                        this.dataSource = new MatTableDataSource<Campaign>( newData );
+                                        this.dataSource.paginator = this.paginator;
+                                        this.dataSource.sort = this.sort;
+                    */
+                }
+            );
     }
 
     editRow( dataFromElement: Campaign ) {
@@ -48,7 +68,8 @@ export class ProjectDetailCampaignComponent implements OnInit {
             data: this.dataFromParent
         } );
         dialogRef.afterClosed().subscribe( ( result: Campaign ) => {
-            console.log( result );
+            this.dataSource.data.push( result );
+            this.table.renderRows();
         } );
     }
 
@@ -62,7 +83,6 @@ export class ProjectDetailCampaignComponent implements OnInit {
     ngOnInit(): void {
         this.http.getAllCampaigns( this.dataFromParent.id )
             .subscribe( val => {
-                console.log( val );
                 this.dataSource.data = val;
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;

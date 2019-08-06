@@ -10,7 +10,8 @@
         <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id" class="table__sticky" sticky>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 5%">Id</th>
-                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+                <td mat-cell
+                    *matCellDef="let element; let i = index"> {{( i + 1 ) + ( paginator.pageIndex * paginator.pageSize ) }} </td>
             </ng-container>
 
             <ng-container matColumnDef="image">
@@ -19,8 +20,8 @@
                 </th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
                     <div class="table__image">
-                        <img #img [src]="element.picture " alt="Image Channel"
-                             (error)="img.src = 'https://jala-testing.s3-ap-southeast-1.amazonaws.com/tenant/60db6180-ad80-11e9-b4b6-6578a1b671ed.jpg'">
+                        <img [src]="element.picture " alt="Image Channel"
+                             appImageLoader>
                     </div>
                 </td>
             </ng-container>
@@ -74,8 +75,16 @@
                     Status
                 </th>
                 <td mat-cell class="table__mobile" *matCellDef="let element">
-                    <button *ngIf="element.isActive === true" mat-stroked-button color="primary">Active</button>
-                    <button *ngIf="element.isActive === false" mat-stroked-button color="warn">Not Active</button>
+                    <ng-container *ngIf="element.isActive === true">
+                        <button mat-stroked-button color="primary" appDebounceClick
+                                (debouncedClick)="changeStatus(element)">Active
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="element.isActive === false">
+                        <button mat-stroked-button color="warn" appDebounceClick
+                                (debouncedClick)="changeStatus(element)">Not Active
+                        </button>
+                    </ng-container>
                 </td>
             </ng-container>
 
@@ -96,5 +105,5 @@
 
         </table>
     </div>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginator></mat-paginator>
 </div>
