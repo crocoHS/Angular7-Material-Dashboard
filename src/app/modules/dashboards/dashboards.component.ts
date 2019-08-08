@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { animate, group, keyframes, query, style, transition, trigger } from '@angular/animations';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component( {
     selector: 'app-dashboard',

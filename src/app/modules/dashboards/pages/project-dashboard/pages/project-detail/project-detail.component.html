@@ -22,10 +22,73 @@
             </div>
         </div>
     </div>
+    <div class="kt-portlet__body kt-portlet__body--grey" *ngIf="dataForOverview">
+        <h2><span class="kt-font-danger">{{ dataForOverview.leads }} </span>Leads
+            <small class="text-muted">Total</small>
+        </h2>
+        <h2><span class="kt-font-danger">{{ dataForOverview.campaign }} </span>Campaign
+            <small class="text-muted">Total</small>
+        </h2>
+        <h2><span class="kt-font-danger">{{ dataForOverview.channel }} </span>Channel
+            <small class="text-muted">Total</small>
+        </h2>
+    </div>
+    <div class="tabs">
+        <div class="tabs-header">
+            <div class="tabs-item" (click)="showTabs(0)" [ngClass]="{'tabs-item-active': isShow === 0 }">
+                <h5>Leads</h5>
+            </div>
+            <div class="tabs-item" (click)="showTabs(1)" [ngClass]="{'tabs-item-active': isShow === 1 }">
+                <h5>Campaign</h5>
+            </div>
+            <div class="tabs-item" (click)="showTabs(2)" [ngClass]="{'tabs-item-active': isShow === 2 }">
+                <h5>Channel</h5>
+            </div>
+        </div>
+        <div class="tabs-body">
+            <ng-container *ngIf="isShow === 0">
+                <app-project-detail-lead [dataFromParent]="dataForLeadsComp" [@testAnimation]></app-project-detail-lead>
+            </ng-container>
+            <ng-container *ngIf="isShow === 1">
+                <app-project-detail-campaign
+                    [dataFromParent]="projectInUsedData$ | async" [@testAnimation]></app-project-detail-campaign>
+            </ng-container>
+            <ng-container *ngIf="isShow === 2">
+                <app-project-detail-channel [dataProject]="projectInUsedData$ | async" [@testAnimation]></app-project-detail-channel>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<!--
+
+<div class="kt-portlet">
+    <div class="kt-portlet__head" *ngIf="projectInUsedData$ | async as project">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">{{ project.name }}</h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <div class="kt-portlet__head-actions">
+                <div class="btn-group btn-group-sm">
+                    <button (click)="uploadDialog()" class="btn btn-warning btn-bold">
+                        <mat-icon>cloud_download</mat-icon>
+                        Export
+                    </button>
+                    <button (click)="uploadDialog()" class="btn btn-brand btn-bold">
+                        <mat-icon>cloud_upload</mat-icon>
+                        Import
+                    </button>
+                    <a [routerLink]="['../../setting/',project.id]" class="btn btn-danger btn-bold">
+                        <mat-icon>settings</mat-icon>
+                        Setting
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="kt-portlet__body">
         <div class="row">
             <div class="col-lg-4 col-md-12">
-                <div class="kt-portlet kt-portlet--bordered">
+                <div class="kt-portlet kt-portlet&#45;&#45;bordered">
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">Project Overview</h3>
@@ -44,19 +107,19 @@
                     </div>
                 </div>
 
-                <div class="kt-portlet kt-portlet--bordered">
+                <div class="kt-portlet kt-portlet&#45;&#45;bordered">
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">Filter Data</h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-actions">
-                                <mat-slide-toggle #toggle [disabled]="!tabLeads.isActive">Expand</mat-slide-toggle>
+                                <mat-slide-toggle #toggle>Expand</mat-slide-toggle>
                             </div>
                         </div>
                     </div>
                     <div class="kt-portlet__body" style="transition: all ease .4s"
-                         [ngClass]="(toggle.checked && tabLeads.isActive) ? 'kt-portlet__body__custom_expand' :'kt-portlet__body__custom_hide'"
+                         [ngClass]="(toggle.checked) ? 'kt-portlet__body__custom_expand' :'kt-portlet__body__custom_hide'"
                          *ngIf="dataForFilter">
                         <form [formGroup]="filterGroup">
                             <mat-form-field>
@@ -119,7 +182,7 @@
 
             </div>
             <div class="col-lg-8 col-md-12">
-                <div class="kt-portlet kt-portlet--bordered">
+                <div class="kt-portlet kt-portlet&#45;&#45;bordered">
                     <div class="kt-portlet__body" *ngIf="dataForChart">
                         <app-bar-stacked-chart [dataParent]="dataForChart" class="bar-chart"></app-bar-stacked-chart>
                     </div>
@@ -128,24 +191,6 @@
         </div>
     </div>
 </div>
-<div class="kt-portlet">
-    <div class="kt-portlet__body">
-        <mat-tab-group>
-            <mat-tab label="Leads" #tabLeads>
-                <ng-template matTabContent>
-                    <app-project-detail-lead [dataFromParent]="dataForLeadsComp"></app-project-detail-lead>
-                </ng-template>
-            </mat-tab>
-            <mat-tab label="Campaign">
-                <ng-template matTabContent>
-                    <app-project-detail-campaign [dataFromParent]="projectInUsedData$ | async"></app-project-detail-campaign>
-                </ng-template>
-            </mat-tab>
-            <mat-tab label="Channel">
-                <ng-template matTabContent>
-                    <app-project-detail-channel [dataProject]="projectInUsedData$ | async"></app-project-detail-channel>
-                </ng-template>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-</div>
+-->
+
+

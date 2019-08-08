@@ -11,13 +11,33 @@ import { ProjectStoreService } from '../../../../../../core/store/project/projec
 import { Observable } from 'rxjs';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component( {
     selector: 'app-project-detail',
     templateUrl: './project-detail.component.html',
-    styleUrls: [ './project-detail.component.scss' ]
+    styleUrls: [ './project-detail.component.scss' ],
+    animations: [
+        trigger( 'testAnimation', [
+            transition( ':enter', [
+                animate( '500ms ease', keyframes( [
+                    style( {
+                        display: 'block',
+                        width: '100%',
+                        height: '500px',
+                        opacity: 0,
+                        transform: 'translateX(100%)',
+                        offset: 0
+                    } ),
+                    style( { height: 'auto', offset: .6, } ),
+                    style( { display: 'block', width: '100%', opacity: 1, transform: 'translateX(0)', offset: 1, } ),
+                ] ) ),
+            ] ),
+        ] )
+    ]
 } )
 export class ProjectDetailComponent implements OnInit, OnDestroy {
+
     // Harusnya di throw di list
     public projectInUsedData$: Observable<Project>;
     // All Data Store
@@ -74,10 +94,16 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
                 } ),
                 tap( val => {
                     if ( !val ) {
-                        this.route.navigateByUrl('/dashboard/project/list');
+                        this.route.navigateByUrl( '/dashboard/project/list' );
                     }
                 } )
             );
+    }
+
+    isShow = 0;
+
+    showTabs( val ) {
+        this.isShow = val;
     }
 
     // Upload Dialog ////////////

@@ -17,7 +17,7 @@
   --teal: #20c997;
   --cyan: #17a2b8;
   --white: #fff;
-  --gray: #6c757d;
+  --gray: #99a3ab;
   --gray-dark: #343a40;
   --primary: #5867dd;
   --secondary: #e1e1ef;
@@ -11638,7 +11638,7 @@ canvas {
   -ms-user-select: none; }
 
 /* Customize website's scrollbar like Mac OS */
-/* 
+/*
 ::-webkit-scrollbar {
     background-color:#f6f6f6;
     width:14px;
