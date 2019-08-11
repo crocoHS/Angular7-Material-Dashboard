@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Project } from '../../../../../../shared/models/project.model';
+import { Campaign } from '../../../../../../shared/models/campaign.model';
 
 @Component( {
     selector: 'app-project-detail-campaign',
@@ -9,6 +10,7 @@ import { Project } from '../../../../../../shared/models/project.model';
 export class ProjectDetailCampaignComponent implements OnInit {
     // Data tentang project dari parent
     @Input() dataFromParent: Project;
+    @Input() dataCampaign: Campaign[];
 
     constructor() {
     }

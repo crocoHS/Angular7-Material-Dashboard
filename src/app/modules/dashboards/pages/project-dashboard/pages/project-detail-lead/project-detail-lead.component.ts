@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { Project } from '../../../../../../shared/models/project.model';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
 import { Lead } from '../../../../../../shared/models/lead.model';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { debounceTime, map } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 
@@ -11,8 +11,9 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
     templateUrl: './project-detail-lead.component.html',
     styleUrls: [ './project-detail-lead.component.scss' ]
 } )
-export class ProjectDetailLeadComponent implements OnInit, OnDestroy {
+export class ProjectDetailLeadComponent implements OnChanges, OnDestroy {
     @Input() dataProject: Project;
+    @Input() dataLeads: Lead[];
     public dataAllLeads: Lead[];
     public dataForFilter;
     public dataForChart;
@@ -106,15 +107,12 @@ export class ProjectDetailLeadComponent implements OnInit, OnDestroy {
         };
     }
 
-    ngOnInit(): void {
-        if ( this.dataProject ) {
-            this.http.getAllLeadsByProject( this.dataProject.id )
-                .subscribe( value => {
-                    this.dataAllLeads = value;
-                    this.dataForTable = value;
-                    this.dataForFilter = this.setForFilter( value );
-                    this.dataForChart = this.forChart( value );
-                } );
+    ngOnChanges( data: SimpleChanges ): void {
+        if ( data.dataLeads.currentValue ) {
+            this.dataAllLeads = this.dataLeads;
+            this.dataForTable = this.dataLeads;
+            this.dataForFilter = this.setForFilter( this.dataLeads );
+            this.dataForChart = this.forChart( this.dataLeads );
         }
     }
 

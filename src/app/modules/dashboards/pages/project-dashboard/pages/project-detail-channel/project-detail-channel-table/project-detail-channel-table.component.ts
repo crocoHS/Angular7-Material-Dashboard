@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Project } from '../../../../../../../shared/models/project.model';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { Channel, IChannel } from '../../../../../../../shared/models/channel.model';
@@ -11,11 +11,12 @@ import { ProjectDetailAddChannelDialogComponent } from '../project-detail-add-ch
     templateUrl: './project-detail-channel-table.component.html',
     styleUrls: [ './project-detail-channel-table.component.scss' ]
 } )
-export class ProjectDetailChannelTableComponent implements OnInit {
+export class ProjectDetailChannelTableComponent implements OnChanges {
 // Nanti ini dipakai bersama OnChanges
     // @Input() dataFromParent: ICampaign[];
 
     @Input() dataProject: Project;
+    @Input() dataChannel: Channel[];
 
     @ViewChild( MatPaginator ) paginator: MatPaginator;
     @ViewChild( MatTable ) table: MatTable<Channel>;
@@ -83,21 +84,11 @@ export class ProjectDetailChannelTableComponent implements OnInit {
             } );
     }
 
-    ngOnInit() {
-        this.http.getAllChannel( this.dataProject.id )
-            .subscribe( value => {
-                this.dataSource.data = value;
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.sort = this.sort;
-            } );
-    }
-
-    // Engkok nggawe iki harus'e implements OnChanges
-    /*ngOnChanges( data: SimpleChanges ) {
-        if ( data[ 'dataFromParent' ] ) {
-            this.dataSource.data = dataFromParent;
+    ngOnChanges( data: SimpleChanges ) {
+        if ( data.dataChannel.currentValue ) {
+            this.dataSource.data = this.dataChannel;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
         }
-    }*/
+    }
 }

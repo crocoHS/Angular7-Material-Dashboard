@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Project } from '../../../../../../../shared/models/project.model';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { Campaign, ICampaign } from '../../../../../../../shared/models/campaign.model';
@@ -11,9 +11,10 @@ import { ProjectDetailCampaignDialogComponent } from '../project-detail-campaign
     templateUrl: './project-detail-campaign-table.component.html',
     styleUrls: [ './project-detail-campaign-table.component.scss' ]
 } )
-export class ProjectDetailCampaignTableComponent implements OnInit {
+export class ProjectDetailCampaignTableComponent implements OnChanges {
 // Data tentang project dari parent
-    @Input() dataFromParent: Project;
+    @Input() dataProject: Project;
+    @Input() dataCampaign: Campaign[];
     @ViewChild( MatPaginator ) paginator: MatPaginator;
     @ViewChild( MatTable ) table: MatTable<Campaign>;
     @ViewChild( MatSort ) sort: MatSort;
@@ -68,7 +69,7 @@ export class ProjectDetailCampaignTableComponent implements OnInit {
     addCampaign() {
         const dialogRef = this.dialog.open( ProjectDetailCampaignDialogComponent, {
             panelClass: 'project_campaign_dialog',
-            data: this.dataFromParent
+            data: this.dataProject
         } );
         dialogRef.afterClosed().subscribe( ( result: Campaign ) => {
             this.dataSource.data.push( result );
@@ -83,22 +84,11 @@ export class ProjectDetailCampaignTableComponent implements OnInit {
         }
     }
 
-    ngOnInit(): void {
-        this.http.getAllCampaigns( this.dataFromParent.id )
-            .subscribe( val => {
-                this.dataSource.data = val;
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.sort = this.sort;
-            } );
-    }
-
-    // Engkok nggawe iki harus'e
-    /*ngOnChanges( data: SimpleChanges ) {
-        if ( data[ 'dataFromParent' ] ) {
-            this.dataSource.data = dataDummyCampaign;
+    ngOnChanges( data: SimpleChanges ): void {
+        if ( data.dataCampaign.currentValue ) {
+            this.dataSource.data = this.dataCampaign;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
         }
-    }*/
-
+    }
 }
