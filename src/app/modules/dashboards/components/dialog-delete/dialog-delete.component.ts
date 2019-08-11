@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormControl } from '@angular/forms';
 
 @Component( {
     selector: 'app-dialog-delete',

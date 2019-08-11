@@ -28,6 +28,8 @@ export class ImageLoaderDirective {
 
     constructor( private renderer: Renderer2,
                  private el: ElementRef ) {
+        console.log( renderer );
+        console.log( el );
         this.renderer.insertBefore( this.el.nativeElement.parentNode, this.newEl, this.el.nativeElement.firstChild );
         this.renderer.setProperty( this.newEl, 'innerHTML', this.svgHtml );
         this.renderer.setStyle( this.el.nativeElement.parentNode, 'position', 'relative' );

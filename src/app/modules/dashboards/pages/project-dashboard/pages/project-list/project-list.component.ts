@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
 import { Project } from '../../../../../../shared/models/project.model';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 @Component( {
     selector: 'app-project-list',

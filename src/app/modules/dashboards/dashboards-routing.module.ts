@@ -21,7 +21,8 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'overview'
+                redirectTo: 'overview',
+                pathMatch: 'full'
             },
             {
                 path: 'overview',
@@ -40,7 +41,8 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
-                        redirectTo: 'list'
+                        redirectTo: 'list',
+                        pathMatch: 'full'
                     },
                     {
                         path: 'list',
