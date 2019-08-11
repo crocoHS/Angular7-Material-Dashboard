@@ -1,0 +1,59 @@
+.filter {
+    transition: transform .3s ease;
+    transform: scaleY(1);
+    transform-origin: top;
+
+    &-group {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px;
+
+        & > * {
+            margin: 10px auto;
+            max-width: 200px;
+            width: 90%;
+        }
+    }
+
+    &--hide {
+        transform: scaleY(0);
+    }
+}
+
+.chart-container {
+    transition: opacity .5s ease;
+    opacity: 1;
+    visibility: visible;
+
+    &--hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+/*
+.kt-portlet__head {
+    background-color: var(--primary);
+    color: white;
+
+    &-label &-title {
+        color: inherit;
+    }
+}*/
+
+.kt-portlet__body {
+    transition: all 1s ease;
+
+    &--hide {
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .chart-container {
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+}
+

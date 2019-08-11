@@ -1,1 +1,100 @@
-<app-project-detail-lead-table [dataFromParent]="dataFromParent"></app-project-detail-lead-table>
+<div class="lead-container">
+    <div class="kt-portlet kt-portlet--bordered">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Filter Data</h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-actions">
+                    <mat-slide-toggle #toggle>Expand</mat-slide-toggle>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body" [ngClass]="{ 'kt-portlet__body--hide': toggle.checked  }">
+            <div *ngIf="dataForFilter as dataFilter" class="filter" [ngClass]="{ 'filter--hide': toggle.checked  }">
+                <form [formGroup]="formFilter" class="filter-group">
+                    <mat-form-field>
+                        <mat-label>Campaign</mat-label>
+                        <mat-select formControlName="getCampaign">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let data of dataFilter.getCampaign" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Channel</mat-label>
+                        <mat-select formControlName="getChannel">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let data of dataFilter.getChannel" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Sales Officer</mat-label>
+                        <mat-select formControlName="getSalesOfficer">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let data of dataFilter.getSalesOfficer" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Sales Team</mat-label>
+                        <mat-select formControlName="getSalesTeam">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let data of dataFilter.getSalesTeam" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="getStatus">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let data of dataFilter.getStatus" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="getCategory">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let data of dataFilter.getCategory" [value]="data.id">
+                                {{data.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Media</mat-label>
+                        <mat-select formControlName="getMedia">
+                            <mat-option>None</mat-option>
+                            <mat-option [value]="'online'">Online</mat-option>
+                            <mat-option [value]="'offline'">Offline</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet kt-portlet--bordered">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Chart For Leads</h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-actions">
+                    <mat-slide-toggle #toggle2>Expand</mat-slide-toggle>
+                </div>
+            </div>
+        </div>
+        <div class="kt-portlet__body" [ngClass]="{ 'kt-portlet__body--hide': toggle2.checked  }">
+            <div *ngIf="dataForChart as dataChart" class="chart-container" [ngClass]="{ 'chart-container--hide': toggle2.checked  }">
+                <app-bar-stacked-chart [dataParent]="dataChart"></app-bar-stacked-chart>
+            </div>
+        </div>
+    </div>
+    <app-project-detail-lead-table [dataFromParent]="dataForTable"></app-project-detail-lead-table>
+</div>

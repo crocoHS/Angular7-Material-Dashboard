@@ -77,8 +77,10 @@ export class Lead {
     public email: string;
     public name: string;
     public gender: string;
+    public phone: string;
     public group: ILeadGroup;
     public status: ILeadStatus;
+    public owner: ILeadOwner;
 
     constructor( payload: ILead ) {
         this.initialApi = payload;
@@ -88,6 +90,51 @@ export class Lead {
         this.name = payload.name;
         this.gender = payload.gender;
         this.group = payload.group;
+        this.phone = payload.phone;
         this.status = payload.status;
+        this.owner = payload.owner;
+    }
+
+    get getChannel() {
+        return {
+            id: this.group.channelId,
+            name: this.group.channel
+        };
+    }
+    get getCampaign() {
+        return {
+            id: this.group.campaignId,
+            name: this.group.campaign
+        };
+    }
+    get getMedia() {
+        return {
+            id: this.group.mediaType,
+            name: this.group.mediaType
+        };
+    }
+    get getSalesTeam() {
+        return {
+            id: this.owner.teamId,
+            name: this.owner.team
+        };
+    }
+    get getSalesOfficer() {
+        return {
+            id: this.owner.userId,
+            name: this.owner.user
+        };
+    }
+    get getCategory() {
+        return {
+            id: this.status.categorySort,
+            name: this.status.category
+        };
+    }
+    get getStatus() {
+        return {
+            id: this.status.categoryId,
+            name: this.status.status
+        };
     }
 }

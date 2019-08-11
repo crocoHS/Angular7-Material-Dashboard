@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import { ILead } from '../project-detail-lead/project-detail-lead-table/project-detail-lead-table.component';
 
 @Component( {
     selector: 'app-project-detail',
@@ -50,7 +49,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         channel: number
     };
     // Data for Leads, Channel, Campaign Table
-    public dataForLeadsComp: ILead[];
+    public dataForLeadsComp;
     // Data for Select Filter
     public dataForFilter: any;
     public filterGroup = new FormGroup( {
@@ -139,7 +138,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     }
 
     // TODO: Harus di improve
-    setSelectArrayAll( arrayData: ILead[] ) {
+    setSelectArrayAll( arrayData ) {
         this.dataForFilter = {
             campaign: this.setSelectArray( arrayData, 'campaign' ),
             channel: this.setSelectArray( arrayData, 'channel' ),

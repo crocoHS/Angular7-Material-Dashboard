@@ -9,6 +9,7 @@ import { Campaign, ICampaign } from '../../../shared/models/campaign.model';
 import { IStatus, Status } from '../../../shared/models/status.model';
 import { IProduct, Product } from '../../../shared/models/product.model';
 import { Channel, IChannel, IMedia, Media } from '../../../shared/models/channel.model';
+import { ILead, Lead } from '../../../shared/models/lead.model';
 
 @Injectable()
 export class DashboardProjectService {
@@ -16,6 +17,7 @@ export class DashboardProjectService {
     private url = this.apiService.getUrl() + 'projects';
     private urlCampaign = this.apiService.getUrl() + 'campaigns';
     private urlMedia = this.apiService.getUrl() + 'channels/medias';
+    private urlLead = this.apiService.getUrl() + 'leads';
     private tenantId = this.apiService.getTenantId().toString();
 
     constructor( private apiService: ApiService, private http: HttpClient, private store: ProjectStoreService ) {
@@ -141,7 +143,8 @@ export class DashboardProjectService {
     }
 
     updateChannel( idCampaign, idChannel, body ) {
-        return this.http.put( this.urlCampaign + `/${ idCampaign }/channels/${ idChannel }`, body, { params: { tenant_id: this.tenantId } } )
+        return this.http.put( this.urlCampaign + `/${ idCampaign }/channels/${ idChannel }`, body,
+            { params: { tenant_id: this.tenantId } } )
             .pipe(
                 switchMap( value => this.getChannelById( idCampaign, idChannel ) ),
             );
@@ -151,6 +154,16 @@ export class DashboardProjectService {
         return this.http.post( this.urlCampaign + `/${ idCampaign }/channels`, [ body ], { params: { tenant_id: this.tenantId } } )
             .pipe(
                 switchMap( value => this.getChannelById( idCampaign, value[ 0 ].id ) ),
+            );
+    }
+
+    //////////////// LEADS //////////////////////////
+    getAllLeadsByProject( idProject ) {
+        return this.http.get( this.urlLead, {
+            params: { tenant_id: this.tenantId, project_id: idProject }
+        } )
+            .pipe(
+                map( ( value: ILead[] ) => value.map( val => new Lead( val ) ) )
             );
     }
 }

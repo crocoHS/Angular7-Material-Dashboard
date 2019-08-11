@@ -47,7 +47,8 @@
         </div>
         <div class="tabs-body">
             <ng-container *ngIf="isShow === 0">
-                <app-project-detail-lead [dataFromParent]="dataForLeadsComp" [@testAnimation]></app-project-detail-lead>
+                <app-project-detail-lead [dataProject]="projectInUsedData$ | async"
+                                         [@testAnimation]></app-project-detail-lead>
             </ng-container>
             <ng-container *ngIf="isShow === 1">
                 <app-project-detail-campaign

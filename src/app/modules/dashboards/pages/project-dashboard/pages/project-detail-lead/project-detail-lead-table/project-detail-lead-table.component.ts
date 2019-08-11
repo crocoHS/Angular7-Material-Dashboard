@@ -1,31 +1,19 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
+import { Lead } from '../../../../../../../shared/models/lead.model';
 
-export interface ILead {
-    id: number;
-    name: string;
-    email: string;
-    telephone: number;
-    category: string;
-    status: string;
-    salesTeam: string;
-    salesOfficer: string;
-    campaign: string;
-    channel: string;
-}
-
-@Component({
-  selector: 'app-project-detail-lead-table',
-  templateUrl: './project-detail-lead-table.component.html',
-  styleUrls: ['./project-detail-lead-table.component.scss']
-})
+@Component( {
+    selector: 'app-project-detail-lead-table',
+    templateUrl: './project-detail-lead-table.component.html',
+    styleUrls: [ './project-detail-lead-table.component.scss' ]
+} )
 export class ProjectDetailLeadTableComponent implements OnChanges {
-    @Input() dataFromParent: ILead[];
+    @Input() dataFromParent: Lead[];
     @ViewChild( MatPaginator ) paginator: MatPaginator;
-    @ViewChild( MatTable ) table: MatTable<ILead>;
+    @ViewChild( MatTable ) table: MatTable<Lead>;
     @ViewChild( MatSort ) sort: MatSort;
     displayedColumns: string[] = [ 'id', 'name', 'category', 'status', 'salesTeam', 'salesOfficer', 'campaign', 'channel' ];
-    dataSource;
+    dataSource: MatTableDataSource<Lead>;
 
     constructor() {
     }
@@ -38,8 +26,8 @@ export class ProjectDetailLeadTableComponent implements OnChanges {
     }
 
     ngOnChanges( data: SimpleChanges ) {
-        if ( data[ 'dataFromParent' ].currentValue) {
-            this.dataSource = new MatTableDataSource<ILead>();
+        if ( data.dataFromParent.currentValue ) {
+            this.dataSource = new MatTableDataSource<Lead>();
             this.dataSource.data = this.dataFromParent;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
