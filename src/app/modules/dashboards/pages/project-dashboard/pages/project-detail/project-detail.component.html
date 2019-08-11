@@ -54,7 +54,8 @@
                     [dataFromParent]="projectInUsedData$ | async" [@testAnimation]></app-project-detail-campaign>
             </ng-container>
             <ng-container *ngIf="isShow === 2">
-                <app-project-detail-channel [dataProject]="projectInUsedData$ | async" [@testAnimation]></app-project-detail-channel>
+                <app-project-detail-channel [dataProject]="projectInUsedData$ | async"
+                                            [@testAnimation]></app-project-detail-channel>
             </ng-container>
         </div>
     </div>

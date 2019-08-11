@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ILead } from '../project-detail-lead/project-detail-lead.component';
 import { MatDialog } from '@angular/material';
 import { ProjectDetailUploadDialogComponent } from './project-detail-upload-dialog/project-detail-upload-dialog.component';
 import { Project } from '../../../../../../shared/models/project.model';
@@ -12,6 +11,7 @@ import { Observable } from 'rxjs';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { ILead } from '../project-detail-lead/project-detail-lead-table/project-detail-lead-table.component';
 
 @Component( {
     selector: 'app-project-detail',

@@ -1,0 +1,120 @@
+table {
+    width: 100%;
+}
+
+.mat-elevation-z8 {
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-row:hover {
+    background-color: rgba(63, 81, 181, .1) !important;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: #f7f7f7;
+}
+
+
+.table__header--center {
+    &::ng-deep .mat-sort-header-container {
+        justify-content: center;
+    }
+}
+
+.table {
+    &__image {
+        width: 150px;
+        height: 150px;
+        border-radius: 3px;
+        margin: 5px auto;
+        overflow: hidden;
+        & img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__mobile {
+        & button {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}
+
+.action {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px 20px;
+    }
+
+    &__search {
+        width: 40%;
+        max-width: 300px;
+    }
+
+    &__button {
+        height: 40px;
+    }
+
+}
+
+// gawe responsive table
+::ng-deep {
+    @media screen and (max-width: 1200px) {
+        .container__mobile {
+            width: 100%;
+            overflow: auto;
+        }
+        table {
+            width: 1200px;
+        }
+        .table__mobile {
+            padding: 0 10px !important;
+        }
+        .mat-table-sticky {
+            border-right: #d8dce6 solid 1px;
+            padding: 10px !important;
+            background-color: antiquewhite;
+        }
+    }
+
+    .project_campaign_dialog {
+        width: 50vw;
+        min-height: 300px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .project_campaign_dialog {
+            width: 90vw;
+            height: auto;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .action {
+        &__container {
+            flex-direction: column-reverse;
+            padding: 20px 0;
+        }
+
+        &__search {
+            align-self: center;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        &__button {
+            align-self: flex-end;
+            height: 40px;
+        }
+
+    }
+}

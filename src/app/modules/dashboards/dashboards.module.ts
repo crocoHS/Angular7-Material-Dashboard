@@ -41,6 +41,9 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
 import { UserSettingPaymentDialogComponent } from './pages/user-setting-dashboard/user-setting-payment-dialog/user-setting-payment-dialog.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { CoreModule } from '../../core/core.module';
+import { ProjectDetailCampaignTableComponent } from './pages/project-dashboard/pages/project-detail-campaign/project-detail-campaign-table/project-detail-campaign-table.component';
+import { ProjectDetailChannelTableComponent } from './pages/project-dashboard/pages/project-detail-channel/project-detail-channel-table/project-detail-channel-table.component';
+import { ProjectDetailLeadTableComponent } from './pages/project-dashboard/pages/project-detail-lead/project-detail-lead-table/project-detail-lead-table.component';
 
 @NgModule( {
     declarations: [
@@ -79,6 +82,9 @@ import { CoreModule } from '../../core/core.module';
         ProjectDetailAddChannelDialogComponent,
         ImageUploadComponent,
         DialogDeleteComponent,
+        ProjectDetailCampaignTableComponent,
+        ProjectDetailChannelTableComponent,
+        ProjectDetailLeadTableComponent,
     ],
     imports: [
         CommonModule,

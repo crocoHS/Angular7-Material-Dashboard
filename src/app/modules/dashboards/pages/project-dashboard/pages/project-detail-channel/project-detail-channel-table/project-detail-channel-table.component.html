@@ -1,0 +1,109 @@
+<div>
+    <div class="action__container">
+        <mat-form-field class="action__search">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+        <button class="btn btn-danger action__button" (click)="addChannel()">Add Channel</button>
+    </div>
+
+    <div class="container__mobile">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="id" class="table__sticky" sticky>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 5%">Id</th>
+                <td mat-cell
+                    *matCellDef="let element; let i = index"> {{( i + 1 ) + ( paginator.pageIndex * paginator.pageSize ) }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="image">
+                <th mat-header-cell class="table__mobile table__header--center" *matHeaderCellDef mat-sort-header>
+                    Picture
+                </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <div class="table__image">
+                        <img [src]="element.picture " alt="Image Channel"
+                             appImageLoader>
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header
+                    style="width: 20%;">
+                    Name
+                </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element"> {{element.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="teams">
+                <th mat-header-cell class="table__mobile table__header--center" *matHeaderCellDef mat-sort-header>Sales
+                    Team
+                </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <mat-expansion-panel class="mat-exp-pnl">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Sales Team
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-list role="list">
+                            <mat-list-item role="listitem"
+                                           *ngFor="let listTeam of element.teams ">{{listTeam.name}}</mat-list-item>
+                        </mat-list>
+                    </mat-expansion-panel>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="leads">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Leads</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element" style="width: 5%">Sek Sek</td>
+            </ng-container>
+
+            <!--<ng-container matColumnDef="click">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Click</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element" style="width: 5%">{{element.click}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="trackingUrl">
+                <th mat-header-cell class="table__mobile" *matHeaderCellDef mat-sort-header>Url</th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <a [href]=element.trackingUrl>{{element.trackingUrl}}</a>
+                </td>
+            </ng-container>-->
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell class="table__mobile table__header--center" *matHeaderCellDef mat-sort-header>
+                    Status
+                </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <ng-container *ngIf="element.isActive === true">
+                        <button mat-stroked-button color="primary" appDebounceClick
+                                (debouncedClick)="changeStatus(element)">Active
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="element.isActive === false">
+                        <button mat-stroked-button color="warn" appDebounceClick
+                                (debouncedClick)="changeStatus(element)">Not Active
+                        </button>
+                    </ng-container>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell class="table__mobile table__header--center" *matHeaderCellDef mat-sort-header>
+                    Action
+                </th>
+                <td mat-cell class="table__mobile" *matCellDef="let element">
+                    <button mat-icon-button title="Edit me"
+                            (click)="editRow(element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginator></mat-paginator>
+</div>
