@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ProjectDetailUploadDialogComponent } from './project-detail-upload-dialog/project-detail-upload-dialog.component';
 import { Project } from '../../../../../../shared/models/project.model';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { ProjectStoreService } from '../../../../../../core/store/project/project-store.service';
 import { forkJoin, Observable } from 'rxjs';
 import { DashboardProjectService } from '../../../../../../core/services/dashboard-project/dashboard-project.service';
-import { untilDestroyed } from 'ngx-take-until-destroy';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Lead } from '../../../../../../shared/models/lead.model';
 import { Channel } from '../../../../../../shared/models/channel.model';
 import { Campaign } from '../../../../../../shared/models/campaign.model';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component( {
     selector: 'app-project-detail',
@@ -38,8 +38,8 @@ import { Campaign } from '../../../../../../shared/models/campaign.model';
 } )
 export class ProjectDetailComponent implements OnInit, OnDestroy {
     /*
-    * TODO: - untuk data overview sepertinya harus di fetch disini untuk Lead, Campaign, dan Channel
-    *       - lalu di dot.length array
+    * TODO: - Untuk tambahan chart pada Channel dan Campaign
+    *           bisa menggunakan data leads eksisting
     * */
     // Harusnya di throw di list
     public projectInUsedData$: Observable<Project>;
@@ -60,38 +60,29 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         private http: DashboardProjectService
     ) {
         //////////////////////////
-        this.projectInUsedData$ = this.router.paramMap
+        const idProject: string = this.router.snapshot.params.id;
+        this.projectInUsedData$ = this.projectStore.getProjectById$( Number( idProject ) )
             .pipe(
-                untilDestroyed( this ),
-                map( ( params: ParamMap ) => Number( params.get( 'id' ) ) ),
-                switchMap( id => {
-                    return this.projectStore.getProjectById$( id );
-                } ),
-                // switchMap(value => this.http.getAllLeadsByProject( value.id )),
-                tap( val => {
-                    if ( !val ) {
+                untilDestroyed(this),
+                tap( value => {
+                    if ( !value ) {
                         this.route.navigateByUrl( '/dashboard/project/list' );
                     }
-                } ),
-                tap( val => {
-                    if ( val ) {
-                        forkJoin(
-                            this.http.getAllLeadsByProject( val.id ).pipe( tap( value => {
-                                this.dataLeads = value;
-                                this.dataForOverview.leads = value.length;
-                            } ) ),
-                            this.http.getAllChannel( val.id ).pipe( tap( value => {
-                                this.dataChannel = value;
-                                this.dataForOverview.channel = value.length;
-                            } ) ),
-                            this.http.getAllCampaigns( val.id ).pipe( tap( value => {
-                                this.dataCampaign = value;
-                                this.dataForOverview.campaign = value.length;
-                            } ) )
-                        ).subscribe();
-                    }
-                } )
-            );
+                } ) );
+        forkJoin(
+            this.http.getAllLeadsByProject( idProject ).pipe( tap( value => {
+                this.dataLeads = value;
+                this.dataForOverview.leads = value.length;
+            } ) ),
+            this.http.getAllChannel( idProject ).pipe( tap( value => {
+                this.dataChannel = value;
+                this.dataForOverview.channel = value.length;
+            } ) ),
+            this.http.getAllCampaigns( idProject ).pipe( tap( value => {
+                this.dataCampaign = value;
+                this.dataForOverview.campaign = value.length;
+            } ) )
+        ).subscribe();
     }
 
     isShow = 0;

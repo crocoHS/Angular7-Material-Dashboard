@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { SalesOfficerDialogComponent } from '../sales-officer-dialog/sales-officer-dialog.component';
 import { SalesOfficerMigrateDialogComponent } from '../sales-officer-migrate-dialog/sales-officer-migrate-dialog.component';
 import { SalesOfficer } from '../../../../../shared/models/sales-officer.model';
+import { DashboardSalesOfficerService } from '../../../../../core/services/dashboard-sales-officer/dashboard-sales-officer.service';
 
 
 @Component( {
@@ -20,7 +21,9 @@ export class SalesOfficerTableComponent implements OnChanges {
     @ViewChild( MatTable ) table: MatTable<SalesOfficer>;
     @ViewChild( MatSort ) sort: MatSort;
 
-    constructor( private dialog: MatDialog ) {
+    constructor( private dialog: MatDialog,
+                 private http: DashboardSalesOfficerService
+    ) {
     }
 
     applyFilter( filterValue: string ) {
@@ -31,24 +34,18 @@ export class SalesOfficerTableComponent implements OnChanges {
         }
     }
 
-    /*mapping( arrAll: number[] ): ISalesTeam[] {
-        return arrAll.map( val => {
-            return this.allCoverage.find( obj => obj.id === val );
-        } );
-    }*/
-
     editOfficers( dataFromElement: string ) {
         const dialogRef = this.dialog.open( SalesOfficerDialogComponent, {
-            panelClass: 'sales_officer_dialog',
+            maxWidth: '400px',
+            width: '90vw',
             data: dataFromElement
         } );
         dialogRef.afterClosed().subscribe( ( result: SalesOfficer ) => {
             if ( result ) {
-                /*this.dataSource.data.forEach( arr => {
-                    if ( arr._id === result._id ) {
-                        Object.assign( arr, result );
-                    }
-                } );*/
+                const index = this.dataSource.data.findIndex( val => val.id === result.id );
+                const x = this.dataSource.data;
+                x[ index ] = result;
+                this.initTable( x );
                 this.table.renderRows();
             }
         } );
@@ -77,34 +74,31 @@ export class SalesOfficerTableComponent implements OnChanges {
         } );
     }
 
-    /*
-        deleteRow( id ) {
-            const object = this.dataSource.data.filter( obj => obj.id !== id );
-            this.dataSource.data = object;
-            this.table.renderRows();
-        }
-    */
-
-    changeStatus( i ) {
-        this.dataSource.data[ i ].status = !this.dataSource.data[ i ].status;
+    public updateTableForParent(data: SalesOfficer) {
+        const x = this.dataSource.data;
+        x.push(data);
+        this.initTable(x);
     }
 
-    // mapping sales team
-    /*bangsat() {
-        this.dataFromParent.forEach( arrAll => {
-            const exist = arrAll.salesTeam.some( el => typeof el === 'object' );
-            if ( !exist ) {
-                return arrAll.salesTeam = this.mapping( arrAll.salesTeam );
-            }
-        } );
-    }*/
+    changeStatus( i: 'active' | 'inactive', salesOfficer: SalesOfficer ) {
+        this.http.updateSalesOfficer( salesOfficer.id, { status: i } )
+            .subscribe( ( value: SalesOfficer ) => {
+                const index = this.dataSource.data.findIndex( val => val.id === value.id );
+                this.dataSource.data[ index ].status = value.status;
+                this.table.renderRows();
+            } );
+    }
 
-    ngOnChanges(data: SimpleChanges) {
-        if ( data.dataFromParent.currentValue) {
+    initTable( data: SalesOfficer[] ) {
+        this.dataSource.data = data;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    }
+
+    ngOnChanges( data: SimpleChanges ) {
+        if ( data.dataFromParent.currentValue ) {
             // this.allCoverage = salesTeams;
-            this.dataSource.data = this.dataFromParent;
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+            this.initTable( this.dataFromParent );
         }
     }
 

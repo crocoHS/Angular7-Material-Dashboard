@@ -1,6 +1,5 @@
-
 // IKI KUDUNE TEKAN API
-export interface ISalesOfficer {
+export interface ISalesOfficerMersaCS {
     _id: string;
     name: string;
     password: string;
@@ -15,7 +14,7 @@ export interface ISalesOfficer {
     leads: number;
 }
 
-export class SalesOfficer {
+export class SalesOfficerMersaCS {
     id: string;
     name: string;
     password: string;
@@ -50,7 +49,7 @@ export class SalesOfficer {
             salesTeam: this.salesTeam
         };
     }*/
-    convertToApi(): ISalesOfficer {
+    convertToApi(): ISalesOfficerMersaCS {
         return {
             _id: this.id,
             name: this.name,
@@ -67,8 +66,103 @@ export class SalesOfficer {
         };
     }
 
-    updateThis( payload: Partial<SalesOfficer> ) {
-        Object.assign(this, payload);
+    updateThis( payload: Partial<SalesOfficerMersaCS> ) {
+        Object.assign( this, payload );
         return this;
+    }
+}
+
+export interface ISalesOfficer {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    status: string;
+    address?: string;
+    modifiedBy: number;
+    modifiedAt: string;
+    createdBy: number;
+    createdAt: string;
+    tenantId: number;
+    teamMembers?: ( ITeamMembersEntity )[] | null;
+    teams: ( ISalesOfficerTeam )[] | null;
+}
+
+export interface ITeamMembersEntity {
+    id?: number;
+    role?: string;
+    isActive?: boolean;
+    modifiedBy?: null;
+    modifiedAt?: null;
+    createdBy?: number;
+    createdAt?: string;
+    tenantId?: number;
+    team: {
+        id: number;
+    };
+    user?: {
+        id: number;
+    };
+}
+
+export interface ISalesOfficerTeam {
+    id: number;
+    role: string;
+    isActive: boolean;
+    modifiedBy?: null;
+    modifiedAt?: null;
+    createdBy: number;
+    createdAt: string;
+    tenantId: number;
+    user: {
+        id: number;
+    };
+    team: {
+        id: number;
+        name: string;
+        description: string;
+        address: string;
+        email: string;
+        phoneNumber: string;
+        isActive: boolean;
+        isGlobalCoverege: boolean;
+        modifiedBy: number;
+        modifiedAt: string;
+        createdBy: number;
+        createdAt: string;
+        tenantId: number;
+    };
+}
+
+
+export class SalesOfficer {
+    public intialApi: ISalesOfficer;
+    public id: number;
+    public name: string;
+    public email: string;
+    public role: string;
+    public status: string;
+    public address: string;
+    public createdAt: string;
+    public teams: ( ISalesOfficerTeam )[] | null;
+
+    constructor( payload: ISalesOfficer ) {
+        this.intialApi = payload;
+        this.id = payload.id;
+        this.name = payload.name;
+        this.email = payload.email;
+        this.role = payload.role;
+        this.status = payload.status;
+        this.address = payload.address;
+        this.createdAt = payload.createdAt;
+    }
+
+    get getAllTeamNameAndId() {
+        return this.teams.map( value => {
+            return {
+                id: value.team.id,
+                name: value.team.name
+            };
+        } );
     }
 }

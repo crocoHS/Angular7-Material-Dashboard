@@ -8,15 +8,14 @@ import { DashboardSalesTeamService } from '../../../../../../../core/services/da
 import { ApiUploadService } from '../../../../../../../core/services/api-upload.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { OptionDropdownV2Component } from '../../../../../../../shared/components/option-dropdown-v2/option-dropdown-v2.component';
-import { Channel, Media } from '../../../../../../../shared/models/channel.model';
+import { Media } from '../../../../../../../shared/models/channel.model';
 import { Observable } from 'rxjs';
 import { SalesTeam } from '../../../../../../../shared/models/sales-team.model';
-import { Campaign } from '../../../../../../../shared/models/campaign.model';
 
 /////// VALIDATOR HTTP ///////////
 function containHttp( control: AbstractControl ): { [ key: string ]: boolean } | null {
     if ( control.value !== undefined && typeof control.value !== 'object' ) {
-        if ( control.value.startsWith( 'https://' ) || control.value.startsWith( 'http://' ) ) {
+        if ( control.value.startsWith( 'https://' ) || control.value.startsWith( 'http://' ) || control.value.includes(' ')) {
             return null;
         }
     }

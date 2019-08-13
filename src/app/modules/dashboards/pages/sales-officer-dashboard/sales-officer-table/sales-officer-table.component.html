@@ -5,34 +5,35 @@
     <div class="container__mobile">
         <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id" class="table__sticky" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-                <td mat-cell *matCellDef="let i = index" style="width: 5%"> {{i + 1}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+                <td mat-cell *matCellDef="let i = index"
+                    style="width: 5%"> {{( i + 1 ) + ( paginator.pageIndex * paginator.pageSize ) }} </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Name / Joined </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile">Name / Joined</th>
                 <td mat-cell *matCellDef="let element" class="table__mobile">
                     {{element.name}}<br>
-                    <small>{{element.joinedAt | date}}</small>
+                    <small>{{element.createdAt | date}}</small>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="leads">
-                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Leads </th>
+                <th mat-header-cell *matHeaderCellDef class="table__mobile">Leads</th>
                 <td mat-cell *matCellDef="let element" class="table__mobile table--small">
-                    <button mat-raised-button color="primary">{{element.leads}}</button>
+                    Sek sek
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="performance">
-                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Point </th>
+                <th mat-header-cell *matHeaderCellDef class="table__mobile">Point</th>
                 <td mat-cell *matCellDef="let element" class="table__mobile table--small">
-                    <button mat-raised-button color="primary">{{element.performance}}</button>
+                    Sek sek
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="salesTeam">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile"> Sales Team </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__mobile">Sales Team</th>
                 <td mat-cell *matCellDef="let element" class="table__mobile table--large">
                     <mat-expansion-panel class="mat-exp-pnl">
                         <mat-expansion-panel-header>
@@ -40,24 +41,35 @@
                                 Sales Team
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <mat-list *ngFor="let cok of element.salesTeam">
-                            <mat-list-item> {{cok.name}} </mat-list-item>
+                        <mat-list *ngFor="let team of element.teams">
+                            <mat-list-item> {{team.team.name}} </mat-list-item>
                         </mat-list>
                     </mat-expansion-panel>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Status </th>
+                <th mat-header-cell *matHeaderCellDef class="table__mobile">Status</th>
                 <td mat-cell *matCellDef="let element; let i = index" class="table__mobile table--small">
-                    <button mat-raised-button [color]="element.status ? 'primary' : 'warn'"
-                    (click)="changeStatus(i)"
-                    >{{element.status ? 'Active' : 'InActive'}}</button>
+                    <ng-container *ngIf="element.status === 'active'">
+                        <button mat-stroked-button color="primary"
+                                appDebounceClick
+                                (debouncedClick)="changeStatus('inactive', element)"
+                        >Active
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="element.status === 'inactive'">
+                        <button mat-stroked-button color="warn"
+                                appDebounceClick
+                                (debouncedClick)="changeStatus('active', element)"
+                        >InActive
+                        </button>
+                    </ng-container>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef class="table__mobile"> Action </th>
+                <th mat-header-cell *matHeaderCellDef class="table__mobile">Action</th>
                 <td mat-cell style="width: 10%" *matCellDef="let element" class="table__mobile">
                     <button mat-icon-button title="Edit me"
                             (click)="editOfficers(element)">
@@ -75,5 +87,5 @@
 
         </table>
     </div>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginator></mat-paginator>
 </div>

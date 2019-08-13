@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 // import { salesTeams, ISalesTeam, Dummy } from '../dataDummy';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -6,9 +6,20 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { DashboardSalesTeamService } from '../../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
-import { ISalesOfficer, SalesOfficer } from '../../../../../shared/models/sales-officer.model';
-import { SalesTeamMersaCS } from '../../../../../shared/models/sales-team.model';
+import {
+    ISalesOfficer,
+    ISalesOfficerMersaCS,
+    ITeamMembersEntity,
+    SalesOfficer,
+    SalesOfficerMersaCS
+} from '../../../../../shared/models/sales-officer.model';
+import { SalesTeam, SalesTeamMersaCS } from '../../../../../shared/models/sales-team.model';
 import { map } from 'rxjs/operators';
+import {
+    IOptionDropdownV2,
+    OptionDropdownV2Component
+} from '../../../../../shared/components/option-dropdown-v2/option-dropdown-v2.component';
+import { DashboardSalesOfficerService } from '../../../../../core/services/dashboard-sales-officer/dashboard-sales-officer.service';
 
 @Component( {
     selector: 'app-sales-officer-dialog',
@@ -28,40 +39,34 @@ import { map } from 'rxjs/operators';
 } )
 export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
     //////////////////////////
+    @ViewChild( OptionDropdownV2Component ) optionSales: OptionDropdownV2Component;
+
     constructor(
         public dialogRef: MatDialogRef<SalesOfficerDialogComponent>,
         @Inject( MAT_DIALOG_DATA ) public data,
         private spinner: NgxSpinnerService,
-        private http: DashboardSalesTeamService
+        private http: DashboardSalesTeamService,
+        private http2: DashboardSalesOfficerService
     ) {
-        this.testGroup.valueChanges.pipe( untilDestroyed( this ) )
-            .subscribe( value => {
-                this.isValid = this.testGroup.valid;
-            } );
     }
 
-    public isValid;
-
-    public salesTeams;
-    private curSalesTeam;
+    public teamsForCheckbox: IOptionDropdownV2[];
     private dummyData: SalesOfficer;
-    isSalesTeamChecked = new FormControl( '' );
     /////////////////////
     testGroup = new FormGroup( {
         name: new FormControl( '', Validators.required ),
         email: new FormControl( '', [ Validators.email, Validators.required ] ),
-        phone: new FormControl( '', [
-            Validators.required,
-            Validators.pattern( /[0-9\+\-\ ]/ )
-        ] ),
+        // phone: new FormControl( '', [
+        //     Validators.required,
+        //     Validators.pattern( /[0-9\+\-\ ]/ )
+        // ] ),
         address: new FormControl( '', Validators.required ),
-        gender: new FormControl( 'Male', Validators.required ),
-        password: new FormControl( '', Validators.required ),
-        salesTeam: new FormControl( '', Validators.required ),
+        // gender: new FormControl( 'Male', Validators.required ),
+        // password: new FormControl( '', Validators.required ),
     } );
 
     //////////////////////
-    change( event, elRef ) {
+    /*change( event, elRef ) {
         if ( event.checked ) {
             elRef.disable = true;
             elRef.placeholder = '';
@@ -70,7 +75,7 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
         elRef.disable = false;
         elRef.placeholder = 'Add Sales Team';
         return this.testGroup.patchValue( { salesTeam: this.curSalesTeam } );
-    }
+    }*/
 
     onKeyDown( e: KeyboardEvent ) {
         if (
@@ -98,33 +103,43 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
     }
 
     ///////////////////////
+    setSalesTeam( salesTeam: SalesTeam[], salesOfficer?: SalesOfficer ) {
+        const allTeams: IOptionDropdownV2[] = salesTeam.map( val => Object.assign( val.getIdAndName, { value: false } ) );
+        if ( salesOfficer ) {
+            salesOfficer.getAllTeamNameAndId.forEach( value => {
+                const index = allTeams.findIndex( val => val.id === value.id );
+                if ( index !== -1 ) {
+                    allTeams[ index ].value = true;
+                }
+            } );
+        }
+        return allTeams;
+    }
 
     setAllValue( value: SalesOfficer ) {
         this.testGroup.setValue( {
             name: value.name,
             email: value.email,
-            phone: value.phone,
+            // phone: value.phone,
             address: value.address,
-            gender: value.gender,
-            password: value.password,
-            salesTeam: value.salesTeam
+            // gender: value.gender,
+            // password: value.password,
+            // salesTeam: value.teams
         } );
-        this.isSalesTeamChecked.setValue( false );
+        // Email gak oleh diupdate ternyata
+        this.testGroup.get( 'email' ).disable();
     }
 
     ngOnInit() {
         if ( this.data ) {
             this.dummyData = this.data;
-            this.curSalesTeam = this.dummyData.salesTeam;
             this.setAllValue( this.dummyData );
         }
-        this.http.getAllSalesTeamMersaCS()
-            .pipe(
-                map( ( value: SalesTeamMersaCS[] ) => {
-                    return value.map( val => val.getNameAndId() );
-                } )
-            )
-            .subscribe( val => this.salesTeams = val );
+        this.http.getAllSalesTeam()
+            .subscribe( value => {
+                this.teamsForCheckbox = this.data ? this.setSalesTeam( value, this.data ) : this.setSalesTeam( value );
+            } );
+        console.log( this.dummyData, this.teamsForCheckbox );
     }
 
     ngOnDestroy(): void {
@@ -133,26 +148,30 @@ export class SalesOfficerDialogComponent implements OnInit, OnDestroy {
     onNoClick(): void {
         this.dialogRef.close();
     }
+
     /*
     TODO:   - SET TIMEOUT HARUS DIHILANGKAN KARENA SEMENTARA
             - SET TIMEOUT diganti Subscribe
     */
     onSubmit( data: FormGroup ) {
-        if ( data.valid ) {
+        if ( data.valid && this.optionSales.getAllDataTrue.length ) {
+            this.spinner.show();
+            const body: Partial<ISalesOfficer> = data.value;
+            body.teamMembers = this.optionSales.getAllDataTrue.map( value => {
+                return { team: { id: value.id } };
+            } );
             if ( this.dummyData ) {
-                this.spinner.show();
-                setTimeout( () => {
-                    this.dialogRef.close( this.dummyData.updateThis(data.value) );
-                    // console.log( this.dummyData.updateThis(data.value) );
-                    this.spinner.hide();
-                }, 2000 );
+                this.http2.updateSalesOfficer( this.dummyData.id, body )
+                    .subscribe( value => {
+                        this.dialogRef.close( value );
+                        this.spinner.hide();
+                    } );
             } else {
-                this.spinner.show();
-                setTimeout( () => {
-                    this.dialogRef.close( data.value );
-                    console.log( 'cok2' );
-                    this.spinner.hide();
-                }, 2000 );
+                this.http2.createSalesOfficer( body )
+                    .subscribe( value => {
+                        this.dialogRef.close( value );
+                        this.spinner.hide();
+                    } );
             }
         }
     }

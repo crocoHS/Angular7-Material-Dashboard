@@ -46,7 +46,7 @@ export class SalesTeamMersaCS {
         this.id = payload._id;
         this.name = payload.name;
         this.coverage = payload.coverage.map( val => new CityCoverage( val ) );
-        this.pic = new Pic( payload.pic ).getPic();
+        this.pic = new PicMersaCS( payload.pic ).getPic();
         this.salesOfficerCount = payload.sales_officer_count;
         this.leadsCount = payload.leads_count;
         this.channelsCount = payload.channels_count;
@@ -69,7 +69,7 @@ export class SalesTeamMersaCS {
     }
 }
 
-export class Pic {
+export class PicMersaCS {
     id: string;
     name: string;
     phone: number;
@@ -97,7 +97,7 @@ export class Pic {
         };
     }
 
-    updatePic( payload: Partial<Pic> ) {
+    updatePic( payload: Partial<PicMersaCS> ) {
         Object.assign( this, payload );
         return this;
     }
@@ -122,7 +122,7 @@ export interface ISalesTeam {
 
 export interface MembersEntity {
     id: number;
-    role: string;
+    role: 'leader' | 'member';
     isActive: boolean;
     modifiedBy: number;
     modifiedAt: string;
@@ -168,5 +168,12 @@ export class SalesTeam {
         this.email = payload.email;
         this.phoneNumber = payload.phoneNumber;
         this.isActive = payload.isActive;
+    }
+
+    get getIdAndName() {
+        return {
+            id: this.id,
+            name: this.name
+        };
     }
 }

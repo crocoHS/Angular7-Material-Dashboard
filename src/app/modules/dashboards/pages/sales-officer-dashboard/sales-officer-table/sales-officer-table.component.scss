@@ -1,29 +1,44 @@
 table {
     width: 100%;
 }
-.mat-form-field{
+
+.mat-form-field {
     width: 30%;
     margin: 0 auto;
 }
-.mat-row:hover{
+
+.mat-row:hover {
     background-color: rgba(63, 81, 181, .1) !important;
 }
-.mat-row:nth-child(odd){
+
+.mat-row:nth-child(odd) {
     background-color: #f7f7f7;
 }
-.mat-exp-pnl{
+
+.mat-exp-pnl {
     box-shadow: none;
     width: 90%;
     margin: 0 auto;
+    font-size: inherit;
+    font-weight: 300;
+
+    &::ng-deep * {
+        //& .mat-expansion-panel-header, & .mat-expansion-panel-content
+        font-size: inherit;
+        font-weight: inherit;
+
+    }
 }
+
 .table {
-    &__mobile{
+    &__mobile {
         padding: 0 20px;
     }
 
     &--small {
         width: 12.5%;
     }
+
     &--large {
         width: 30%;
     }
@@ -37,10 +52,10 @@ table {
     table {
         width: 1200px;
     }
-    .table__mobile{
+    .table__mobile {
         padding: 0 10px !important;
     }
-    .mat-table-sticky{
+    .mat-table-sticky {
         border-right: #d8dce6 solid 1px;
         padding: 10px !important;
         background-color: antiquewhite;

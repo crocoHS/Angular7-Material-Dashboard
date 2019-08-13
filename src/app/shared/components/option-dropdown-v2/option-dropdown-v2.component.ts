@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
-interface IOptionDropdownV2 {
+export interface IOptionDropdownV2 {
     id: number | string;
     name: string;
     value: boolean;
@@ -85,7 +85,7 @@ export class OptionDropdownV2Component implements OnInit {
         return this.dataStore;
     }
 
-    get getAllDataTrue(): any[] {
+    get getAllDataTrue(): { id: number, name: string }[] {
         return this.dataStore.reduce( ( acc, cur ) => {
             if ( cur.value === true ) {
                 acc.push( { id: cur.id, name: cur.name } );

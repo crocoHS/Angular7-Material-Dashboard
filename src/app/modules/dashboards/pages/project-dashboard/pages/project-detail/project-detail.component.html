@@ -1,5 +1,5 @@
-<div class="kt-portlet">
-    <div class="kt-portlet__head" *ngIf="projectInUsedData$ | async as project">
+<div class="kt-portlet" *ngIf="projectInUsedData$ | async as project">
+    <div class="kt-portlet__head">
         <div class="kt-portlet__head-label">
             <h3 class="kt-portlet__head-title">{{ project.name }}</h3>
         </div>
@@ -45,20 +45,20 @@
                 <h5>Channel</h5>
             </div>
         </div>
-        <div class="tabs-body" *ngIf="projectInUsedData$ | async as dataProject">
+        <div class="tabs-body">
             <ng-container *ngIf="isShow === 0">
-                <app-project-detail-lead [dataProject]="dataProject"
+                <app-project-detail-lead [dataProject]="project"
                                          [dataLeads]="dataLeads"
                                          [@testAnimation]></app-project-detail-lead>
             </ng-container>
             <ng-container *ngIf="isShow === 1">
                 <app-project-detail-campaign
-                    [dataFromParent]="dataProject"
+                    [dataFromParent]="project"
                     [dataCampaign]="dataCampaign"
                     [@testAnimation]></app-project-detail-campaign>
             </ng-container>
             <ng-container *ngIf="isShow === 2">
-                <app-project-detail-channel [dataProject]="dataProject"
+                <app-project-detail-channel [dataProject]="project"
                                             [dataChannel]="dataChannel"
                                             [@testAnimation]></app-project-detail-channel>
             </ng-container>

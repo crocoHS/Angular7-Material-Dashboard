@@ -81,7 +81,6 @@ export class ProjectDetailLeadComponent implements OnChanges, OnDestroy {
                 }
             } );
         } );
-        console.log( objChart );
         return objChart;
     }
 

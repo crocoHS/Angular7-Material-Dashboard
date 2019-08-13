@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 /////// VALIDATOR HTTP ///////////
 function containHttp( control: AbstractControl ): { [ key: string ]: boolean } | null {
     if ( control.value !== undefined && typeof control.value !== 'object' ) {
-        if ( control.value.startsWith( 'https://' ) || control.value.startsWith( 'http://' ) ) {
+        if ( control.value.startsWith( 'https://' ) || control.value.startsWith( 'http://' ) || control.value.includes(' ')) {
             return null;
         }
     }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Project } from '../../../shared/models/project.model';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectStoreService {
@@ -21,11 +21,11 @@ export class ProjectStoreService {
 
     readonly project$ = this.PROJECT.asObservable();
 
-    getProjectById$( id ) {
+    getProjectById$( id: number ) {
         return this.project$.pipe(
             map( value => {
                 return value.find( val => val.id === id );
-            } )
+            } ),
         );
     }
 

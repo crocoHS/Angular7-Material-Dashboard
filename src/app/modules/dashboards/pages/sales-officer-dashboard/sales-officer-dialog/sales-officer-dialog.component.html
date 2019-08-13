@@ -2,25 +2,10 @@
 <mat-dialog-content>
     <form class="example-form"
           [formGroup]="testGroup">
-        <div class="coverage__field">
-            <tag-input formControlName="salesTeam"
-                       [identifyBy]="'_id'" [displayBy]="'name'"
-                       theme='minimal' #city
-                       placeholder="Add Sales Team"
-                       [disable]=false
-                       [onlyFromAutocomplete]="true">
-                <tag-input-dropdown
-                    [autocompleteItems]="salesTeams"
-                    [appendToBody]="false"
-                    [keepOpen]="false"
-                    [showDropdownIfEmpty]="true"
-                    [dynamicUpdate]="true"
-                    [identifyBy]="'_id'" [displayBy]="'name'">
-                </tag-input-dropdown>
-            </tag-input>
-            <mat-checkbox (change)='change($event, city)' [formControl]="isSalesTeamChecked">All Sales Teams</mat-checkbox>
-            <mat-error id="coverage__custom" @myInsertRemoveTrigger *ngIf="testGroup.get('salesTeam').hasError('required')">Please Add Sales Team</mat-error>
-        </div>
+        <app-option-dropdown-v2 *ngIf="teamsForCheckbox" [dataParent]="teamsForCheckbox" [title]="'Sales Team'"
+                                style="margin-bottom: 10px;">
+        </app-option-dropdown-v2>
+
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput placeholder="name" formControlName="name">
@@ -31,13 +16,14 @@
             <input matInput placeholder="email"
                    formControlName="email">
             <mat-error *ngIf="testGroup.get('email').invalid">Jancok</mat-error>
+            <mat-hint *ngIf="testGroup.get('email').disabled">Email Cannot Be Modified</mat-hint>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <!--<mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Telephone</mat-label>
             <input type="tel" matInput placeholder="telephone" formControlName="phone"
                    (keydown)="onKeyDown($event)">
-        </mat-form-field>
+        </mat-form-field>-->
 
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Address</mat-label>
@@ -45,21 +31,23 @@
                       formControlName="address"></textarea>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <!--<mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Gender</mat-label>
             <mat-select formControlName="gender">
                 <mat-option value="Male">Male</mat-option>
                 <mat-option value="Female">Female</mat-option>
             </mat-select>
-        </mat-form-field>
+        </mat-form-field>-->
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <!--<mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Change Password</mat-label>
             <input type="password" matInput placeholder="password" formControlName="password">
-        </mat-form-field>
+        </mat-form-field>-->
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button type="submit" (click)="onNoClick()" mat-stroked-button>Cancel</button>
-    <button type="submit" mat-flat-button (click)="onSubmit(testGroup)" color="primary" [disabled]="!isValid">Submit</button>
+    <button type="submit" mat-flat-button (click)="onSubmit(testGroup)" color="primary" [disabled]="!testGroup.valid">
+        Submit
+    </button>
 </mat-dialog-actions>

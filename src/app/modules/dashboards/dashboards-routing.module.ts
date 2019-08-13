@@ -85,7 +85,7 @@ const routes: Routes = [
                     },
                     {
                         path: '**',
-                        redirectTo: ''
+                        redirectTo: 'list'
                     }
                 ]
             },
@@ -99,7 +99,7 @@ const routes: Routes = [
             },
             {
                 path: '**',
-                redirectTo: ''
+                redirectTo: 'list'
             },
         ]
     }

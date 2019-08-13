@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { dummyAss } from './dataDummy';
-import { Dummy } from '../sales-officer-dashboard/dataDummy';
 import { SalesTeamDashboardDialogComponent } from './sales-team-dashboard-dialog/sales-team-dashboard-dialog.component';
 import { MatDialog } from '@angular/material';
 import { DashboardSalesTeamService } from '../../../../core/services/dashboard-sales-team/dashboard-sales-team.service';
@@ -35,7 +33,7 @@ export class SalesTeamDashboardComponent implements OnInit {
         const dialogRef = this.dialog.open( SalesTeamDashboardDialogComponent, {
             panelClass: 'sales_team_dialog'
         } );
-        dialogRef.afterClosed().subscribe( ( result: Dummy ) => {
+        dialogRef.afterClosed().subscribe( ( result ) => {
             // if ( result ) {
             //     this.dataSource.data.forEach( arr => {
             //         if ( arr.id === result.id ) {
