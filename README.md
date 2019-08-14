@@ -1,5 +1,7 @@
 # Angular 7 Material Dashboard
 
+https://www.loom.com/share/21ad9682b485448d82532f378b013cfc
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
 
 ## Development server
